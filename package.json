@@ -1,7 +1,7 @@
 {
   "name": "react-notification-system",
-  "version": "0.0.4",
-  "description": "A notification system made in React fully customized",
+  "version": "0.0.5",
+  "description": "A React Notification System fully customized",
   "main": "dist/notification-system.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +15,9 @@
   "keywords": [
     "react",
     "notification",
-    "system"
+    "notification system",
+    "component",
+    "react component"
   ],
   "author": "Igor Prado",
   "license": "MIT",

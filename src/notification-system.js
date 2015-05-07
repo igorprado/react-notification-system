@@ -38,7 +38,7 @@ var NotificationSystem = React.createClass({
       var override = this.overrideStyle.Containers || {};
 
       // Check if it's changing width
-      if (override.DefaultStyle.width) { this.overrideWidth = override.DefaultStyle.width; }
+      if (override.DefaultStyle && override.DefaultStyle.width) { this.overrideWidth = override.DefaultStyle.width; }
       return merge({}, Styles.Containers.DefaultStyle, Styles.Containers[position], override.DefaultStyle, override[position]);
     },
 
