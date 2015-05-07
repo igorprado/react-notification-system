@@ -1,2 +1,3 @@
 node_modules/
 dist/.module_cache
+npm-debug.log
