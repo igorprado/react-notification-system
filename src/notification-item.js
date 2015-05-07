@@ -30,6 +30,8 @@ var NotificationItem = React.createClass({
     return state;
   },
 
+  _notificationInterval: null,
+
   _getCssPropertyByPosition: function() {
     var position = this.props.notification.position;
     var cssProperty;
@@ -58,19 +60,20 @@ var NotificationItem = React.createClass({
   },
 
   _defaultAction: function(event) {
-    var notification = this.props.notification;
     event.preventDefault();
-    alert('Default action');
-    if (notification.action) {
-      notification.action.callback();
-    }
-
+    var notification = this.props.notification;
+    this._hideNotification();
+    notification.action.callback();
   },
 
   _hideNotification: function() {
     var self = this;
     var notification = this.props.notification;
     var property = this._getCssPropertyByPosition();
+
+    if (this._notificationInterval) {
+      clearInterval(this._notificationInterval);
+    }
 
     this.tweenState(property, {
       easing: tweenState.easingTypes.easeInOut,
@@ -80,8 +83,14 @@ var NotificationItem = React.createClass({
         self.props.onRemove(notification.uid)
       }
     });
+  },
 
+  _dismiss: function() {
+    if (!this.props.notification.dismissible) {
+      return;
+    }
 
+    this._hideNotification();
   },
 
   _showNotification: function() {
@@ -107,7 +116,7 @@ var NotificationItem = React.createClass({
     var notification = this.props.notification;
 
     if (notification.autoDismiss) {
-      setTimeout(function(){
+      this._notificationInterval = setInterval(function(){
         self._hideNotification();
       }, notification.autoDismissDelay * 1000);
     }
@@ -143,7 +152,7 @@ var NotificationItem = React.createClass({
     }
 
     return (
-      <div className={'notifications notification-' + notification.level} onClick={this._defaultAction} style={style}>
+      <div className={'notifications notification-' + notification.level} onClick={this._dismiss} style={style}>
         {notification.message}
         {dismiss}
         {actionButton}
