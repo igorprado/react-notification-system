@@ -1,156 +1,72 @@
 var React = require('react');
 var merge = require('object-assign');
 var NotificationContainer = require('./notification-container');
+var Constants = require('./constants');
+var Styles = require('./styles');
 
 var Helpers = {
   inArray: function(needle, haystack) {
+    needle = needle.toLowerCase();
   	var length = haystack.length;
   	for(var i=0; i < length; i++) {
-  		if(haystack[i] == needle) return true;
+      var hs = haystack[i].toLowerCase();
+  		if(hs === needle) return true;
   	}
   	return false;
   }
 }
 
-var CONSTANTS = {
-  positions: ['tl', 'tr', 'tc', 'bl', 'br', 'bc'],
-  levels: ['success', 'error', 'warning', 'info'],
-  notification: {
-    message: null,
-    level: null,
-    position: 'tr',
-    autoDismiss: true,
-    autoDismissDelay: 5000,
-    dismissible: true,
-    action: null
-  }
-};
-
 var NotificationSystem = React.createClass({
 
   uid: 3400,
 
-  _getContainerStyle: function(position) {
-    var style = {
-      fontFamily: 'inherit',
-      position: 'fixed',
-      width: '280px',
-      padding: '0 10px',
-      zIndex: 9998,
-      WebkitBoxSizing: 'border-box',
-      MozBoxSizing: 'border-box',
-      boxSizing: 'border-box',
-      overflow: 'hidden'
-    };
+  _getStyles: {
+    overrideStyle: {},
 
-    var y = position.slice(0, 1);
+    overrideWidth: null,
 
-  	if(y === "t") {
-  		style.top = "0px";
-  		style.bottom = "auto";
-  	} else {
-  		style.top = "auto";
-  		style.bottom = "0px";
-  	}
+    setOverrideStyle: function(style) {
+      this.overrideStyle = style;
+    },
 
-  	var x = position.slice(1, 2);
-  	if(x == "l") {
-  		style.left = "0px";
-  		style.right = "auto";
-  	} else if(x == "r") {
-  		style.left = "auto";
-  		style.right = "0px";
-  	}
+    wrapper: function() {
+      var override = this.overrideStyle.Wrapper || {};
+      return merge({}, Styles.Wrapper, this.overrideStyle);
+    },
 
-    return style;
-  },
+    container: function(position) {
+      var override = this.overrideStyle.Containers || {};
 
-  _getNotificationStyle: function(level) {
-    var style = {
-      position: 'relative',
-      fontSize: '14px',
-      border: '1px solid black',
-      margin: '10px 0',
-      padding: '10px',
-      display: 'block',
-      width: '100%',
-      WebkitBoxSizing: 'border-box',
-      MozBoxSizing: 'border-box',
-      boxSizing: 'border-box'
-    };
+      // Check if it's changing width
+      if (override.DefaultStyle.width) { this.overrideWidth = override.DefaultStyle.width; }
+      return merge({}, Styles.Containers.DefaultStyle, Styles.Containers[position], override.DefaultStyle, override[position]);
+    },
 
-    if (level === 'success') {
-      style.borderColor = 'green';
-    }
+    notification: function(level) {
+      var override = this.overrideStyle.NotificationItem || {};
+      return merge({}, Styles.NotificationItem.DefaultStyle, Styles.NotificationItem[level], override.DefaultStyle, override[level]);
+    },
 
-    if (level === 'error') {
-      style.borderColor = 'red';
-    }
+    messageWrapper: function(level) {
+      var override = this.overrideStyle.MessageWrapper || {};
+      return merge({}, Styles.MessageWrapper.DefaultStyle, Styles.MessageWrapper[level], override.DefaultStyle, override[level]);
+    },
 
-    if (level === 'warning') {
-      style.borderColor = 'yellow';
-    }
+    dismiss: function(level) {
+      var override = this.overrideStyle.Dismiss || {};
+      return merge({}, Styles.Dismiss.DefaultStyle, Styles.Dismiss[level], override.DefaultStyle, override[level]);
+    },
 
-    if (level === 'info') {
-      style.borderColor = 'blue';
-    }
+    action: function(level) {
+      var override = this.overrideStyle.Action || {};
+      return merge({}, Styles.Action.DefaultStyle, Styles.Action[level], override.DefaultStyle, override[level]);
+    },
 
-    return style;
-  },
+    actionWrapper: function(level) {
+      var override = this.overrideStyle.ActionWrapper || {};
+      return merge({}, Styles.ActionWrapper.DefaultStyle, Styles.ActionWrapper[level], override.DefaultStyle, override[level]);
+    },
 
-  _getDismissStyle: function(level) {
-    var style = {
-      position: 'absolute',
-      top: '0',
-      right: '4px'
-    };
-
-    if (level === 'success') {
-      style.color = 'green';
-    }
-
-    if (level === 'error') {
-      style.color = 'red';
-    }
-
-    if (level === 'warning') {
-      style.color = 'yellow';
-    }
-
-    if (level === 'info') {
-      style.color = 'blue';
-    }
-
-    return style;
-  },
-
-  _getActionStyle: function(level) {
-    var style = {
-      background: '#ffffff',
-      borderWidth: '1px 1px 1px 4px',
-      borderStyle: 'solid',
-      padding: '6px',
-      fontWeight: 'bold',
-      margin: '10px 0 0 0'
-    };
-
-    if (level === 'success') {
-      style.borderColor = 'green';
-    }
-
-    if (level === 'error') {
-      style.borderColor = 'red';
-    }
-
-    if (level === 'warning') {
-      style.borderColor = 'yellow';
-    }
-
-    if (level === 'info') {
-      style.borderColor = 'blue';
-    }
-
-    return style;
   },
 
   _didNotificationRemoved: function(uid) {
@@ -167,9 +83,16 @@ var NotificationSystem = React.createClass({
     }
   },
 
+  getDefaultProps: function() {
+    return {
+      overrideStyle: {}
+    }
+  },
+
   addNotification: function(notification) {
     var self = this;
-    var _notification = merge({}, CONSTANTS.notification, notification);
+    var notification = merge({}, Constants.notification, notification);
+    var error = false;
 
     try {
       if (!notification.message) {
@@ -180,33 +103,44 @@ var NotificationSystem = React.createClass({
         throw "notification level is required."
       }
 
-      if (!Helpers.inArray(notification.position, CONSTANTS.positions)) {
+      if (!Helpers.inArray(notification.position, Constants.positionsArray)) {
         throw "'"+ notification.position +"' is not a valid position."
       }
 
-      if (!Helpers.inArray(notification.level, CONSTANTS.levels)) {
+      if (!Helpers.inArray(notification.level, Constants.levelsArray)) {
         throw "'"+ notification.level +"' is not a valid level."
       }
 
+      if (!notification.dismissible && !notification.action) {
+        throw "You need to set notification dismissible to true or set an action, otherwise user will not be able to dismiss the notification."
+      }
+
+    } catch(err) {
+      error = true;
+      console.error('Error adding notification: '+err);
+    }
+
+    if (!error) {
       var notifications = this.state.notifications;
 
-      _notification.uid = this.uid;
-      _notification.ref = "notification-" + this.uid;
+      notification.position = notification.position.toLowerCase();
+      notification.level = notification.level.toLowerCase();
+
+      notification.uid = this.uid;
+      notification.ref = "notification-" + this.uid;
       this.uid += 1;
 
-      notifications.push(_notification);
+      notifications.push(notification);
 
       this.setState({
         notifications: notifications
       });
-
-    } catch(err) {
-      console.error('Error adding notification: '+err);
     }
 
   },
 
   componentDidMount: function() {
+    this._getStyles.setOverrideStyle(this.props.overrideStyle);
   },
 
   render: function() {
@@ -215,7 +149,7 @@ var NotificationSystem = React.createClass({
     var notifications = this.state.notifications;
 
     if (notifications.length) {
-      containers = CONSTANTS.positions.map(function(position) {
+      containers = Constants.positionsArray.map(function(position) {
 
         var _notifications = notifications.filter(function(notification) {
           return position === notification.position;
@@ -227,10 +161,7 @@ var NotificationSystem = React.createClass({
               key={position}
               position={position}
               notifications={_notifications}
-              style={self._getContainerStyle(position)}
-              notificationStyle={self._getNotificationStyle}
-              dismissStyle={self._getDismissStyle}
-              actionStyle={self._getActionStyle}
+              getStyles={self._getStyles}
               onRemove={self._didNotificationRemoved} />
           );
         }
@@ -239,7 +170,7 @@ var NotificationSystem = React.createClass({
 
 
     return (
-      <div className="notifications-container">
+      <div className="notifications-wrapper" style={this._getStyles.wrapper()}>
         {containers}
       </div>
 

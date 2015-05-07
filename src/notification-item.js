@@ -1,6 +1,8 @@
 var React = require('react');
 var tweenState = require('react-tween-state');
 var objectAssign = require('object-assign');
+var Constants = require('./constants');
+var Styles = require('./styles');
 
 var NotificationItem = React.createClass({
 
@@ -22,23 +24,33 @@ var NotificationItem = React.createClass({
 
     var prop = this._getCssPropertyByPosition();
 
-    state[prop] = -280;
+    state[prop] = -(Styles.Containers.DefaultStyle.width);
     state.opacity = 0;
 
     return state;
   },
 
   _getCssPropertyByPosition: function() {
-    var side = this.props.notification.position.slice(1, 2);
+    var position = this.props.notification.position;
     var cssProperty;
 
-    switch (side) {
-      case 'l':
+    switch (position) {
+      case Constants.positions.tl:
+      case Constants.positions.bl:
         cssProperty = 'left';
         break;
 
-      case 'r':
+      case Constants.positions.tr:
+      case Constants.positions.br:
         cssProperty = 'right';
+        break;
+
+      case Constants.positions.tc:
+        cssProperty = 'top';
+        break;
+
+      case Constants.positions.bc:
+        cssProperty = 'bottom';
         break;
     }
 
@@ -47,7 +59,7 @@ var NotificationItem = React.createClass({
 
   _defaultAction: function(event) {
     var notification = this.props.notification;
-    // event.preventDefault();
+    event.preventDefault();
     alert('Default action');
     if (notification.action) {
       notification.action.callback();
@@ -62,8 +74,8 @@ var NotificationItem = React.createClass({
 
     this.tweenState(property, {
       easing: tweenState.easingTypes.easeInOut,
-      duration: 100,
-      endValue: -280,
+      duration: Constants.animations.notificationItem.hide,
+      endValue: -(Styles.Containers.DefaultStyle.width),
       onEnd: function() {
         self.props.onRemove(notification.uid)
       }
@@ -77,13 +89,13 @@ var NotificationItem = React.createClass({
 
     this.tweenState('opacity', {
       easing: tweenState.easingTypes.easeInOut,
-      duration: 600,
+      duration: Constants.animations.notificationItem.show,
       endValue: 1
     });
 
     this.tweenState(property, {
       easing: tweenState.easingTypes.easeInOut,
-      duration: 200,
+      duration: Constants.animations.notificationItem.show,
       endValue: 0
     });
 
@@ -97,7 +109,7 @@ var NotificationItem = React.createClass({
     if (notification.autoDismiss) {
       setTimeout(function(){
         self._hideNotification();
-      }, notification.autoDismissDelay);
+      }, notification.autoDismissDelay * 1000);
     }
 
     this._showNotification();
@@ -107,8 +119,9 @@ var NotificationItem = React.createClass({
   render: function() {
     var self = this;
     var notification = this.props.notification;
+    var getStyles = this.props.getStyles;
 
-    var style = this.props.style;
+    var style = getStyles.notification(notification.level);
     var property = this._getCssPropertyByPosition();
 
     style[property] = this.getTweeningValue(property);
@@ -118,13 +131,13 @@ var NotificationItem = React.createClass({
     var actionButton = null;
 
     if (notification.dismissible) {
-      dismiss = <span className="notification-close" style={this.props.dismissStyle(notification.level)}>&times;</span>;
+      dismiss = <span className="notification-close" style={getStyles.dismiss(notification.level)}>&times;</span>;
     }
 
     if (notification.action) {
       actionButton = (
-        <div>
-          <button className="notification-action" onClick={this._defaultAction} style={this.props.actionStyle(notification.level)}>{notification.action.label}</button>
+        <div className="notification-action-wrapper" style={getStyles.actionWrapper(notification.level)}>
+          <button className="notification-action-button" onClick={this._defaultAction} style={getStyles.action(notification.level)}>{notification.action.label}</button>
         </div>
       );
     }
