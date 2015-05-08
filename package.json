@@ -4,7 +4,6 @@
   "description": "A React Notification System fully customized",
   "main": "dist/notification-system.js",
   "scripts": {
-    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "watch 'npm run build' ./src",
     "build": "jsx --harmony ./src ./dist"

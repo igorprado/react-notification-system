@@ -1,11 +1,10 @@
 {
-  "name": "react-notification-system-demo",
+  "name": "react-notification-system",
   "version": "1.0.0",
   "description": "",
   "main": "src/app.js",
   "dependencies": {
-    "react": "^0.13.2",
-    "react-notification-system": "^0.0.5"
+    "react": "^0.13.2"
   },
   "devDependencies": {
     "browserify": "^10.1.0",
@@ -17,9 +16,11 @@
   },
   "scripts": {
     "dev": "superstatic -p 9000 & npm run watch & livereload build/",
-    "watch": "watchify src/app.js -o build/app.js -v -d",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify src/app.js | uglifyjs -cm > build/app.js"
+    "watch": "npm run watch:app",
+    "watch:app": "watchify src/app.js -o build/app.js -v -d",
+    "build": "npm run build:component & npm run build:app",
+    "build:app": "browserify src/app.js | uglifyjs -cm > build/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserify": {
     "transform": [
