@@ -1,0 +1,37 @@
+{
+  "name": "react-notification-system-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "peerDependencies": {
+    "react": "0.13.x"
+  },
+  "dependencies": {
+    "react": "^0.13.x"
+  },
+  "devDependencies": {
+    "browserify": "^10.1.0",
+    "livereload": "^0.3.7",
+    "mkdirp": "^0.5.0",
+    "reactify": "^1.1.0",
+    "uglify-js": "^2.4.21",
+    "watchify": "^3.2.1"
+  },
+  "scripts": {
+    "predev": "npm cache clean",
+    "dev": "superstatic -p 9000 & npm run watch & livereload build/",
+    "watch": "npm run watch:app",
+    "watch:app": "watchify src/app.js -o build/app.js -v -d",
+    "prebuild": "rm -Rf build/ && mkdirp build/",
+    "build": "npm run build:app",
+    "build:app": "browserify src/app.js | uglifyjs -cm > build/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "browserify": {
+    "transform": [
+      ["reactify", {"harmony": true}]
+    ]
+  },
+  "author": "",
+  "license": "ISC"
+}
