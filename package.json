@@ -1,12 +1,12 @@
 {
   "name": "react-notification-system",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "A React Notification System fully customized",
   "main": "dist/notification-system.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "watch 'npm run build' ./src",
-    "build": "jsx --harmony ./src ./dist"
+    "build": "jsx ./src ./dist"
   },
   "repository": {
     "type": "git",
