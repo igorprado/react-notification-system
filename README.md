@@ -57,60 +57,15 @@ React.render(
 
 The notification object has the following properties:
 
-<table>
-  <thead>
-    <tr>
-      <th>name</th>
-      <th>type</th>
-      <th>default</th>
-      <th>description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>title</td>
-      <td>string</td>
-      <td>null</td>
-      <td>Title of the notification</td>
-    </tr>
-    <tr>
-      <td>message</td>
-      <td>string</td>
-      <td>null</td>
-      <td>Message of the notification</td>
-    </tr>
-    <tr>
-      <td>level</td>
-      <td>string</td>
-      <td>null</td>
-      <td>Level of the notification. Available: **success**, **error**, **warning** and **info**</td>
-    </tr>
-    <tr>
-      <td>position</td>
-      <td>string</td>
-      <td>tr</td>
-      <td>Position of the notification. Available: **tr (top right)**, **tl (top left)**, **tc (top center)**, **br (bottom right)**, **bl (bottom left)**, **bc (bottom center)**</td>
-    </tr>
-    <tr>
-      <td>autoDismiss</td>
-      <td>number</td>
-      <td>5</td>
-      <td>Delay in seconds for the notification go away. Set this to **0** to not auto-dismiss the notificaion.</td>
-    </tr>
-    <tr>
-      <td>dismissible</td>
-      <td>boolean</td>
-      <td>true</td>
-      <td>Set if notification is dismissible by the user. [See more](#dismissible)</td>
-    </tr>
-    <tr>
-      <td>action</td>
-      <td>object</td>
-      <td>null</td>
-      <td>Add a button with label and callback function. [See more](#action)</td>
-    </tr>
-  </tbody>
-</table>
+| Name         | Type            | Default   | Description                                                                                                                                                               |
+|------------  |---------------  |---------  |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------  |
+| title        | string          | null      | Title of the notification                                                                                                                                                 |
+| message      | string          | null      | Message for the notification                                                                                                                                              |
+| level        | string          | null      | Level of the notification. Available: **success**, **error**, **warning** and **info**                                                                                    |
+| position     | string          | tr        | Position of the notification. Available: **tr (top right)**, **tl (top left)**, **tc (top center)**, **br (bottom right)**, **bl (bottom left)**, **bc (bottom center)**  |
+| autoDismiss  | integer         | 5         | Delay in seconds for the notification go away. Set this to **0** to not auto-dismiss the notificaion                                                                      |
+| dismissible  | bool            | true      | Set if notification is dismissible by the user. [See more](#dismissible)                                                                                                  |
+| action       | object          | null      | Add a button with label and callback function. [See more](#action)                                                                                                        |
 
 ### Dismissible
 
