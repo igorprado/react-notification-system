@@ -1,15 +1,16 @@
 var React = require('react');
 
-var NotificationSystem = require('react-notification-system');
+var NotificationSystem = require('../../dist/notification-system');
 
 var NotificationSystemExample = React.createClass({
 
-  _notification: null,
+  _notificationSystem: null,
 
   _notify: function(event) {
     event.preventDefault();
     var notification = this.state.notification;
-    this._notification.addNotification(notification);
+
+    this._notificationSystem.addNotification(notification);
   },
 
   _changed: function(event) {
@@ -17,16 +18,12 @@ var NotificationSystemExample = React.createClass({
     var prop = event.target.name;
     var value = event.target.value;
 
+    if (prop === 'autoDismiss') {
+      if (value === '') value = 0;
+      value = parseInt(value);
+    }
+
     notification[prop] = value
-
-    this.setState({
-      notification: notification
-    });
-  },
-
-  _changedAutoDismiss: function(event) {
-    var notification = this.state.notification;
-    notification.autoDismiss = !notification.autoDismiss;
 
     this.setState({
       notification: notification
@@ -91,8 +88,7 @@ var NotificationSystemExample = React.createClass({
         message: 'Default message',
         level: 'error',
         position: 'tr',
-        autoDismiss: true,
-        autoDismissDelay: 5,
+        autoDismiss: 5,
         dismissible: true,
         action: null,
         actionState: false
@@ -101,7 +97,7 @@ var NotificationSystemExample = React.createClass({
     }
   },
   componentDidMount: function() {
-    this._notification = this.refs.notification;
+    this._notificationSystem = this.refs.notificationSystem;
 
   },
   render: function() {
@@ -115,20 +111,6 @@ var NotificationSystemExample = React.createClass({
           <div className="input-group">
             <div className="input-group-addon">label</div>
             <input className="form-control" name="label" onChange={this._changedActionLabel} type="text" value={notification.action.label} />
-          </div>
-        </div>
-      );
-    }
-
-    var autoDismiss = null;
-
-    if (notification.autoDismiss) {
-      autoDismiss = (
-        <div className="form-group">
-          <div className="input-group">
-            <div className="input-group-addon">after</div>
-            <input className="form-control" name="autoDismissDelay" onChange={this._changed} type="text" value={notification.autoDismissDelay} />
-            <div className="input-group-addon">secs</div>
           </div>
         </div>
       );
@@ -175,27 +157,19 @@ var NotificationSystemExample = React.createClass({
                           </select>
                         </div>
 
-                        <div className="form-group row">
-                          <div className="col-xs-12 col-sm-5">
-                            <div className="checkbox">
-                              <label>
-                                <input type="checkbox" checked={notification.autoDismiss} onChange={this._changedAutoDismiss} />
-                                Auto-dismiss
-                              </label>
-                            </div>
+                        <div className="form-group">
+                          <label>Auto Dismiss delay:</label>
+                          <div className="input-group">
+                            <input className="form-control" name="autoDismiss" onChange={this._changed} type="text" value={notification.autoDismiss} />
+                            <div className="input-group-addon">secs (0 means infinite)</div>
                           </div>
-
-                          <div className="col-xs-12 col-sm-7">
-                            {autoDismiss}
-                          </div>
-
                         </div>
 
                         <div className="form-group">
                           <div className="checkbox">
                             <label>
                               <input type="checkbox" checked={notification.dismissible} onChange={this._changedDismissible} />
-                              Dismissible
+                              Can user dismiss
                             </label>
                           </div>
                         </div>
@@ -236,7 +210,7 @@ var NotificationSystemExample = React.createClass({
 
                 </div>
               </div>
-              <NotificationSystem ref="notification" />
+              <NotificationSystem ref="notificationSystem" />
             </div>;
   }
 });
