@@ -29,8 +29,7 @@ var CONSTANTS = {
     message: null,
     level: null,
     position: 'tr',
-    autoDismiss: true,
-    autoDismissDelay: 5,
+    autoDismiss: 5,
     dismissible: true,
     action: null
   },

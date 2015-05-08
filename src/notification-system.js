@@ -92,6 +92,7 @@ var NotificationSystem = React.createClass({
   addNotification: function(notification) {
     var self = this;
     var notification = merge({}, Constants.notification, notification);
+
     var error = false;
 
     try {
@@ -101,6 +102,10 @@ var NotificationSystem = React.createClass({
 
       if (!notification.level) {
         throw "notification level is required."
+      }
+
+      if (isNaN(notification.autoDismiss)) {
+        throw "'autoDismiss' must be a number."
       }
 
       if (!Helpers.inArray(notification.position, Constants.positionsArray)) {
@@ -123,8 +128,10 @@ var NotificationSystem = React.createClass({
     if (!error) {
       var notifications = this.state.notifications;
 
+      // Some preparations
       notification.position = notification.position.toLowerCase();
       notification.level = notification.level.toLowerCase();
+      notification.autoDismiss = parseInt(notification.autoDismiss);
 
       notification.uid = this.uid;
       notification.ref = "notification-" + this.uid;

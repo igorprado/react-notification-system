@@ -118,7 +118,7 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
     if (notification.autoDismiss) {
       this._notificationInterval = setInterval(function(){
         self._hideNotification();
-      }, notification.autoDismissDelay * 1000);
+      }, notification.autoDismiss * 1000);
     }
 
     this._showNotification();
