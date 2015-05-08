@@ -1,5 +1,5 @@
 node_modules/
-dist/.module-cache
+dist/.module-cache/
 example/node_modules/
-example/build/.module-cache
+example/build/.module-cache/
 npm-debug.log
