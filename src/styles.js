@@ -1,5 +1,11 @@
 // Used for calculations
 var defaultWidth = 320;
+var defaultColors = {
+  success: '#36c646',
+  error: '#ec3d3d',
+  warning: '#eabf16',
+  info: '#369cc7'
+}
 
 var STYLES = {
 
@@ -63,11 +69,37 @@ var STYLES = {
 
   },
 
+  Title: {
+    DefaultStyle: {
+      fontSize: '16px',
+      margin: '0 0 5px 0',
+      padding: 0,
+      fontWeight: 'bold'
+    },
+
+    success: {
+      color: defaultColors.success
+    },
+
+    error: {
+      color: defaultColors.error
+    },
+
+    warning: {
+      color: defaultColors.warning
+    },
+
+    info: {
+      color: defaultColors.info
+    }
+
+  },
+
   NotificationItem: {
     DefaultStyle: {
       position: 'relative',
       cursor: 'pointer',
-      borderRadius: '4px',
+      borderRadius: '2px',
       fontSize: '14px',
       border: '1px solid black',
       margin: '10px 0',
@@ -85,19 +117,19 @@ var STYLES = {
     },
 
     success: {
-      borderColor: '#36c646'
+      borderColor: defaultColors.success
     },
 
     error: {
-      borderColor: '#ec3d3d'
+      borderColor: defaultColors.error
     },
 
     warning: {
-      borderColor: '#eabf16'
+      borderColor: defaultColors.warning
     },
 
     info: {
-      borderColor: '#369cc7'
+      borderColor: defaultColors.info
     }
   },
 
@@ -113,19 +145,19 @@ var STYLES = {
     },
 
     success: {
-      color: '#36c646'
+      color: defaultColors.success
     },
 
     error: {
-      color: '#ec3d3d'
+      color: defaultColors.error
     },
 
     warning: {
-      color: '#eabf16'
+      color: defaultColors.warning
     },
 
     info: {
-      color: '#369cc7'
+      color: defaultColors.info
     }
   },
 
@@ -140,19 +172,19 @@ var STYLES = {
     },
 
     success: {
-      borderColor: '#36c646'
+      borderColor: defaultColors.success
     },
 
     error: {
-      borderColor: '#ec3d3d'
+      borderColor: defaultColors.error
     },
 
     warning: {
-      borderColor: '#eabf16'
+      borderColor: defaultColors.warning
     },
 
     info: {
-      borderColor: '#369cc7'
+      borderColor: defaultColors.info
     }
   },
 

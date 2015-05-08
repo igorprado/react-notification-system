@@ -26,6 +26,7 @@ var CONSTANTS = {
 
   // Notification defaults
   notification: {
+    title: null,
     message: null,
     level: null,
     position: 'tr',
@@ -38,7 +39,7 @@ var CONSTANTS = {
   animations: {
     notificationItem: {
       show: 400,
-      hide: 100
+      hide: 300
     }
   }
 };

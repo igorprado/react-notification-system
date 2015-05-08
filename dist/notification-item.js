@@ -138,6 +138,20 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
 
     var dismiss = null;
     var actionButton = null;
+    var title = null;
+    var message = null;
+
+    if (notification.title) {
+      title = React.createElement("h4", {style: getStyles.title(notification.level)}, notification.title)
+    }
+
+    if (notification.message) {
+      message = (
+        React.createElement("div", {style: getStyles.messageWrapper(notification.level)}, 
+          notification.message
+        )
+      );
+    }
 
     if (notification.dismissible) {
       dismiss = React.createElement("span", {className: "notification-close", style: getStyles.dismiss(notification.level)}, "×");
@@ -153,7 +167,8 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
 
     return (
       React.createElement("div", {className: 'notifications notification-' + notification.level, onClick: this._dismiss, style: style}, 
-        notification.message, 
+        title, 
+        message, 
         dismiss, 
         actionButton
       )
