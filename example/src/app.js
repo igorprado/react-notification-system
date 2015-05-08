@@ -4,12 +4,13 @@ var NotificationSystem = require('react-notification-system');
 
 var NotificationSystemExample = React.createClass({
 
-  _notification: null,
+  _notificationSystem: null,
 
   _notify: function(event) {
     event.preventDefault();
     var notification = this.state.notification;
-    this._notification.addNotification(notification);
+
+    this._notificationSystem.addNotification(notification);
   },
 
   _changed: function(event) {
@@ -17,16 +18,12 @@ var NotificationSystemExample = React.createClass({
     var prop = event.target.name;
     var value = event.target.value;
 
-    notification[prop] = value
+    if (prop === 'autoDismiss') {
+      if (value === '') value = 0;
+      value = parseInt(value);
+    }
 
-    this.setState({
-      notification: notification
-    });
-  },
-
-  _changedAutoDismiss: function(event) {
-    var notification = this.state.notification;
-    notification.autoDismiss = !notification.autoDismiss;
+    notification[prop] = value;
 
     this.setState({
       notification: notification
@@ -88,11 +85,11 @@ var NotificationSystemExample = React.createClass({
   getInitialState: function() {
     return {
       notification: {
+        title: "Default title",
         message: 'Default message',
         level: 'error',
         position: 'tr',
-        autoDismiss: true,
-        autoDismissDelay: 5,
+        autoDismiss: 5,
         dismissible: true,
         action: null,
         actionState: false
@@ -101,7 +98,7 @@ var NotificationSystemExample = React.createClass({
     }
   },
   componentDidMount: function() {
-    this._notification = this.refs.notification;
+    this._notificationSystem = this.refs.notificationSystem;
 
   },
   render: function() {
@@ -120,18 +117,17 @@ var NotificationSystemExample = React.createClass({
       );
     }
 
-    var autoDismiss = null;
+    var error = {
+      position: 'hide',
+      level: 'hide'
+    };
 
-    if (notification.autoDismiss) {
-      autoDismiss = (
-        <div className="form-group">
-          <div className="input-group">
-            <div className="input-group-addon">after</div>
-            <input className="form-control" name="autoDismissDelay" onChange={this._changed} type="text" value={notification.autoDismissDelay} />
-            <div className="input-group-addon">secs</div>
-          </div>
-        </div>
-      );
+    if (notification.position === "in") {
+      error.position = 'text-danger';
+    }
+
+    if (notification.level === "in") {
+      error.level = 'text-danger';
     }
 
     var printNotification = notification;
@@ -149,6 +145,11 @@ var NotificationSystemExample = React.createClass({
                     <div className="col-xs-12 col-sm-6">
                       <form>
                         <div className="form-group">
+                          <label>Title:</label>
+                          <input className="form-control" name="title" onChange={this._changed} type="text" value={notification.title} />
+                          <small>Leave empty to hide.</small>
+                        </div>
+                        <div className="form-group">
                           <label>Message:</label>
                           <input className="form-control" name="message" onChange={this._changed} type="text" value={notification.message} />
                         </div>
@@ -163,6 +164,7 @@ var NotificationSystemExample = React.createClass({
                             <option value="bc">Bottom center (bc)</option>
                             <option value="in">Invalid position</option>
                           </select>
+                          <small className={error.position}>Open console to see the error after creating a notification.</small>
                         </div>
                         <div className="form-group">
                           <label>Level:</label>
@@ -173,29 +175,22 @@ var NotificationSystemExample = React.createClass({
                             <option value="info">Info</option>
                             <option value="in">Invalid level</option>
                           </select>
+                          <small className={error.level}>Open console to see the error after creating a notification.</small>
                         </div>
 
-                        <div className="form-group row">
-                          <div className="col-xs-12 col-sm-5">
-                            <div className="checkbox">
-                              <label>
-                                <input type="checkbox" checked={notification.autoDismiss} onChange={this._changedAutoDismiss} />
-                                Auto-dismiss
-                              </label>
-                            </div>
+                        <div className="form-group">
+                          <label>Auto Dismiss delay:</label>
+                          <div className="input-group">
+                            <input className="form-control" name="autoDismiss" onChange={this._changed} type="text" value={notification.autoDismiss} />
+                            <div className="input-group-addon">secs (0 means infinite)</div>
                           </div>
-
-                          <div className="col-xs-12 col-sm-7">
-                            {autoDismiss}
-                          </div>
-
                         </div>
 
                         <div className="form-group">
                           <div className="checkbox">
                             <label>
                               <input type="checkbox" checked={notification.dismissible} onChange={this._changedDismissible} />
-                              Dismissible
+                              Can user dismiss
                             </label>
                           </div>
                         </div>
@@ -236,7 +231,7 @@ var NotificationSystemExample = React.createClass({
 
                 </div>
               </div>
-              <NotificationSystem ref="notification" />
+              <NotificationSystem ref="notificationSystem" />
             </div>;
   }
 });

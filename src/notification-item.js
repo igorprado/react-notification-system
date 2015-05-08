@@ -118,7 +118,7 @@ var NotificationItem = React.createClass({
     if (notification.autoDismiss) {
       this._notificationInterval = setInterval(function(){
         self._hideNotification();
-      }, notification.autoDismissDelay * 1000);
+      }, notification.autoDismiss * 1000);
     }
 
     this._showNotification();
@@ -138,6 +138,20 @@ var NotificationItem = React.createClass({
 
     var dismiss = null;
     var actionButton = null;
+    var title = null;
+    var message = null;
+
+    if (notification.title) {
+      title = <h4 style={getStyles.title(notification.level)}>{notification.title}</h4>
+    }
+
+    if (notification.message) {
+      message = (
+        <div style={getStyles.messageWrapper(notification.level)}>
+          {notification.message}
+        </div>
+      );
+    }
 
     if (notification.dismissible) {
       dismiss = <span className="notification-close" style={getStyles.dismiss(notification.level)}>&times;</span>;
@@ -153,7 +167,8 @@ var NotificationItem = React.createClass({
 
     return (
       <div className={'notifications notification-' + notification.level} onClick={this._dismiss} style={style}>
-        {notification.message}
+        {title}
+        {message}
         {dismiss}
         {actionButton}
       </div>
