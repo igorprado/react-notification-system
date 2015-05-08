@@ -1,6 +1,6 @@
 var React = require('react');
 
-var NotificationSystem = require('../../dist/notification-system');
+var NotificationSystem = require('react-notification-system');
 
 var NotificationSystemExample = React.createClass({
 
@@ -23,7 +23,7 @@ var NotificationSystemExample = React.createClass({
       value = parseInt(value);
     }
 
-    notification[prop] = value
+    notification[prop] = value;
 
     this.setState({
       notification: notification
@@ -85,6 +85,7 @@ var NotificationSystemExample = React.createClass({
   getInitialState: function() {
     return {
       notification: {
+        title: "Default title",
         message: 'Default message',
         level: 'error',
         position: 'tr',
@@ -116,6 +117,19 @@ var NotificationSystemExample = React.createClass({
       );
     }
 
+    var error = {
+      position: 'hide',
+      level: 'hide'
+    };
+
+    if (notification.position === "in") {
+      error.position = 'text-danger';
+    }
+
+    if (notification.level === "in") {
+      error.level = 'text-danger';
+    }
+
     var printNotification = notification;
 
     printNotification = JSON.stringify(printNotification, null, 4);
@@ -131,6 +145,11 @@ var NotificationSystemExample = React.createClass({
                     <div className="col-xs-12 col-sm-6">
                       <form>
                         <div className="form-group">
+                          <label>Title:</label>
+                          <input className="form-control" name="title" onChange={this._changed} type="text" value={notification.title} />
+                          <small>Leave empty to hide.</small>
+                        </div>
+                        <div className="form-group">
                           <label>Message:</label>
                           <input className="form-control" name="message" onChange={this._changed} type="text" value={notification.message} />
                         </div>
@@ -145,6 +164,7 @@ var NotificationSystemExample = React.createClass({
                             <option value="bc">Bottom center (bc)</option>
                             <option value="in">Invalid position</option>
                           </select>
+                          <small className={error.position}>Open console to see the error after creating a notification.</small>
                         </div>
                         <div className="form-group">
                           <label>Level:</label>
@@ -155,6 +175,7 @@ var NotificationSystemExample = React.createClass({
                             <option value="info">Info</option>
                             <option value="in">Invalid level</option>
                           </select>
+                          <small className={error.level}>Open console to see the error after creating a notification.</small>
                         </div>
 
                         <div className="form-group">
