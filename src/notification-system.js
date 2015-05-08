@@ -47,6 +47,11 @@ var NotificationSystem = React.createClass({
       return merge({}, Styles.NotificationItem.DefaultStyle, Styles.NotificationItem[level], override.DefaultStyle, override[level]);
     },
 
+    title: function(level) {
+      var override = this.overrideStyle.Title || {};
+      return merge({}, Styles.Title.DefaultStyle, Styles.Title[level], override.DefaultStyle, override[level]);
+    },
+
     messageWrapper: function(level) {
       var override = this.overrideStyle.MessageWrapper || {};
       return merge({}, Styles.MessageWrapper.DefaultStyle, Styles.MessageWrapper[level], override.DefaultStyle, override[level]);
@@ -85,7 +90,7 @@ var NotificationSystem = React.createClass({
 
   getDefaultProps: function() {
     return {
-      overrideStyle: {}
+      style: {}
     }
   },
 
@@ -96,10 +101,6 @@ var NotificationSystem = React.createClass({
     var error = false;
 
     try {
-      if (!notification.message) {
-        throw "notification message is required."
-      }
-
       if (!notification.level) {
         throw "notification level is required."
       }
@@ -147,7 +148,7 @@ var NotificationSystem = React.createClass({
   },
 
   componentDidMount: function() {
-    this._getStyles.setOverrideStyle(this.props.overrideStyle);
+    this._getStyles.setOverrideStyle(this.props.style);
   },
 
   render: function() {
