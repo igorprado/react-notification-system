@@ -10,9 +10,6 @@ var CONSTANTS = {
     bc: 'bc'
   },
 
-  // Position array
-  positionsArray: ['tl', 'tr', 'tc', 'bl', 'br', 'bc'],
-
   // Levels
   levels: {
     success: 'success',
@@ -20,9 +17,6 @@ var CONSTANTS = {
     warning: 'warning',
     info: 'info'
   },
-
-  // Levels array
-  levelsArray: ['success', 'error', 'warning', 'info'],
 
   // Notification defaults
   notification: {
@@ -33,14 +27,6 @@ var CONSTANTS = {
     autoDismiss: 5,
     dismissible: true,
     action: null
-  },
-
-  // Animation defaults
-  animations: {
-    notificationItem: {
-      show: 400,
-      hide: 300
-    }
   }
 };
 

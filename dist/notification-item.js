@@ -1,12 +1,9 @@
 var React = require('react');
-var tweenState = require('react-tween-state');
 var objectAssign = require('object-assign');
 var Constants = require('./constants');
 var Styles = require('./styles');
 
 var NotificationItem = React.createClass({displayName: "NotificationItem",
-
-  mixins: [tweenState.Mixin],
 
   propTypes: {
     notification: React.PropTypes.object,
@@ -20,17 +17,33 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
   },
 
   getInitialState: function() {
-    var state = {};
-
-    var prop = this._getCssPropertyByPosition();
-
-    state[prop] = -(Styles.Containers.DefaultStyle.width);
-    state.opacity = 0;
-
-    return state;
+    return {
+      visible: false,
+      removed: false,
+    }
   },
 
-  _notificationInterval: null,
+  componentWillMount: function() {
+    var getStyles = this.props.getStyles;
+    var level = this.props.notification.level;
+
+    this._styles = {
+      notification: getStyles.notification(level),
+      title: getStyles.title(level),
+      dismiss: getStyles.dismiss(level),
+      messageWrapper: getStyles.messageWrapper(level),
+      actionWrapper: getStyles.actionWrapper(level),
+      action: getStyles.action(level)
+    };
+
+    if (!this.props.notification.dismissible) {
+      this._styles.notification.cursor = 'default';
+    }
+  },
+
+  _styles: {},
+
+  _notificationTimeout: null,
 
   _getCssPropertyByPosition: function() {
     var position = this.props.notification.position;
@@ -67,22 +80,18 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
   },
 
   _hideNotification: function() {
-    var self = this;
-    var notification = this.props.notification;
-    var property = this._getCssPropertyByPosition();
-
-    if (this._notificationInterval) {
-      clearInterval(this._notificationInterval);
+    if (this._notificationTimeout) {
+      clearTimeout(this._notificationTimeout);
     }
 
-    this.tweenState(property, {
-      easing: tweenState.easingTypes.easeInOut,
-      duration: Constants.animations.notificationItem.hide,
-      endValue: -(Styles.Containers.DefaultStyle.width),
-      onEnd: function() {
-        self.props.onRemove(notification.uid)
-      }
+    this.setState({
+      visible: false,
+      removed: true
     });
+
+    if (this.props.noAnimation) {
+      this.props.onRemove(this.props.notification.uid);
+    }
   },
 
   _dismiss: function() {
@@ -94,29 +103,29 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
   },
 
   _showNotification: function() {
-    var property = this._getCssPropertyByPosition();
-
-    this.tweenState('opacity', {
-      easing: tweenState.easingTypes.easeInOut,
-      duration: Constants.animations.notificationItem.show,
-      endValue: 1
-    });
-
-    this.tweenState(property, {
-      easing: tweenState.easingTypes.easeInOut,
-      duration: Constants.animations.notificationItem.show,
-      endValue: 0
-    });
-
-
+    var self = this;
+    setTimeout(function(){
+      self.setState({
+        visible: true,
+      });
+    }, 100);
   },
 
   componentDidMount: function() {
     var self = this;
+    var element = React.findDOMNode(this)
+		var transitionEvent = whichTransitionEvent();
     var notification = this.props.notification;
 
+    // Watch for transition end
+    element.addEventListener(transitionEvent, function() {
+      if(self.state.removed) {
+        self.props.onRemove(notification.uid);
+			}
+		});
+
     if (notification.autoDismiss) {
-      this._notificationInterval = setInterval(function(){
+      this._notificationTimeout = setTimeout(function(){
         self._hideNotification();
       }, notification.autoDismiss * 1000);
     }
@@ -128,13 +137,24 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
   render: function() {
     var self = this;
     var notification = this.props.notification;
-    var getStyles = this.props.getStyles;
 
-    var style = getStyles.notification(notification.level);
-    var property = this._getCssPropertyByPosition();
+    var className = 'notification notification-' + notification.level;
 
-    style[property] = this.getTweeningValue(property);
-    style.opacity = this.getTweeningValue('opacity');
+    if (this.state.visible) {
+      className = className + ' notification-visible';
+    } else {
+      className = className + ' notification-hidden';
+    }
+
+    if (!notification.dismissible) {
+      className = className + ' notification-not-dismissible';
+    }
+
+    if (this.props.getStyles.overrideStyle) {
+      var property = this._getCssPropertyByPosition();
+      this._styles.notification[property] = this.state.visible ? 0 : '-50%';
+      this._styles.notification.opacity = this.state.visible ? 1 : 0;
+    }
 
     var dismiss = null;
     var actionButton = null;
@@ -142,31 +162,31 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
     var message = null;
 
     if (notification.title) {
-      title = React.createElement("h4", {style: getStyles.title(notification.level)}, notification.title)
+      title = React.createElement("h4", {className: "notification-title", style: this._styles.title}, notification.title)
     }
 
     if (notification.message) {
       message = (
-        React.createElement("div", {style: getStyles.messageWrapper(notification.level)}, 
+        React.createElement("div", {className: "notification-message", style: this._styles.messageWrapper}, 
           notification.message
         )
       );
     }
 
     if (notification.dismissible) {
-      dismiss = React.createElement("span", {className: "notification-close", style: getStyles.dismiss(notification.level)}, "×");
+      dismiss = React.createElement("span", {className: "notification-dismiss", style: this._styles.dismiss}, "×");
     }
 
     if (notification.action) {
       actionButton = (
-        React.createElement("div", {className: "notification-action-wrapper", style: getStyles.actionWrapper(notification.level)}, 
-          React.createElement("button", {className: "notification-action-button", onClick: this._defaultAction, style: getStyles.action(notification.level)}, notification.action.label)
+        React.createElement("div", {className: "notification-action-wrapper", style: this._styles.actionWrapper}, 
+          React.createElement("button", {className: "notification-action-button", onClick: this._defaultAction, style: this._styles.action}, notification.action.label)
         )
       );
     }
 
     return (
-      React.createElement("div", {className: 'notifications notification-' + notification.level, onClick: this._dismiss, style: style}, 
+      React.createElement("div", {className: className, onClick: this._dismiss, style: this._styles.notification}, 
         title, 
         message, 
         dismiss, 
@@ -176,6 +196,24 @@ var NotificationItem = React.createClass({displayName: "NotificationItem",
   }
 
 });
+
+/* From Modernizr */
+function whichTransitionEvent(){
+    var t;
+    var el = document.createElement('fakeelement');
+    var transitions = {
+      'transition':'transitionend',
+      'OTransition':'oTransitionEnd',
+      'MozTransition':'transitionend',
+      'WebkitTransition':'webkitTransitionEnd'
+    }
+
+    for(t in transitions){
+        if( el.style[t] !== undefined ){
+            return transitions[t];
+        }
+    }
+}
 
 
 module.exports = NotificationItem;

@@ -30,44 +30,60 @@ var NotificationSystem = React.createClass({displayName: "NotificationSystem",
     },
 
     wrapper: function() {
+      if (!this.overrideStyle) return {};
       var override = this.overrideStyle.Wrapper || {};
       return merge({}, Styles.Wrapper, this.overrideStyle);
     },
 
     container: function(position) {
+      if (!this.overrideStyle) return {};
       var override = this.overrideStyle.Containers || {};
 
-      // Check if it's changing width
-      if (override.DefaultStyle && override.DefaultStyle.width) { this.overrideWidth = override.DefaultStyle.width; }
+      this.overrideWidth = Styles.Containers.DefaultStyle.width;
+
+      if (override.DefaultStyle && override.DefaultStyle.width) {
+        this.overrideWidth = override.DefaultStyle.width;
+      }
+
+      if (override[position] && override[position].width) {
+        this.overrideWidth = override[position].width;
+      }
+
       return merge({}, Styles.Containers.DefaultStyle, Styles.Containers[position], override.DefaultStyle, override[position]);
     },
 
     notification: function(level) {
+      if (!this.overrideStyle) return {};
       var override = this.overrideStyle.NotificationItem || {};
       return merge({}, Styles.NotificationItem.DefaultStyle, Styles.NotificationItem[level], override.DefaultStyle, override[level]);
     },
 
     title: function(level) {
+      if (!this.overrideStyle) return {};
       var override = this.overrideStyle.Title || {};
       return merge({}, Styles.Title.DefaultStyle, Styles.Title[level], override.DefaultStyle, override[level]);
     },
 
     messageWrapper: function(level) {
+      if (!this.overrideStyle) return {};
       var override = this.overrideStyle.MessageWrapper || {};
       return merge({}, Styles.MessageWrapper.DefaultStyle, Styles.MessageWrapper[level], override.DefaultStyle, override[level]);
     },
 
     dismiss: function(level) {
+      if (!this.overrideStyle) return {};
       var override = this.overrideStyle.Dismiss || {};
       return merge({}, Styles.Dismiss.DefaultStyle, Styles.Dismiss[level], override.DefaultStyle, override[level]);
     },
 
     action: function(level) {
+      if (!this.overrideStyle) return {};
       var override = this.overrideStyle.Action || {};
       return merge({}, Styles.Action.DefaultStyle, Styles.Action[level], override.DefaultStyle, override[level]);
     },
 
     actionWrapper: function(level) {
+      if (!this.overrideStyle) return {};
       var override = this.overrideStyle.ActionWrapper || {};
       return merge({}, Styles.ActionWrapper.DefaultStyle, Styles.ActionWrapper[level], override.DefaultStyle, override[level]);
     },
@@ -90,7 +106,8 @@ var NotificationSystem = React.createClass({displayName: "NotificationSystem",
 
   getDefaultProps: function() {
     return {
-      style: {}
+      style: {},
+      noAnimation: false
     }
   },
 
@@ -109,11 +126,11 @@ var NotificationSystem = React.createClass({displayName: "NotificationSystem",
         throw "'autoDismiss' must be a number."
       }
 
-      if (!Helpers.inArray(notification.position, Constants.positionsArray)) {
+      if (!Helpers.inArray(notification.position, Object.keys(Constants.positions))) {
         throw "'"+ notification.position +"' is not a valid position."
       }
 
-      if (!Helpers.inArray(notification.level, Constants.levelsArray)) {
+      if (!Helpers.inArray(notification.level, Object.keys(Constants.levels))) {
         throw "'"+ notification.level +"' is not a valid level."
       }
 
@@ -157,7 +174,7 @@ var NotificationSystem = React.createClass({displayName: "NotificationSystem",
     var notifications = this.state.notifications;
 
     if (notifications.length) {
-      containers = Constants.positionsArray.map(function(position) {
+      containers = Object.keys(Constants.positions).map(function(position) {
 
         var _notifications = notifications.filter(function(notification) {
           return position === notification.position;
@@ -170,7 +187,9 @@ var NotificationSystem = React.createClass({displayName: "NotificationSystem",
               position: position, 
               notifications: _notifications, 
               getStyles: self._getStyles, 
-              onRemove: self._didNotificationRemoved})
+              onRemove: self._didNotificationRemoved, 
+              noAnimation: self.props.noAnimation}
+            )
           );
         }
       });

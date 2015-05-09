@@ -64,6 +64,10 @@ var NotificationSystemExample = React.createClass({
       notification.action = null;
     }
 
+    if (!notification.actionState && !notification.dismissible) {
+      notification.dismissible = true;
+    }
+
     this.setState({
       notification: notification
     });
@@ -117,9 +121,13 @@ var NotificationSystemExample = React.createClass({
       );
     }
 
+    var style = false;
+
     var error = {
       position: 'hide',
-      level: 'hide'
+      dismissible: 'hide',
+      level: 'hide',
+      action: 'hide'
     };
 
     if (notification.position === "in") {
@@ -128,6 +136,11 @@ var NotificationSystemExample = React.createClass({
 
     if (notification.level === "in") {
       error.level = 'text-danger';
+    }
+
+    if (!notification.dismissible && !notification.actionState) {
+      error.dismissible = 'text-danger';
+      error.action = 'text-danger';
     }
 
     var printNotification = notification;
@@ -193,6 +206,7 @@ var NotificationSystemExample = React.createClass({
                               Can user dismiss
                             </label>
                           </div>
+                          <small className={error.dismissible}>You need to set the notification to 'dismissible' or set an 'action'.</small>
                         </div>
 
                         <div className="form-group row">
@@ -203,6 +217,7 @@ var NotificationSystemExample = React.createClass({
                                 Action
                               </label>
                             </div>
+                            <small className={error.dismissible}>You need to set the notification to 'dismissible' or set an 'action'.</small>
                           </div>
 
                           <div className="col-xs-12 col-sm-7">

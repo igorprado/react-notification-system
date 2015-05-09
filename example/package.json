@@ -13,7 +13,6 @@
     "browserify": "^10.1.0",
     "livereload": "^0.3.7",
     "mkdirp": "^0.5.0",
-    "parent-require": "^1.0.0",
     "reactify": "^1.1.0",
     "superstatic": "^2.2.0",
     "uglify-js": "^2.4.21",

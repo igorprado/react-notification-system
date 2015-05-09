@@ -1,5 +1,5 @@
 node_modules/
-dist/.module-cache/
+dist/
 example/node_modules/
 example/build/.module-cache/
 example/npm-debug.*

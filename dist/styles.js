@@ -112,8 +112,9 @@ var STYLES = {
       boxSizing: 'border-box',
       WebkitBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
       MozBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
-      boxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)'
-
+      boxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
+      opacity: 0,
+      transition: '.3s ease-in-out'
     },
 
     success: {
@@ -133,7 +134,12 @@ var STYLES = {
     }
   },
 
-  MessageWrapper: {},
+  MessageWrapper: {
+    DefaultStyle: {
+      margin: 0,
+      padding: 0
+    }
+  },
 
   Dismiss: {
     DefaultStyle: {
@@ -188,7 +194,12 @@ var STYLES = {
     }
   },
 
-  ActionWrapper: {}
+  ActionWrapper: {
+    DefaultStyle: {
+      margin: 0,
+      padding: 0
+    }
+  }
 };
 
 module.exports = STYLES;

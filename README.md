@@ -4,7 +4,7 @@ A complete and totally customizable notification system for React applications.
 
 ## Demo
 
-* http://igorprado.github.io/react-notification-system
+* [http://igorprado.github.io/react-notification-system](http://igorprado.github.io/react-notification-system)
 
 ## Installing
 
@@ -90,7 +90,11 @@ notification = {
 
 ## Styles
 
-This component was made to work as plug and play. For that, a handcrafted style was added to it. But you are able to override/add more styles to the component.
+This component was made to work as plug and play. For that, a handcrafted style was added to it and is used as inline CSS.
+
+You can change this style by overriding the default inline styles or disable all inline styles and use your own styles.
+
+### Overriding
 
 For this, use the `style` prop to pass an object with your styles. Your object must be something like this:
 
@@ -113,6 +117,35 @@ var style = {
 
 Refer to [this file](https://github.com/igorprado/react-notification-system/blob/develop/dist/styles.js) to see what can you override.
 
+### Disabling inline styles
+
+To disable all inline styles, just pass `false` to the prop `style`.
+
+Here is the notification HTML:
+
+```html
+<div class="notifications-wrapper">
+  <div class="notifications-{position}"> <!-- position can be all positions available: ex: notifications-tr -->
+    <div class="notification notification-{level} notification-{state} {notification-not-dismissible}"> <!-- '{level}' can be: success | error | warning | info. '{state}' can be: visible | hidden. {notification-not-dismissible} is present if notification is not dismissible by user -->
+      <h4 class="notification-title">Default title</h4>
+      <div class="notification-message">Default message</div>
+      <span class="notification-dismiss">×</span>
+      <div class="notification-action-wrapper">
+        <button class="notification-action-button">Action button</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+```
+
+#### Important
+
+Using this method you have to **every style**, since containers positions and the animations too using the classes `notification-visible` and `notification-hidden`. If your CSS styles will not handle any animation (transition), you need to set the prop `noAnimation` to `true` when adding the Notification System component:
+
+```js
+<NotificationSystem ref="notificationSystem" noAnimation={true} />
+```
 ## Roadmap
 
 * Add tests
