@@ -1,9 +1,9 @@
 // Used for calculations
 var defaultWidth = 320;
 var defaultColors = {
-  success: '#36c646',
+  success: '#5ea400',
   error: '#ec3d3d',
-  warning: '#eabf16',
+  warning: '#ebad1a',
   info: '#369cc7'
 }
 
@@ -69,9 +69,60 @@ var STYLES = {
 
   },
 
+  NotificationItem: {
+    DefaultStyle: {
+      position: 'relative',
+      cursor: 'pointer',
+      borderRadius: '2px',
+      fontSize: '13px',
+      border: '1px solid',
+      borderTopWidth: '4px',
+      margin: '10px 0',
+      padding: '10px',
+      display: 'block',
+      width: '100%',
+      WebkitBoxSizing: 'border-box',
+      MozBoxSizing: 'border-box',
+      boxSizing: 'border-box',
+      WebkitBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
+      MozBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
+      boxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
+      opacity: 0,
+      transition: '.3s ease-in-out'
+    },
+
+    success: {
+      borderColor: '#d0ddbe',
+      borderTopColor: defaultColors.success,
+      backgroundColor: '#f0f5ea',
+      color: '#4b583a'
+    },
+
+    error: {
+      borderColor: '#edbfbf',
+      borderTopColor: defaultColors.error,
+      backgroundColor: '#f4e9e9',
+      color: '#412f2f'
+    },
+
+    warning: {
+      borderColor: '#ecd9ab',
+      borderTopColor: defaultColors.warning,
+      backgroundColor: '#f9f6f0',
+      color: '#5a5343'
+    },
+
+    info: {
+      borderColor: '#b2d0dd',
+      borderTopColor: defaultColors.info,
+      backgroundColor: '#e8f0f4',
+      color: '#41555d'
+    }
+  },
+
   Title: {
     DefaultStyle: {
-      fontSize: '16px',
+      fontSize: '14px',
       margin: '0 0 5px 0',
       padding: 0,
       fontWeight: 'bold'
@@ -95,45 +146,6 @@ var STYLES = {
 
   },
 
-  NotificationItem: {
-    DefaultStyle: {
-      position: 'relative',
-      cursor: 'pointer',
-      borderRadius: '2px',
-      fontSize: '14px',
-      border: '1px solid black',
-      margin: '10px 0',
-      padding: '10px',
-      display: 'block',
-      width: '100%',
-      backgroundColor: '#FFF',
-      WebkitBoxSizing: 'border-box',
-      MozBoxSizing: 'border-box',
-      boxSizing: 'border-box',
-      WebkitBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
-      MozBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
-      boxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
-      opacity: 0,
-      transition: '.3s ease-in-out'
-    },
-
-    success: {
-      borderColor: defaultColors.success
-    },
-
-    error: {
-      borderColor: defaultColors.error
-    },
-
-    warning: {
-      borderColor: defaultColors.warning
-    },
-
-    info: {
-      borderColor: defaultColors.info
-    }
-  },
-
   MessageWrapper: {
     DefaultStyle: {
       margin: 0,
@@ -145,52 +157,67 @@ var STYLES = {
     DefaultStyle: {
       fontSize: '16px',
       position: 'absolute',
-      top: '1px',
+      top: '4px',
       right: '5px',
-      lineHeight: '100%'
+      lineHeight: '10px',
+      backgroundColor: '#dededf',
+      color: '#ffffff',
+      borderRadius: '50%',
+      width: '14px',
+      height: '14px',
+      fontWeight: 'bold',
+      textAlign: 'center'
     },
 
     success: {
-      color: defaultColors.success
+      color: '#f0f5ea',
+      backgroundColor: '#b0ca92'
     },
 
     error: {
-      color: defaultColors.error
+      color: '#f4e9e9',
+      backgroundColor: '#e4bebe'
     },
 
     warning: {
-      color: defaultColors.warning
+      color: '#f9f6f0',
+      backgroundColor: '#e1cfac'
     },
 
     info: {
-      color: defaultColors.info
+      color: '#e8f0f4',
+      backgroundColor: '#a4becb'
     }
   },
 
   Action: {
     DefaultStyle: {
       background: '#ffffff',
-      borderWidth: '1px 1px 1px 4px',
-      borderStyle: 'solid',
-      padding: '6px',
+      borderRadius: '2px',
+      padding: '6px 20px',
       fontWeight: 'bold',
-      margin: '10px 0 0 0'
+      margin: '10px 0 0 0',
+      border: 0
     },
 
     success: {
-      borderColor: defaultColors.success
+      backgroundColor: defaultColors.success,
+      color: '#ffffff'
     },
 
     error: {
-      borderColor: defaultColors.error
+      backgroundColor: defaultColors.error,
+      color: '#ffffff'
     },
 
     warning: {
-      borderColor: defaultColors.warning
+      backgroundColor: defaultColors.warning,
+      color: '#ffffff'
     },
 
     info: {
-      borderColor: defaultColors.info
+      backgroundColor: defaultColors.info,
+      color: '#ffffff'
     }
   },
 
