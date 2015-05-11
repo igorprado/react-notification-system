@@ -15,12 +15,12 @@ var STYLES = {
       fontFamily: 'inherit',
       position: 'fixed',
       width: defaultWidth,
-      padding: '0 10px',
+      padding: '0 10px 10px 10px',
       zIndex: 9998,
       WebkitBoxSizing: 'border-box',
       MozBoxSizing: 'border-box',
       boxSizing: 'border-box',
-      overflow: 'hidden'
+      height: 'auto'
     },
 
     tl: {
@@ -72,15 +72,15 @@ var STYLES = {
   NotificationItem: {
     DefaultStyle: {
       position: 'relative',
+      width: '100%',
       cursor: 'pointer',
       borderRadius: '2px',
       fontSize: '13px',
       border: '1px solid',
       borderTopWidth: '4px',
-      margin: '10px 0',
+      margin: '10px 0 0',
       padding: '10px',
       display: 'block',
-      width: '100%',
       WebkitBoxSizing: 'border-box',
       MozBoxSizing: 'border-box',
       boxSizing: 'border-box',
@@ -88,7 +88,7 @@ var STYLES = {
       MozBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
       boxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
       opacity: 0,
-      transition: '.3s ease-in-out'
+      transition: '0.3s ease-in-out'
     },
 
     success: {
@@ -155,11 +155,12 @@ var STYLES = {
 
   Dismiss: {
     DefaultStyle: {
-      fontSize: '16px',
+      fontFamily: 'Arial',
+      fontSize: '17px',
       position: 'absolute',
       top: '4px',
       right: '5px',
-      lineHeight: '10px',
+      lineHeight: '15px',
       backgroundColor: '#dededf',
       color: '#ffffff',
       borderRadius: '50%',

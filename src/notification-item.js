@@ -2,6 +2,7 @@ var React = require('react');
 var objectAssign = require('object-assign');
 var Constants = require('./constants');
 var Styles = require('./styles');
+var Helpers = require('./helpers');
 
 var NotificationItem = React.createClass({
 
@@ -12,6 +13,7 @@ var NotificationItem = React.createClass({
 
   getDefaultProps: function() {
     return {
+      noAnimation: false,
       onRemove: function(uid) {}
     }
   },
@@ -26,6 +28,8 @@ var NotificationItem = React.createClass({
   componentWillMount: function() {
     var getStyles = this.props.getStyles;
     var level = this.props.notification.level;
+
+    this._noAnimation = this.props.noAnimation;
 
     this._styles = {
       notification: getStyles.notification(level),
@@ -43,33 +47,49 @@ var NotificationItem = React.createClass({
 
   _styles: {},
 
-  _notificationTimeout: null,
+  _notificationTimer: null,
+
+  _height: 0,
+
+  _noAnimation: null,
 
   _getCssPropertyByPosition: function() {
     var position = this.props.notification.position;
-    var cssProperty;
+    var css = {};
 
     switch (position) {
       case Constants.positions.tl:
       case Constants.positions.bl:
-        cssProperty = 'left';
+        css = {
+          property: 'left',
+          value: -200
+        };
         break;
 
       case Constants.positions.tr:
       case Constants.positions.br:
-        cssProperty = 'right';
+        css = {
+          property: 'right',
+          value: -200
+        };
         break;
 
       case Constants.positions.tc:
-        cssProperty = 'top';
+        css = {
+          property: 'top',
+          value: -100
+        };
         break;
 
       case Constants.positions.bc:
-        cssProperty = 'bottom';
+        css = {
+          property: 'bottom',
+          value: -100
+        };
         break;
     }
 
-    return cssProperty;
+    return css;
   },
 
   _defaultAction: function(event) {
@@ -80,8 +100,8 @@ var NotificationItem = React.createClass({
   },
 
   _hideNotification: function() {
-    if (this._notificationTimeout) {
-      clearTimeout(this._notificationTimeout);
+    if (this._notificationTimer) {
+      this._notificationTimer.clear();
     }
 
     this.setState({
@@ -89,9 +109,13 @@ var NotificationItem = React.createClass({
       removed: true
     });
 
-    if (this.props.noAnimation) {
-      this.props.onRemove(this.props.notification.uid);
+    if (this._noAnimation) {
+      this._removeNotification();
     }
+  },
+
+  _removeNotification: function() {
+    this.props.onRemove(this.props.notification.uid);
   },
 
   _dismiss: function() {
@@ -108,26 +132,48 @@ var NotificationItem = React.createClass({
       self.setState({
         visible: true,
       });
-    }, 100);
+    }, 50);
   },
 
   componentDidMount: function() {
     var self = this;
-    var element = React.findDOMNode(this)
 		var transitionEvent = whichTransitionEvent();
     var notification = this.props.notification;
 
+    var element = React.findDOMNode(this);
+
+    this._height = element.offsetHeight;
+
     // Watch for transition end
-    element.addEventListener(transitionEvent, function() {
-      if(self.state.removed) {
-        self.props.onRemove(notification.uid);
-			}
-		});
+    var count = 0;
+
+    if (!this._noAnimation) {
+      if (transitionEvent) {
+        element.addEventListener(transitionEvent, function() {
+          if (count > 0) return;
+          if(self.state.removed) {
+            count++;
+            self._removeNotification();
+          }
+        });
+      } else {
+        this._noAnimation = true;
+      }
+    }
+
 
     if (notification.autoDismiss) {
-      this._notificationTimeout = setTimeout(function(){
+      this._notificationTimer = new Helpers.timer(function(){
         self._hideNotification();
       }, notification.autoDismiss * 1000);
+
+      element.addEventListener('mouseenter', function() {
+        self._notificationTimer.pause();
+      });
+
+      element.addEventListener('mouseleave', function() {
+        self._notificationTimer.resume();
+      });
     }
 
     this._showNotification();
@@ -151,8 +197,23 @@ var NotificationItem = React.createClass({
     }
 
     if (this.props.getStyles.overrideStyle) {
-      var property = this._getCssPropertyByPosition();
-      this._styles.notification[property] = this.state.visible ? 0 : '-50%';
+      var cssByPos = this._getCssPropertyByPosition();
+      if (!this.state.visible && !this.state.removed) {
+        this._styles.notification[cssByPos.property] = cssByPos.value;
+      }
+
+      if (this.state.visible && !this.state.removed) {
+        this._styles.notification.height = this._height;
+        this._styles.notification[cssByPos.property] = 0;
+      }
+
+      if (this.state.removed) {
+        this._styles.notification.overlay = 'hidden';
+        this._styles.notification.height = 0;
+        this._styles.notification.marginTop = 0;
+        this._styles.notification.paddingTop = 0;
+        this._styles.notification.paddingBottom = 0;
+      }
       this._styles.notification.opacity = this.state.visible ? 1 : 0;
     }
 

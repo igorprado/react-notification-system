@@ -1,6 +1,7 @@
 var React = require('react');
 var NotificationItem = require('./notification-item');
 var Constants = require('./constants');
+var Helpers = require('./helpers');
 
 var NotificationContainer = React.createClass({displayName: "NotificationContainer",
 
@@ -22,6 +23,11 @@ var NotificationContainer = React.createClass({displayName: "NotificationContain
 
   render: function() {
     var self = this;
+
+    if (Helpers.inArray(this.props.position, [Constants.positions.bl, Constants.positions.br, Constants.positions.bc])) {
+      this.props.notifications.reverse();
+    }
+
     var notifications = this.props.notifications.map(function(notification) {
       return (
         React.createElement(NotificationItem, {
