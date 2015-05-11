@@ -1,6 +1,6 @@
 {
   "name": "react-notification-system",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A React Notification System fully customized",
   "main": "dist/notification-system.js",
   "scripts": {
@@ -27,8 +27,7 @@
   },
   "homepage": "https://github.com/igorprado/react-notification-system",
   "dependencies": {
-    "object-assign": "^2.0.0",
-    "react-tween-state": "0.0.5"
+    "object-assign": "^2.0.0"
   },
   "devDependencies": {
     "react-tools": "^0.13.2",
