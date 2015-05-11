@@ -1,6 +1,7 @@
 var React = require('react');
 var NotificationItem = require('./notification-item');
 var Constants = require('./constants');
+var Helpers = require('./helpers');
 
 var NotificationContainer = React.createClass({
 
@@ -10,6 +11,12 @@ var NotificationContainer = React.createClass({
   },
 
   _style: {},
+
+  _height: 0,
+
+  _calculateHeight: function(type, height) {
+    this._height = (type === 'add') ? this._height + height : this._height - height;
+  },
 
   componentWillMount: function() {
     // Fix position if width is overrided
@@ -22,16 +29,27 @@ var NotificationContainer = React.createClass({
 
   render: function() {
     var self = this;
+
+    if (Helpers.inArray(this.props.position, [Constants.positions.tl, Constants.positions.tr, Constants.positions.tc])) {
+      this.props.notifications.reverse();
+    }
+
+    console.log(this._height);
+
     var notifications = this.props.notifications.map(function(notification) {
-      return (
+      var _notification = (
         <NotificationItem
           key={notification.uid}
           notification={notification}
           getStyles={self.props.getStyles}
           onRemove={self.props.onRemove}
           noAnimation={self.props.noAnimation}
+          calculateHeight={self._calculateHeight}
+          topPosition={notification.topPosition}
         />
       );
+
+      return _notification;
     });
 
     return (

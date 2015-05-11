@@ -2,6 +2,7 @@ var React = require('react');
 var objectAssign = require('object-assign');
 var Constants = require('./constants');
 var Styles = require('./styles');
+var Helpers = require('./helpers');
 
 var NotificationItem = React.createClass({
 
@@ -44,6 +45,8 @@ var NotificationItem = React.createClass({
   _styles: {},
 
   _notificationTimeout: null,
+
+  _element: null,
 
   _getCssPropertyByPosition: function() {
     var position = this.props.notification.position;
@@ -90,8 +93,13 @@ var NotificationItem = React.createClass({
     });
 
     if (this.props.noAnimation) {
-      this.props.onRemove(this.props.notification.uid);
+      this._removeNotification();
     }
+  },
+
+  _removeNotification: function() {
+    this.props.calculateHeight('remove', Helpers.totalHeight(this._element));
+    this.props.onRemove(this.props.notification.uid);
   },
 
   _dismiss: function() {
@@ -113,14 +121,18 @@ var NotificationItem = React.createClass({
 
   componentDidMount: function() {
     var self = this;
-    var element = React.findDOMNode(this)
 		var transitionEvent = whichTransitionEvent();
     var notification = this.props.notification;
 
+    this._element = React.findDOMNode(this);
+
+    // Add element height to container to handle animations
+    this.props.calculateHeight('add', Helpers.totalHeight(this._element));
+
     // Watch for transition end
-    element.addEventListener(transitionEvent, function() {
+    this._element.addEventListener(transitionEvent, function() {
       if(self.state.removed) {
-        self.props.onRemove(notification.uid);
+        self._removeNotification();
 			}
 		});
 
@@ -155,6 +167,8 @@ var NotificationItem = React.createClass({
       this._styles.notification[property] = this.state.visible ? 0 : '-50%';
       this._styles.notification.opacity = this.state.visible ? 1 : 0;
     }
+
+    this._styles.notification.top = this.props.topPosition;
 
     var dismiss = null;
     var actionButton = null;

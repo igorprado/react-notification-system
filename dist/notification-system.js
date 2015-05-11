@@ -3,18 +3,7 @@ var merge = require('object-assign');
 var NotificationContainer = require('./notification-container');
 var Constants = require('./constants');
 var Styles = require('./styles');
-
-var Helpers = {
-  inArray: function(needle, haystack) {
-    needle = needle.toLowerCase();
-  	var length = haystack.length;
-  	for(var i=0; i < length; i++) {
-      var hs = haystack[i].toLowerCase();
-  		if(hs === needle) return true;
-  	}
-  	return false;
-  }
-}
+var Helpers = require('./helpers');
 
 var NotificationSystem = React.createClass({displayName: "NotificationSystem",
 
