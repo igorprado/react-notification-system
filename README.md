@@ -39,7 +39,7 @@ var MyComponent = React.createClass({
 
   componentDidMount: function() {
     this._notificationSystem = this.refs.notificationSystem;
-  }
+  },
 
   render: function() {
     return (
