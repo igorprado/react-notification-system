@@ -2,6 +2,8 @@
 
 A complete and totally customizable notification system for React applications.
 
+![Example gif](example/example.gif "Example gif")
+
 ## Demo
 
 * [http://igorprado.github.io/react-notification-system](http://igorprado.github.io/react-notification-system)
@@ -37,7 +39,7 @@ var MyComponent = React.createClass({
 
   componentDidMount: function() {
     this._notificationSystem = this.refs.notificationSystem;
-  }
+  },
 
   render: function() {
     return (
