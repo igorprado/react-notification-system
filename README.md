@@ -2,6 +2,8 @@
 
 A complete and totally customizable notification system for React applications.
 
+![Example gif](example/example.gif "Example gif")
+
 ## Demo
 
 * [http://igorprado.github.io/react-notification-system](http://igorprado.github.io/react-notification-system)
