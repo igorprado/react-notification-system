@@ -27,7 +27,7 @@ var React = require('react');
 var NotificationSystem = require('react-notification-system');
 
 var MyComponent = React.createClass({
-  _notificationSystem = null,
+  _notificationSystem: null,
 
   _addNotification: function(event) {
     event.preventDefault();
