@@ -43,8 +43,10 @@ var MyComponent = React.createClass({
 
   render: function() {
     return (
-      <button onClick={this._addNotification}>Add notification</button>
-      <NotificationSystem ref="notificationSystem" />
+      <div>
+        <button onClick={this._addNotification}>Add notification</button>
+        <NotificationSystem ref="notificationSystem" />
+      </div>
       );
   }
 });
@@ -62,7 +64,7 @@ The notification object has the following properties:
 | Name         | Type            | Default   | Description                                                                                                                                                               |
 |------------  |---------------  |---------  |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------  |
 | title        | string          | null      | Title of the notification                                                                                                                                                 |
-| message      | string          | null      | Message for the notification                                                                                                                                              |
+| message      | string          | null      | Message of the notification                                                                                                                                              |
 | level        | string          | null      | Level of the notification. Available: **success**, **error**, **warning** and **info**                                                                                    |
 | position     | string          | tr        | Position of the notification. Available: **tr (top right)**, **tl (top left)**, **tc (top center)**, **br (bottom right)**, **bl (bottom left)**, **bc (bottom center)**  |
 | autoDismiss  | integer         | 5         | Delay in seconds for the notification go away. Set this to **0** to not auto-dismiss the notificaion                                                                      |
@@ -83,7 +85,7 @@ notification = {
   action: {
     label: 'Button name',
     callback: function() {
-      console.log('Notification button clicked!')
+      console.log('Notification button clicked!');
     }
   }
 }
@@ -107,7 +109,7 @@ var style = {
       margin: '10px 5px 2px 1px'
     },
 
-    success: { // Applied only to the success notification
+    success: { // Applied only to the success notification item
       color: 'red'
     }
   }
@@ -123,11 +125,15 @@ Refer to [this file](https://github.com/igorprado/react-notification-system/blob
 
 To disable all inline styles, just pass `false` to the prop `style`.
 
+```js
+<NotificationSystem ref="notificationSystem" style={false} />
+```
+
 Here is the notification HTML:
 
 ```html
 <div class="notifications-wrapper">
-  <div class="notifications-{position}"> <!-- position can be all positions available: ex: notifications-tr -->
+  <div class="notifications-{position}"> <!-- '{position}' can be one of the positions available: ex: notifications-tr -->
     <div class="notification notification-{level} notification-{state} {notification-not-dismissible}"> <!-- '{level}' can be: success | error | warning | info. '{state}' can be: visible | hidden. {notification-not-dismissible} is present if notification is not dismissible by user -->
       <h4 class="notification-title">Default title</h4>
       <div class="notification-message">Default message</div>
@@ -143,7 +149,7 @@ Here is the notification HTML:
 
 #### Important
 
-Using this method you have to **every style**, since containers positions and the animations too using the classes `notification-visible` and `notification-hidden`. If your CSS styles will not handle any animation (transition), you need to set the prop `noAnimation` to `true` when adding the Notification System component:
+Using this method you have to take care of **every style**, since containers positions and the animations. To control animations, use the classes `notification-visible` and `notification-hidden`. If your CSS styles will not handle any animation (transition), you need to set the prop `noAnimation` to `true` when adding the Notification System component:
 
 ```js
 <NotificationSystem ref="notificationSystem" noAnimation={true} />
@@ -151,8 +157,32 @@ Using this method you have to **every style**, since containers positions and th
 ## Roadmap
 
 * Add tests
-* Improve styles
+* Improve performance
 
 ## Contributions
+
+Clone this repo by running:
+
+```
+git clone git@github.com:igorprado/react-notification-system.git
+```
+
+Enter the project folder and install the dependencies:
+
+```
+npm install
+```
+
+To build the files, run from `root` folder:
+
+```
+npm run build
+```
+
+To watch files for change and automatically build:
+
+```
+npm run watch
+```
 
 This component is under construction. I will add more guidelines to who wants to contribute.
