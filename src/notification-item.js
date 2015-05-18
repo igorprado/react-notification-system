@@ -15,14 +15,14 @@ var NotificationItem = React.createClass({
     return {
       noAnimation: false,
       onRemove: function(uid) {}
-    }
+    };
   },
 
   getInitialState: function() {
     return {
       visible: false,
       removed: false,
-    }
+    };
   },
 
   componentWillMount: function() {
@@ -214,7 +214,7 @@ var NotificationItem = React.createClass({
         this._styles.notification.paddingTop = 0;
         this._styles.notification.paddingBottom = 0;
       }
-      this._styles.notification.opacity = this.state.visible ? 1 : 0;
+      this._styles.notification.opacity = this.state.visible ? this._styles.notification.isVisible.opacity : this._styles.notification.isHidden.opacity;
     }
 
     var dismiss = null;
@@ -223,7 +223,7 @@ var NotificationItem = React.createClass({
     var message = null;
 
     if (notification.title) {
-      title = <h4 className="notification-title" style={this._styles.title}>{notification.title}</h4>
+      title = <h4 className="notification-title" style={this._styles.title}>{notification.title}</h4>;
     }
 
     if (notification.message) {
@@ -267,7 +267,7 @@ function whichTransitionEvent(){
       'OTransition':'oTransitionEnd',
       'MozTransition':'transitionend',
       'WebkitTransition':'webkitTransitionEnd'
-    }
+    };
 
     for(t in transitions){
         if( el.style[t] !== undefined ){

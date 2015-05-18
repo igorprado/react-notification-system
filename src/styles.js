@@ -88,7 +88,15 @@ var STYLES = {
       MozBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
       boxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
       opacity: 0,
-      transition: '0.3s ease-in-out'
+      transition: '0.3s ease-in-out',
+
+      isHidden: {
+        opacity: 0
+      },
+
+      isVisible: {
+        opacity: 0.9
+      }
     },
 
     success: {
