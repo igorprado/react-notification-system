@@ -10,6 +10,8 @@ var NotificationSystemExample = React.createClass({
     event.preventDefault();
     var notification = this.state.notification;
 
+    notification.onRemove = this._onRemove;
+
     this._notificationSystem.addNotification(notification);
   },
 
@@ -28,6 +30,10 @@ var NotificationSystemExample = React.createClass({
     this.setState({
       notification: notification
     });
+  },
+
+  _onRemove: function(notification) {
+    console.log(notification.title + ' was removed.');
   },
 
   _changedDismissible: function(event) {
