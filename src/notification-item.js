@@ -104,10 +104,12 @@ var NotificationItem = React.createClass({
       this._notificationTimer.clear();
     }
 
-    this.setState({
-      visible: false,
-      removed: true
-    });
+    if (this.isMounted()) {
+      this.setState({
+        visible: false,
+        removed: true
+      });
+    }
 
     if (this._noAnimation) {
       this._removeNotification();
