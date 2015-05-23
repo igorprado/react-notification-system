@@ -80,11 +80,19 @@ var NotificationSystem = React.createClass({
   },
 
   _didNotificationRemoved: function(uid) {
-    var notifications = this.state.notifications.filter(function(notification) {
-			return notification.uid !== uid;
-		});
+    var notification;
+    var notifications = this.state.notifications.filter(function(toCheck) {
+      if (toCheck.uid === uid) {
+        notification = toCheck;
+      }
+			return toCheck.uid !== uid;
+	  });
 
-		this.setState({ notifications: notifications });
+	  if (notification && notification.onRemove) {
+      notification.onRemove(notification);
+    }
+
+    this.setState({ notifications: notifications });
   },
 
   getInitialState: function() {

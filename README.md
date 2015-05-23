@@ -72,6 +72,7 @@ The notification object has the following properties:
 | autoDismiss  | integer         | 5         | Delay in seconds for the notification go away. Set this to **0** to not auto-dismiss the notificaion                                                                      |
 | dismissible  | bool            | true      | Set if notification is dismissible by the user. [See more](#dismissible)                                                                                                  |
 | action       | object          | null      | Add a button with label and callback function. [See more](#action)                                                                                                        |
+| onRemove     | function        | null      | A callback function that will be called when the notification is about to be removed. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was removed'); }`                                                                                  |
 
 ### Dismissible
 
