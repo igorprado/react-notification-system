@@ -1,4 +1,5 @@
 var React = require('react');
+var merge = require('object-assign');
 
 var NotificationSystem = require('react-notification-system');
 
@@ -11,6 +12,8 @@ var NotificationSystemExample = React.createClass({
     var notification = this.state.notification;
 
     notification.onRemove = this._onRemove;
+
+    console.log('Notification object', notification);
 
     this._notificationSystem.addNotification(notification);
   },
@@ -33,7 +36,7 @@ var NotificationSystemExample = React.createClass({
   },
 
   _onRemove: function(notification) {
-    console.log(notification.title + ' was removed.');
+    console.log('%cNotification ' + notification.uid + ' was removed.', 'font-weight: bold; color: #eb4d00');
   },
 
   _changedDismissible: function(event) {
@@ -49,12 +52,15 @@ var NotificationSystemExample = React.createClass({
     });
   },
 
-  _callbackForAction: function() {
-    var count = this.state.actionCounter;
-    count++;
+  _changedAllowHTML: function(event) {
+    var allowHTML = !this.state.allowHTML;
     this.setState({
-      actionCounter: count
+      allowHTML: allowHTML
     });
+  },
+
+  _callbackForAction: function() {
+    console.log('%cYou clicked an action button inside a notification!', 'font-weight: bold; color: #008feb');
   },
 
   _changedAction: function(event) {
@@ -65,7 +71,7 @@ var NotificationSystemExample = React.createClass({
       notification.action = {
         label: 'Action',
         callback: this._callbackForAction
-      }
+      };
     } else {
       notification.action = null;
     }
@@ -104,8 +110,8 @@ var NotificationSystemExample = React.createClass({
         action: null,
         actionState: false
       },
-      actionCounter: 0
-    }
+      allowHTML: false
+    };
   },
   componentDidMount: function() {
     this._notificationSystem = this.refs.notificationSystem;
@@ -149,19 +155,16 @@ var NotificationSystemExample = React.createClass({
       error.action = 'text-danger';
     }
 
-    var printNotification = notification;
-
-    printNotification = JSON.stringify(printNotification, null, 4);
-
     return  <div className="container">
               <div className="row">
-                <div className="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div className="col-xs-12 col-sm-8 col-sm-offset-2">
                   <div className="page-header">
                     <h1>React Notification System</h1>
                   </div>
+                  <p>Open your console to see some logs from the component.</p>
 
                   <div className="row">
-                    <div className="col-xs-12 col-sm-6">
+                    <div className="col-xs-12">
                       <form>
                         <div className="form-group">
                           <label>Title:</label>
@@ -171,6 +174,14 @@ var NotificationSystemExample = React.createClass({
                         <div className="form-group">
                           <label>Message:</label>
                           <input className="form-control" name="message" onChange={this._changed} type="text" value={notification.message} />
+                        </div>
+                        <div className="form-group">
+                          <div className="checkbox">
+                            <label>
+                              <input type="checkbox" checked={this.state.allowHTML} onChange={this._changedAllowHTML} />
+                              Allow HTML in message?
+                            </label>
+                          </div>
                         </div>
                         <div className="form-group">
                           <label>Position:</label>
@@ -235,24 +246,12 @@ var NotificationSystemExample = React.createClass({
                         <div className="form-group">
                           <button className="btn btn-lg btn-block btn-success" onClick={this._notify}>Notify!</button>
                         </div>
-
                       </form>
                     </div>
-                    <div className="col-xs-12 col-sm-6">
-                      <h3>Notification object</h3>
-                      <pre>
-                        {printNotification}
-                      </pre>
-
-                      <h3>Action click counter <span className="label label-info">{this.state.actionCounter}</span></h3>
-                      <p>A simple counter for every action click.</p>
-                    </div>
                   </div>
-
-
                 </div>
               </div>
-              <NotificationSystem ref="notificationSystem" />
+              <NotificationSystem ref="notificationSystem" allowHTML={this.state.allowHTML} />
             </div>;
   }
 });
