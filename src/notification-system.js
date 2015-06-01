@@ -186,6 +186,7 @@ var NotificationSystem = React.createClass({
               getStyles={self._getStyles}
               onRemove={self._didNotificationRemoved}
               noAnimation={self.props.noAnimation}
+              allowHTML={self.props.allowHTML}
             />
           );
         }

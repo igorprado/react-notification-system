@@ -8,13 +8,15 @@ var NotificationItem = React.createClass({
 
   propTypes: {
     notification: React.PropTypes.object,
-    onRemove: React.PropTypes.func
+    onRemove: React.PropTypes.func,
+    allowHTML: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
     return {
       noAnimation: false,
-      onRemove: function(uid) {}
+      onRemove: function(uid) {},
+      allowHTML: false
     };
   },
 
@@ -182,6 +184,14 @@ var NotificationItem = React.createClass({
 
   },
 
+  _allowHTML: function(string) {
+    if (true) {
+      return {__html: string};
+    }
+
+    return string;
+  },
+
   render: function() {
     var self = this;
     var notification = this.props.notification;
@@ -229,11 +239,15 @@ var NotificationItem = React.createClass({
     }
 
     if (notification.message) {
-      message = (
-        <div className="notification-message" style={this._styles.messageWrapper}>
-          {notification.message}
-        </div>
-      );
+      if (this.props.allowHTML) {
+        message = (
+          <div className="notification-message" style={this._styles.messageWrapper} dangerouslySetInnerHTML={this._allowHTML(notification.message)}></div>
+        );
+      } else {
+        message = (
+          <div className="notification-message" style={this._styles.messageWrapper}>{notification.message}</div>
+        );
+      }
     }
 
     if (notification.dismissible) {
