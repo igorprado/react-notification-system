@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/igorprado/react-notification-system",
   "dependencies": {
-    "object-assign": "^2.0.0"
+    "object-assign": "^2.1.1"
   },
   "devDependencies": {
     "react-tools": "^0.13.2",
