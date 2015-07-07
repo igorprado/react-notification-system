@@ -1,2 +1,4 @@
 example/
 .gitignore
+.git/
+dist/.module-cache

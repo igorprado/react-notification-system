@@ -122,7 +122,7 @@ var style = {
 
 ```
 
-Refer to [this file](https://github.com/igorprado/react-notification-system/blob/develop/dist/styles.js) to see what can you override.
+Refer to [this file](https://github.com/igorprado/react-notification-system/blob/master/src/styles.js) to see what can you override.
 
 ### Disabling inline styles
 
