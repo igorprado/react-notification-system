@@ -1,6 +1,6 @@
 # React Notification System
 
-[![npm version](https://badge.fury.io/js/react-notification-system.svg)](http://badge.fury.io/js/react-notification-system) [![Dependency Status](https://david-dm.org/igorprado/react-notification-system.svg)](https://david-dm.org/igorprado/react-notification-system) [![Package Quality](http://npm.packagequality.com/shield/react-notification-system.svg)](http://packagequality.com/#?package=react-notification-system)
+[![npm version](https://badge.fury.io/js/react-notification-system.svg)](http://badge.fury.io/js/react-notification-system) [![npm](https://img.shields.io/npm/dm/react-notification-system.svg)](https://www.npmjs.com/package/react-notification-system) [![Dependency Status](https://david-dm.org/igorprado/react-notification-system.svg)](https://david-dm.org/igorprado/react-notification-system) [![Package Quality](http://npm.packagequality.com/shield/react-notification-system.svg)](http://packagequality.com/#?package=react-notification-system)
 
 A complete and totally customizable notification system for React applications.
 
