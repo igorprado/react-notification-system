@@ -148,9 +148,14 @@ var NotificationSystem = React.createClass({
       notification.level = notification.level.toLowerCase();
       notification.autoDismiss = parseInt(notification.autoDismiss);
 
-      notification.uid = this.uid;
-      notification.ref = "notification-" + this.uid;
+      notification.uid = notification.uid || this.uid;
+      notification.ref = "notification-" + notification.uid;
       this.uid += 1;
+
+      // do not add if the notification already exists
+      for (var nI = 0; nI < notifications.length; nI++) {
+        if (notifications[nI].uid === notification.uid) return;
+      }
 
       notifications.push(notification);
 
