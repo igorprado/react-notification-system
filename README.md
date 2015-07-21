@@ -73,6 +73,8 @@ The notification object has the following properties:
 | dismissible  | bool            | true      | Set if notification is dismissible by the user. [See more](#dismissible)                                                                                                  |
 | action       | object          | null      | Add a button with label and callback function. [See more](#action)                                                                                                        |
 | onRemove     | function        | null      | A callback function that will be called when the notification is about to be removed. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was removed'); }`                                                                                  |
+| uid          | integer/string           | null      | Overrides the internal `uid`. Useful if you are managing your notifications id. Notifications with same `uid` won't be displayed. |
+
 
 ### Dismissible
 
