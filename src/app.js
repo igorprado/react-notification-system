@@ -101,6 +101,7 @@ var NotificationSystemExample = React.createClass({
   getInitialState: function() {
     return {
       notification: {
+        uid: 123,
         title: "Default title",
         message: 'Default message',
         level: 'error',
