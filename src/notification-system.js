@@ -123,11 +123,11 @@ var NotificationSystem = React.createClass({
         throw "'autoDismiss' must be a number."
       }
 
-      if (!Helpers.inArray(notification.position, Object.keys(Constants.positions))) {
+      if (Object.keys(Constants.positions).indexOf(notification.position) === -1) {
         throw "'"+ notification.position +"' is not a valid position."
       }
 
-      if (!Helpers.inArray(notification.level, Object.keys(Constants.levels))) {
+      if (Object.keys(Constants.levels).indexOf(notification.level) === -1) {
         throw "'"+ notification.level +"' is not a valid level."
       }
 

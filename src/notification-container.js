@@ -24,7 +24,7 @@ var NotificationContainer = React.createClass({
   render: function() {
     var self = this;
 
-    if (Helpers.inArray(this.props.position, [Constants.positions.bl, Constants.positions.br, Constants.positions.bc])) {
+    if ([Constants.positions.bl, Constants.positions.br, Constants.positions.bc].indexOf(this.props.position) > -1) {
       this.props.notifications.reverse();
     }
 
