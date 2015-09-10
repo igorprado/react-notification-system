@@ -1,7 +1,5 @@
 var React = require('react');
-var objectAssign = require('object-assign');
 var Constants = require('./constants');
-var Styles = require('./styles');
 var Helpers = require('./helpers');
 
 var NotificationItem = React.createClass({
@@ -15,7 +13,7 @@ var NotificationItem = React.createClass({
   getDefaultProps: function() {
     return {
       noAnimation: false,
-      onRemove: function(uid) {},
+      onRemove: function() {},
       allowHTML: false
     };
   },
@@ -185,11 +183,7 @@ var NotificationItem = React.createClass({
   },
 
   _allowHTML: function(string) {
-    if (true) {
-      return {__html: string};
-    }
-
-    return string;
+    return {__html: string};
   },
 
   render: function() {
@@ -276,20 +270,20 @@ var NotificationItem = React.createClass({
 
 /* From Modernizr */
 function whichTransitionEvent(){
-    var t;
-    var el = document.createElement('fakeelement');
-    var transitions = {
-      'transition':'transitionend',
-      'OTransition':'oTransitionEnd',
-      'MozTransition':'transitionend',
-      'WebkitTransition':'webkitTransitionEnd'
-    };
+  var t;
+  var el = document.createElement('fakeelement');
+  var transitions = {
+    'transition': 'transitionend',
+    'OTransition': 'oTransitionEnd',
+    'MozTransition': 'transitionend',
+    'WebkitTransition': 'webkitTransitionEnd'
+  };
 
-    for(t in transitions){
-        if( el.style[t] !== undefined ){
-            return transitions[t];
-        }
+  for(t in transitions) {
+    if( el.style[t] !== undefined ){
+      return transitions[t];
     }
+  }
 }
 
 
