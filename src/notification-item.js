@@ -133,9 +133,11 @@ var NotificationItem = React.createClass({
   _showNotification: function() {
     var self = this;
     setTimeout(function(){
-      self.setState({
-        visible: true,
-      });
+      if (self.isMounted()) {
+        self.setState({
+          visible: true,
+        });
+      }
     }, 50);
   },
 
