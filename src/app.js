@@ -7,6 +7,8 @@ var NotificationSystemExample = React.createClass({
 
   _notificationSystem: null,
 
+  _lastNotificationAdded: null,
+
   _notify: function(event) {
     event.preventDefault();
     var notification = this.state.notification;
@@ -15,7 +17,15 @@ var NotificationSystemExample = React.createClass({
 
     console.log('Notification object', notification);
 
-    this._notificationSystem.addNotification(notification);
+    this._lastNotificationAdded = this._notificationSystem.addNotification(notification);
+    this.setState({});
+  },
+
+  _removeLastNotification: function(event) {
+    event.preventDefault();
+    if (this._lastNotificationAdded) {
+      this._notificationSystem.removeNotification(this._lastNotificationAdded);
+    }
   },
 
   _changed: function(event) {
@@ -36,6 +46,10 @@ var NotificationSystemExample = React.createClass({
   },
 
   _onRemove: function(notification) {
+    if (this._lastNotificationAdded && notification.uid === this._lastNotificationAdded.uid) {
+      this._lastNotificationAdded = null;
+    }
+    this.setState({});
     console.log('%cNotification ' + notification.uid + ' was removed.', 'font-weight: bold; color: #eb4d00');
   },
 
@@ -129,6 +143,16 @@ var NotificationSystemExample = React.createClass({
             <div className="input-group-addon">label</div>
             <input className="form-control" name="label" onChange={this._changedActionLabel} type="text" value={notification.action.label} />
           </div>
+        </div>
+      );
+    }
+
+    var removeButton = null;
+
+    if (this._lastNotificationAdded) {
+      removeButton = (
+        <div className="form-group">
+          <button className="btn btn-sm btn-block btn-danger" onClick={this._removeLastNotification}>Remove last notification!</button>
         </div>
       );
     }
@@ -243,9 +267,12 @@ var NotificationSystemExample = React.createClass({
 
                         </div>
 
+                        {removeButton}
+
                         <div className="form-group">
                           <button className="btn btn-lg btn-block btn-success" onClick={this._notify}>Notify!</button>
                         </div>
+
                       </form>
                     </div>
                   </div>
