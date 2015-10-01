@@ -164,8 +164,22 @@ var NotificationSystem = React.createClass({
       this.setState({
         notifications: notifications
       });
+
+      return notification;
     }
 
+  },
+
+  removeNotification: function(notification) {
+    var container = this.refs['container-' + notification.position];
+
+    if (container) {
+      var notification = container.refs['notification-' + notification.uid];
+      
+      if (notification) {
+        notification._hideNotification();
+      }
+    }
   },
 
   componentDidMount: function() {
@@ -187,6 +201,7 @@ var NotificationSystem = React.createClass({
         if (_notifications.length) {
           return (
             <NotificationContainer
+              ref={'container-'+ position}
               key={position}
               position={position}
               notifications={_notifications}

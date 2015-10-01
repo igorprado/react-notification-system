@@ -59,6 +59,18 @@ React.render(
 );
 ```
 
+## Methods
+
+### `addNotification(notification)`
+
+Add a notification object. This displays the notification based on the [object](#creating-a-notification) you passed.
+
+Returns the notification object to be used to programmatically dismiss a notification.
+
+### `removeNotification(notification)`
+
+Remove programmatically a notification. This object must be returned by `addNotification()` method or contains the properties `position` and `uid` of the notification that you want to remove.
+
 ## Creating a notification
 
 The notification object has the following properties:

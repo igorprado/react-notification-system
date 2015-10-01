@@ -1,5 +1,4 @@
 var React = require('react');
-var objectAssign = require('object-assign');
 var Constants = require('./constants');
 var Styles = require('./styles');
 var Helpers = require('./helpers');
@@ -8,6 +7,7 @@ var NotificationItem = React.createClass({
 
   propTypes: {
     notification: React.PropTypes.object,
+
     onRemove: React.PropTypes.func,
     allowHTML: React.PropTypes.bool
   },
@@ -54,6 +54,8 @@ var NotificationItem = React.createClass({
   _height: 0,
 
   _noAnimation: null,
+
+  _isMounted: false,
 
   _getCssPropertyByPosition: function() {
     var position = this.props.notification.position;
@@ -106,7 +108,7 @@ var NotificationItem = React.createClass({
       this._notificationTimer.clear();
     }
 
-    if (this.isMounted()) {
+    if (this._isMounted) {
       this.setState({
         visible: false,
         removed: true
@@ -133,9 +135,11 @@ var NotificationItem = React.createClass({
   _showNotification: function() {
     var self = this;
     setTimeout(function(){
-      self.setState({
-        visible: true,
-      });
+      if (self._isMounted) {
+        self.setState({
+          visible: true,
+        });
+      }
     }, 50);
   },
 
@@ -147,6 +151,8 @@ var NotificationItem = React.createClass({
     var element = React.findDOMNode(this);
 
     this._height = element.offsetHeight;
+
+    this._isMounted = true;
 
     // Watch for transition end
     var count = 0;
@@ -182,6 +188,10 @@ var NotificationItem = React.createClass({
 
     this._showNotification();
 
+  },
+
+  componentWillUnmount: function() {
+    this._isMounted = false;
   },
 
   _allowHTML: function(string) {

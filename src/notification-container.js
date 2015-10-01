@@ -31,6 +31,7 @@ var NotificationContainer = React.createClass({
     var notifications = this.props.notifications.map(function(notification) {
       return (
         <NotificationItem
+          ref={'notification-' + notification.uid}
           key={notification.uid}
           notification={notification}
           getStyles={self.props.getStyles}
