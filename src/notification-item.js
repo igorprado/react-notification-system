@@ -1,7 +1,9 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Constants = require('./constants');
 var Styles = require('./styles');
 var Helpers = require('./helpers');
+var merge = require('object-assign');
 
 var NotificationItem = React.createClass({
 
@@ -148,7 +150,7 @@ var NotificationItem = React.createClass({
 		var transitionEvent = whichTransitionEvent();
     var notification = this.props.notification;
 
-    var element = React.findDOMNode(this);
+    var element = ReactDOM.findDOMNode(this);
 
     this._height = element.offsetHeight;
 
@@ -208,7 +210,7 @@ var NotificationItem = React.createClass({
 
     var className = 'notification notification-' + notification.level;
 
-    var notificationStyle = objectAssign({}, this._styles.notification);
+    var notificationStyle = merge({}, this._styles.notification);
 
     if (this.state.visible) {
       className = className + ' notification-visible';
