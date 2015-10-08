@@ -1,7 +1,9 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Constants = require('./constants');
 var Styles = require('./styles');
 var Helpers = require('./helpers');
+var merge = require('object-assign');
 
 var NotificationItem = React.createClass({
 
@@ -148,7 +150,7 @@ var NotificationItem = React.createClass({
 		var transitionEvent = whichTransitionEvent();
     var notification = this.props.notification;
 
-    var element = React.findDOMNode(this);
+    var element = ReactDOM.findDOMNode(this);
 
     this._height = element.offsetHeight;
 
@@ -208,6 +210,8 @@ var NotificationItem = React.createClass({
 
     var className = 'notification notification-' + notification.level;
 
+    var notificationStyle = merge({}, this._styles.notification);
+
     if (this.state.visible) {
       className = className + ' notification-visible';
     } else {
@@ -221,22 +225,22 @@ var NotificationItem = React.createClass({
     if (this.props.getStyles.overrideStyle) {
       var cssByPos = this._getCssPropertyByPosition();
       if (!this.state.visible && !this.state.removed) {
-        this._styles.notification[cssByPos.property] = cssByPos.value;
+        notificationStyle[cssByPos.property] = cssByPos.value;
       }
 
       if (this.state.visible && !this.state.removed) {
-        this._styles.notification.height = this._height;
-        this._styles.notification[cssByPos.property] = 0;
+        notificationStyle.height = this._height;
+        notificationStyle[cssByPos.property] = 0;
       }
 
       if (this.state.removed) {
-        this._styles.notification.overlay = 'hidden';
-        this._styles.notification.height = 0;
-        this._styles.notification.marginTop = 0;
-        this._styles.notification.paddingTop = 0;
-        this._styles.notification.paddingBottom = 0;
+        notificationStyle.overlay = 'hidden';
+        notificationStyle.height = 0;
+        notificationStyle.marginTop = 0;
+        notificationStyle.paddingTop = 0;
+        notificationStyle.paddingBottom = 0;
       }
-      this._styles.notification.opacity = this.state.visible ? this._styles.notification.isVisible.opacity : this._styles.notification.isHidden.opacity;
+      notificationStyle.opacity = this.state.visible ? this._styles.notification.isVisible.opacity : this._styles.notification.isHidden.opacity;
     }
 
     var dismiss = null;
@@ -273,7 +277,7 @@ var NotificationItem = React.createClass({
     }
 
     return (
-      <div className={className} onClick={this._dismiss} style={this._styles.notification}>
+      <div className={className} onClick={this._dismiss} style={notificationStyle}>
         {title}
         {message}
         {dismiss}

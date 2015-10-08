@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var merge = require('object-assign');
 
 var NotificationSystem = require('react-notification-system');
@@ -283,7 +284,7 @@ var NotificationSystemExample = React.createClass({
   }
 });
 
-React.render(
+ReactDOM.render(
   React.createElement(NotificationSystemExample),
   document.getElementById('app')
 );

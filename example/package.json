@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/app.js",
-  "peerDependencies": {
-    "react": "0.13.x"
-  },
   "dependencies": {
-    "react": "^0.13.x"
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "devDependencies": {
     "browserify": "^10.1.0",
