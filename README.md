@@ -26,6 +26,7 @@ Here is a basic example. For a more advanced usage, please see the [example code
 
 ```js
 var React = require('react');
+var ReactDOM = require('react-dom');
 var NotificationSystem = require('react-notification-system');
 
 var MyComponent = React.createClass({
@@ -53,8 +54,8 @@ var MyComponent = React.createClass({
   }
 });
 
-React.render(
-  React.createElement(NotificationSystemExample),
+ReactDOM.render(
+  React.createElement(MyComponent),
   document.getElementById('app')
 );
 ```
