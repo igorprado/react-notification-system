@@ -1,10 +1,10 @@
 # Change Log
 
-## 0.1.16 - Oct 8, 2015
+## 0.1.16 - Oct 9, 2015
 
 **Implemented enhancements, merged pull requrests:**
 
-* Updated to React 0.14
+* Fix dismissible false to not require an action
 * Added CHANGELOG and LICENSE files
 
 ## 0.1.15 - Oct 1, 2015

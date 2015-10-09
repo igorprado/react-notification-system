@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var merge = require('object-assign');
 
 var NotificationSystem = require('react-notification-system');
@@ -58,10 +57,6 @@ var NotificationSystemExample = React.createClass({
     var notification = this.state.notification;
     notification.dismissible = !notification.dismissible;
 
-    if (!notification.dismissible && !notification.actionState) {
-      this._changedAction();
-    }
-
     this.setState({
       notification: notification
     });
@@ -89,10 +84,6 @@ var NotificationSystemExample = React.createClass({
       };
     } else {
       notification.action = null;
-    }
-
-    if (!notification.actionState && !notification.dismissible) {
-      notification.dismissible = true;
     }
 
     this.setState({
@@ -248,7 +239,6 @@ var NotificationSystemExample = React.createClass({
                               Can user dismiss
                             </label>
                           </div>
-                          <small className={error.dismissible}>You need to set the notification to 'dismissible' or set an 'action'.</small>
                         </div>
 
                         <div className="form-group row">
@@ -259,14 +249,14 @@ var NotificationSystemExample = React.createClass({
                                 Action
                               </label>
                             </div>
-                            <small className={error.dismissible}>You need to set the notification to 'dismissible' or set an 'action'.</small>
                           </div>
 
                           <div className="col-xs-12 col-sm-7">
                             {action}
                           </div>
-
+                          <small className={error.dismissible}>This notification will be only dismissible programmatically.</small>
                         </div>
+
 
                         {removeButton}
 
@@ -284,7 +274,7 @@ var NotificationSystemExample = React.createClass({
   }
 });
 
-ReactDOM.render(
+React.render(
   React.createElement(NotificationSystemExample),
   document.getElementById('app')
 );
