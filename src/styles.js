@@ -1,11 +1,24 @@
 // Used for calculations
 var defaultWidth = 320;
 var defaultColors = {
-  success: '#5ea400',
-  error: '#ec3d3d',
-  warning: '#ebad1a',
-  info: '#369cc7'
-}
+  success: {
+    rgb: '94, 164, 0',
+    hex: '#5ea400'
+  },
+  error: {
+    rgb: '236, 61, 61',
+    hex: '#ec3d3d'
+  },
+  warning: {
+    rgb: '235, 173, 23',
+    hex: '#ebad1a'
+  },
+  info: {
+    rgb: '54, 156, 199',
+    hex: '#369cc7'
+  }
+};
+var defaultShadowOpacity = '0.9';
 
 var STYLES = {
 
@@ -24,47 +37,47 @@ var STYLES = {
     },
 
     tl: {
-      top: "0px",
-      bottom: "auto",
+      top: '0px',
+      bottom: 'auto',
       left: '0px',
       right: 'auto'
     },
 
     tr: {
-      top: "0px",
-      bottom: "auto",
+      top: '0px',
+      bottom: 'auto',
       left: 'auto',
       right: '0px'
     },
 
     tc: {
-      top: "0px",
-      bottom: "auto",
-      margin: "0 auto",
-      left: "50%",
-      marginLeft: -(defaultWidth/2)
+      top: '0px',
+      bottom: 'auto',
+      margin: '0 auto',
+      left: '50%',
+      marginLeft: -(defaultWidth / 2)
     },
 
     bl: {
-      top: "auto",
-      bottom: "0px",
+      top: 'auto',
+      bottom: '0px',
       left: '0px',
       right: 'auto'
     },
 
     br: {
-      top: "auto",
-      bottom: "0px",
+      top: 'auto',
+      bottom: '0px',
       left: 'auto',
       right: '0px'
     },
 
     bc: {
-      top: "auto",
-      bottom: "0px",
-      margin: "0 auto",
-      left: "50%",
-      marginLeft: -(defaultWidth/2)
+      top: 'auto',
+      bottom: '0px',
+      margin: '0 auto',
+      left: '50%',
+      marginLeft: -(defaultWidth / 2)
     }
 
   },
@@ -74,19 +87,14 @@ var STYLES = {
       position: 'relative',
       width: '100%',
       cursor: 'pointer',
-      borderRadius: '2px',
+      borderRadius: '3px 3px 2px 2px',
       fontSize: '13px',
-      border: '1px solid',
-      borderTopWidth: '4px',
       margin: '10px 0 0',
       padding: '10px',
       display: 'block',
       WebkitBoxSizing: 'border-box',
       MozBoxSizing: 'border-box',
       boxSizing: 'border-box',
-      WebkitBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
-      MozBoxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
-      boxShadow: '0px 0px 5px 2px rgba(0,0,0,0.1)',
       opacity: 0,
       transition: '0.3s ease-in-out',
 
@@ -95,36 +103,44 @@ var STYLES = {
       },
 
       isVisible: {
-        opacity: 0.9
+        opacity: 1
       }
     },
 
     success: {
-      borderColor: '#d0ddbe',
-      borderTopColor: defaultColors.success,
+      borderTop: '3px solid ' + defaultColors.success.hex,
       backgroundColor: '#f0f5ea',
-      color: '#4b583a'
+      color: '#4b583a',
+      WebkitBoxShadow: '0 0 1px rgba(' + defaultColors.success.rgb + ',' + defaultShadowOpacity + ')',
+      MozBoxShadow: '0 0 1px rgba(' + defaultColors.success.rgb + ',' + defaultShadowOpacity + ')',
+      boxShadow: '0 0 1px rgba(' + defaultColors.success.rgb + ',' + defaultShadowOpacity + ')'
     },
 
     error: {
-      borderColor: '#edbfbf',
-      borderTopColor: defaultColors.error,
+      borderTop: '3px solid ' + defaultColors.error.hex,
       backgroundColor: '#f4e9e9',
-      color: '#412f2f'
+      color: '#412f2f',
+      WebkitBoxShadow: '0 0 1px rgba(' + defaultColors.error.rgb + ',' + defaultShadowOpacity + ')',
+      MozBoxShadow: '0 0 1px rgba(' + defaultColors.error.rgb + ',' + defaultShadowOpacity + ')',
+      boxShadow: '0 0 1px rgba(' + defaultColors.error.rgb + ',' + defaultShadowOpacity + ')'
     },
 
     warning: {
-      borderColor: '#ecd9ab',
-      borderTopColor: defaultColors.warning,
+      borderTop: '3px solid ' + defaultColors.warning.hex,
       backgroundColor: '#f9f6f0',
-      color: '#5a5343'
+      color: '#5a5343',
+      WebkitBoxShadow: '0 0 1px rgba(' + defaultColors.warning.rgb + ',' + defaultShadowOpacity + ')',
+      MozBoxShadow: '0 0 1px rgba(' + defaultColors.warning.rgb + ',' + defaultShadowOpacity + ')',
+      boxShadow: '0 0 1px rgba(' + defaultColors.warning.rgb + ',' + defaultShadowOpacity + ')'
     },
 
     info: {
-      borderColor: '#b2d0dd',
-      borderTopColor: defaultColors.info,
+      borderTop: '3px solid ' + defaultColors.info.hex,
       backgroundColor: '#e8f0f4',
-      color: '#41555d'
+      color: '#41555d',
+      WebkitBoxShadow: '0 0 1px rgba(' + defaultColors.info.rgb + ',' + defaultShadowOpacity + ')',
+      MozBoxShadow: '0 0 1px rgba(' + defaultColors.info.rgb + ',' + defaultShadowOpacity + ')',
+      boxShadow: '0 0 1px rgba(' + defaultColors.info.rgb + ',' + defaultShadowOpacity + ')'
     }
   },
 
@@ -137,19 +153,19 @@ var STYLES = {
     },
 
     success: {
-      color: defaultColors.success
+      color: defaultColors.success.hex
     },
 
     error: {
-      color: defaultColors.error
+      color: defaultColors.error.hex
     },
 
     warning: {
-      color: defaultColors.warning
+      color: defaultColors.warning.hex
     },
 
     info: {
-      color: defaultColors.info
+      color: defaultColors.info.hex
     }
 
   },
@@ -210,22 +226,22 @@ var STYLES = {
     },
 
     success: {
-      backgroundColor: defaultColors.success,
+      backgroundColor: defaultColors.success.hex,
       color: '#ffffff'
     },
 
     error: {
-      backgroundColor: defaultColors.error,
+      backgroundColor: defaultColors.error.hex,
       color: '#ffffff'
     },
 
     warning: {
-      backgroundColor: defaultColors.warning,
+      backgroundColor: defaultColors.warning.hex,
       color: '#ffffff'
     },
 
     info: {
-      backgroundColor: defaultColors.info,
+      backgroundColor: defaultColors.info.hex,
       color: '#ffffff'
     }
   },

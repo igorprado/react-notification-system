@@ -1,13 +1,13 @@
 var React = require('react');
 var NotificationItem = require('./notification-item');
 var Constants = require('./constants');
-var Helpers = require('./helpers');
 
 var NotificationContainer = React.createClass({
 
   propTypes: {
     position: React.PropTypes.string.isRequired,
-    notifications: React.PropTypes.array.isRequired
+    notifications: React.PropTypes.array.isRequired,
+    getStyles: React.PropTypes.object
   },
 
   _style: {},
@@ -17,34 +17,35 @@ var NotificationContainer = React.createClass({
     this._style = this.props.getStyles.container(this.props.position);
 
     if (this.props.getStyles.overrideWidth && (this.props.position === Constants.positions.tc || this.props.position === Constants.positions.bc)) {
-      this._style['marginLeft'] = -(this.props.getStyles.overrideWidth / 2);
+      this._style.marginLeft = -(this.props.getStyles.overrideWidth / 2);
     }
   },
 
   render: function() {
     var self = this;
+    var notifications;
 
     if ([Constants.positions.bl, Constants.positions.br, Constants.positions.bc].indexOf(this.props.position) > -1) {
       this.props.notifications.reverse();
     }
 
-    var notifications = this.props.notifications.map(function(notification) {
+    notifications = this.props.notifications.map(function(notification) {
       return (
         <NotificationItem
-          ref={'notification-' + notification.uid}
-          key={notification.uid}
-          notification={notification}
-          getStyles={self.props.getStyles}
-          onRemove={self.props.onRemove}
-          noAnimation={self.props.noAnimation}
-          allowHTML={self.props.allowHTML}
+          ref={ 'notification-' + notification.uid }
+          key={ notification.uid }
+          notification={ notification }
+          getStyles={ self.props.getStyles }
+          onRemove={ self.props.onRemove }
+          noAnimation={ self.props.noAnimation }
+          allowHTML={ self.props.allowHTML }
         />
       );
     });
 
     return (
-      <div className={'notifications-' + this.props.position} style={this._style}>
-        {notifications}
+      <div className={ 'notifications-' + this.props.position } style={ this._style }>
+        { notifications }
       </div>
     );
   }
