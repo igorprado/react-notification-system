@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.1.16 - Oct 9, 2015
+## 0.1.17 - Oct 9, 2015
 
 **Implemented enhancements, merged pull requrests:**
 
