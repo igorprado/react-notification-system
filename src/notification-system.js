@@ -131,10 +131,6 @@ var NotificationSystem = React.createClass({
         throw "'"+ notification.level +"' is not a valid level."
       }
 
-      if (!notification.dismissible && !notification.action) {
-        throw "You need to set notification dismissible to true or set an action, otherwise user will not be able to dismiss the notification."
-      }
-
     } catch(err) {
       error = true;
       console.error('Error adding notification: '+err);

@@ -91,7 +91,7 @@ The notification object has the following properties:
 
 ### Dismissible
 
-If set to false, the user will not be able to dismiss the notification. For this reason, if set to false, the `action` becomes required as the only way to dismiss the notification.
+If set to false, the notification will not display the dismiss ('x') button.
 
 ### Action
 
