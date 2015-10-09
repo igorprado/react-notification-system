@@ -7,7 +7,8 @@
     "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "watch 'npm run build' ./src",
-    "build": "jsx ./src ./dist"
+    "build": "jsx -x jsx ./src ./dist & jsx ./src ./dist",
+    "lint": "eslint src --ext .jsx,.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,9 @@
     "object-assign": "^4.0.1"
   },
   "devDependencies": {
+    "eslint": "^1.6.0",
+    "eslint-config-airbnb": "^0.1.0",
+    "eslint-plugin-react": "^3.5.1",
     "react-tools": "^0.13.2",
     "watch": "^0.16.0"
   }
