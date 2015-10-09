@@ -4,6 +4,8 @@
 
 A complete and totally customizable notification system for React applications.
 
+Initially built for [Eterpret](http://dev.eterpret.com) @ [Scalable Path](http://www.scalablepath.com).
+
 ![Example gif](example/example.gif "Example gif")
 
 ## Demo
@@ -17,6 +19,22 @@ For now this component is only available as CommonJS module. Install via NPM run
 ```
 npm install react-notification-system
 ```
+
+### Important
+
+For **React 0.14.x**, use version 0.2.x:
+
+```
+npm install react-notification-system@0.2.x
+```
+
+For **React 0.13.x**, use version 0.1.x:
+
+```
+npm install react-notification-system@0.1.x
+```
+
+
 
 ## Using
 
