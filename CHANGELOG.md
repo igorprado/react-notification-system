@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.2.1 - Oct 9, 2015
+
+**Implemented enhancements:**
+
+* Improved function to get specific style based on element
+* Improved notification styles
+* Added ESLint and linted all src files.
+
 ## 0.2.0 - Oct 9, 2015
 
 **Implemented enhancements:**
