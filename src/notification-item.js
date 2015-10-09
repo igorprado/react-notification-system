@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Constants = require('./constants');
 var Styles = require('./styles');
 var Helpers = require('./helpers');
@@ -149,7 +150,7 @@ var NotificationItem = React.createClass({
 		var transitionEvent = whichTransitionEvent();
     var notification = this.props.notification;
 
-    var element = React.findDOMNode(this);
+    var element = ReactDOM.findDOMNode(this);
 
     this._height = element.offsetHeight;
 

@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.2.0 - Oct 9, 2015
+
+**Implemented enhancements:**
+
+* Now supports React 0.14!
+
 ## 0.1.17 - Oct 9, 2015
 
 **Implemented enhancements, merged pull requrests:**
