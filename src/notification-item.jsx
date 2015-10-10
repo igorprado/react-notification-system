@@ -230,9 +230,6 @@ var NotificationItem = React.createClass({
     var title = null;
     var message = null;
 
-    console.log(notificationStyle);
-
-
     if (this.state.visible) {
       className = className + ' notification-visible';
     } else {
