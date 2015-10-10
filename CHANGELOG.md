@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.2.2 - Oct 10, 2015
+
+** Removed unused code**
+
+* Some unnecessary `console.logs` was left behind.
+
 ## 0.2.1 - Oct 9, 2015
 
 **Implemented enhancements:**
