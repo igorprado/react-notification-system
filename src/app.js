@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var merge = require('object-assign');
 
 var NotificationSystem = require('react-notification-system');
 
