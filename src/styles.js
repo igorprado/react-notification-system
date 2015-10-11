@@ -87,7 +87,7 @@ var STYLES = {
       position: 'relative',
       width: '100%',
       cursor: 'pointer',
-      borderRadius: '3px 3px 2px 2px',
+      borderRadius: '2px',
       fontSize: '13px',
       margin: '10px 0 0',
       padding: '10px',
@@ -108,7 +108,7 @@ var STYLES = {
     },
 
     success: {
-      borderTop: '3px solid ' + defaultColors.success.hex,
+      borderTop: '2px solid ' + defaultColors.success.hex,
       backgroundColor: '#f0f5ea',
       color: '#4b583a',
       WebkitBoxShadow: '0 0 1px rgba(' + defaultColors.success.rgb + ',' + defaultShadowOpacity + ')',
@@ -117,7 +117,7 @@ var STYLES = {
     },
 
     error: {
-      borderTop: '3px solid ' + defaultColors.error.hex,
+      borderTop: '2px solid ' + defaultColors.error.hex,
       backgroundColor: '#f4e9e9',
       color: '#412f2f',
       WebkitBoxShadow: '0 0 1px rgba(' + defaultColors.error.rgb + ',' + defaultShadowOpacity + ')',
@@ -126,7 +126,7 @@ var STYLES = {
     },
 
     warning: {
-      borderTop: '3px solid ' + defaultColors.warning.hex,
+      borderTop: '2px solid ' + defaultColors.warning.hex,
       backgroundColor: '#f9f6f0',
       color: '#5a5343',
       WebkitBoxShadow: '0 0 1px rgba(' + defaultColors.warning.rgb + ',' + defaultShadowOpacity + ')',
@@ -135,7 +135,7 @@ var STYLES = {
     },
 
     info: {
-      borderTop: '3px solid ' + defaultColors.info.hex,
+      borderTop: '2px solid ' + defaultColors.info.hex,
       backgroundColor: '#e8f0f4',
       color: '#41555d',
       WebkitBoxShadow: '0 0 1px rgba(' + defaultColors.info.rgb + ',' + defaultShadowOpacity + ')',

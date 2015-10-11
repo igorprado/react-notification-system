@@ -141,6 +141,10 @@ var NotificationSystem = React.createClass({
 
       notifications.push(_notification);
 
+      if (typeof _notification.onAdd === 'function') {
+        notification.onAdd(_notification);
+      }
+
       this.setState({
         notifications: notifications
       });
@@ -150,15 +154,17 @@ var NotificationSystem = React.createClass({
   },
 
   removeNotification: function(notification) {
-    var container = this.refs['container-' + notification.position];
-    var _notification;
-
-    if (container) {
-      _notification = container.refs['notification-' + notification.uid];
-      if (_notification) {
-        _notification._hideNotification();
+    var self = this;
+    Object.keys(this.refs).forEach(function(container) {
+      if (container.indexOf('container') > -1) {
+        Object.keys(self.refs[container].refs).forEach(function(_notification) {
+          var uid = notification.uid ? notification.uid : notification;
+          if (_notification === 'notification-' + uid) {
+            self.refs[container].refs[_notification]._hideNotification();
+          }
+        });
       }
-    }
+    });
   },
 
   componentDidMount: function() {
