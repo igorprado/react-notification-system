@@ -1,4 +1,12 @@
-# Change Log
+# CHANGELOG
+
+## 0.2.3 - Oct 11, 2015
+
+**Implemented enhancements:**
+
+* Possibility to remove notification by uid.
+* Added onAdd property to notification object.
+* Improved styles
 
 ## 0.2.2 - Oct 10, 2015
 
