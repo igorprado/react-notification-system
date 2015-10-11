@@ -88,7 +88,7 @@ Returns the notification object to be used to programmatically dismiss a notific
 
 ### `removeNotification(notification)`
 
-Remove programmatically a notification. This object must be returned by `addNotification()` method or contains the properties `position` and `uid` of the notification that you want to remove.
+Remove programmatically a notification. You can pass an object returned by `addNotification()` or by `onAdd()` callback. If passing an object, you need to make sure it must contain the `uid` property. You can pass only the `uid` too: `removeNotification(uid)`.
 
 ## Creating a notification
 
@@ -103,7 +103,8 @@ The notification object has the following properties:
 | autoDismiss  | integer         | 5         | Delay in seconds for the notification go away. Set this to **0** to not auto-dismiss the notification                                                                      |
 | dismissible  | bool            | true      | Set if notification is dismissible by the user. [See more](#dismissible)                                                                                                  |
 | action       | object          | null      | Add a button with label and callback function. [See more](#action)                                                                                                        |
-| onRemove     | function        | null      | A callback function that will be called when the notification is about to be removed. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was removed'); }`                                                                                  |
+| onAdd | function | null | A callback function that will be called when the notification is successfully added. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was added'); }` |
+| onRemove     | function        | null      | A callback function that will be called when the notification is about to be removed. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was removed'); }` |
 | uid          | integer/string           | null      | Overrides the internal `uid`. Useful if you are managing your notifications id. Notifications with same `uid` won't be displayed. |
 
 
