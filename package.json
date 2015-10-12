@@ -31,10 +31,16 @@
   "dependencies": {
     "object-assign": "^4.0.1"
   },
+  "peerDependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
   "devDependencies": {
     "eslint": "^1.6.0",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.5.1",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "react-tools": "^0.13.2",
     "watch": "^0.16.0"
   }
