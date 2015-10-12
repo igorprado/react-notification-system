@@ -210,16 +210,14 @@ Enter the project folder and install the dependencies:
 npm install
 ```
 
-To build the files, run from `root` folder:
+To start a development server and use the `example` app to load the component, type:
 
 ```
-npm run build
+npm start
 ```
 
-To watch files for change and automatically build:
+Open `http://localhost:8000`.
 
-```
-npm run watch
-```
+After that, just edit the files under `src/` and `example/src/app.js`. It uses React hot reload.
 
 This component is under construction. I will add more guidelines to who wants to contribute.
