@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-
-var NotificationSystem = require('react-notification-system');
+var NotificationSystem = require('../../dist/notification-system.js');
 
 var NotificationSystemExample = React.createClass({
 
