@@ -49,6 +49,7 @@
     "express": "^4.13.3",
     "isparta-loader": "^1.0.0",
     "karma": "^0.13.10",
+    "karma-chai-plugins": "^0.6.0",
     "karma-chrome-launcher": "^0.2.1",
     "karma-cli": "^0.1.1",
     "karma-coverage": "^0.5.2",
