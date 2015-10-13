@@ -6,6 +6,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "test": "karma start --single-run",
+    "test-watch": "karma start",
     "prepare-build": "npm run lint && rimraf dist/",
     "prebuild": "npm run prepare-build",
     "build": "jsx -x jsx ./src ./dist & jsx ./src ./dist",

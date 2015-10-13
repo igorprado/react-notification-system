@@ -1,6 +1,6 @@
 # React Notification System
 
-[![npm version](https://badge.fury.io/js/react-notification-system.svg)](http://badge.fury.io/js/react-notification-system) [![npm](https://img.shields.io/npm/dm/react-notification-system.svg)](https://www.npmjs.com/package/react-notification-system) [![Dependency Status](https://david-dm.org/igorprado/react-notification-system.svg)](https://david-dm.org/igorprado/react-notification-system) [![Build Status](https://travis-ci.org/igorprado/react-notification-system.svg)](https://travis-ci.org/igorprado/react-notification-system) [![Coverage Status](https://coveralls.io/repos/igorprado/react-notification-system/badge.svg?branch=master&service=github)](https://coveralls.io/github/igorprado/react-notification-system?branch=master)
+[![npm version](https://badge.fury.io/js/react-notification-system.svg)](http://badge.fury.io/js/react-notification-system) [![npm](https://img.shields.io/npm/dm/react-notification-system.svg)](https://www.npmjs.com/package/react-notification-system) [![Dependency Status](https://david-dm.org/igorprado/react-notification-system.svg)](https://david-dm.org/igorprado/react-notification-system) [![devDependency Status](https://david-dm.org/igorprado/react-notification-system/dev-status.svg)](https://david-dm.org/igorprado/react-notification-system#info=devDependencies) [![Build Status](https://travis-ci.org/igorprado/react-notification-system.svg)](https://travis-ci.org/igorprado/react-notification-system) [![Coverage Status](https://coveralls.io/repos/igorprado/react-notification-system/badge.svg?branch=master&service=github)](https://coveralls.io/github/igorprado/react-notification-system?branch=master)
 
 A complete and totally customizable notification system for React applications.
 
@@ -193,7 +193,7 @@ Using this method you have to take care of **every style**, since containers pos
 ```
 ## Roadmap
 
-* Add tests
+* Improve tests and coverage
 * Improve performance
 
 ## Contributions
@@ -217,6 +217,16 @@ npm start
 ```
 
 Open `http://localhost:8000`.
+
+---
+
+Run the tests:
+
+```
+npm test
+```
+
+You can find the coverage details under `coverage/` folder.
 
 After that, just edit the files under `src/` and `example/src/app.js`. It uses React hot reload.
 
