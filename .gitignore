@@ -1,6 +1,6 @@
+coverage/
 node_modules/
 dist/
 example/node_modules/
 example/build/.module-cache/
-example/npm-debug.*
-npm-debug.log
+*.log*

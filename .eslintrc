@@ -2,12 +2,15 @@
   "extends": "airbnb/legacy",
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true,
+    "mocha": true
   },
   "plugins": [
     "react"
   ],
   "ecmaFeatures": {
+    "modules": true,
     "jsx": true
   },
   "rules": {
