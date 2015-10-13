@@ -77,6 +77,8 @@ var NotificationItem = React.createClass({
 
   _isMounted: false,
 
+  _removeCount: 0,
+
   _getCssPropertyByPosition: function() {
     var position = this.props.notification.position;
     var css = {};
@@ -166,29 +168,28 @@ var NotificationItem = React.createClass({
     }, 50);
   },
 
+  _onTransitionEnd: function() {
+    if (this._removeCount > 0) return;
+    if (this.state.removed) {
+      this._removeCount++;
+      this._removeNotification();
+    }
+  },
+
   componentDidMount: function() {
     var self = this;
     var transitionEvent = whichTransitionEvent();
     var notification = this.props.notification;
     var element = ReactDOM.findDOMNode(this);
-    var count = 0;
 
     this._height = element.offsetHeight;
 
     this._isMounted = true;
 
     // Watch for transition end
-
-
     if (!this._noAnimation) {
       if (transitionEvent) {
-        element.addEventListener(transitionEvent, function() {
-          if (count > 0) return;
-          if (self.state.removed) {
-            count++;
-            self._removeNotification();
-          }
-        });
+        element.addEventListener(transitionEvent, this._onTransitionEnd);
       } else {
         this._noAnimation = true;
       }
@@ -199,20 +200,29 @@ var NotificationItem = React.createClass({
       this._notificationTimer = new Helpers.Timer(function() {
         self._hideNotification();
       }, notification.autoDismiss * 1000);
-
-      element.addEventListener('mouseenter', function() {
-        self._notificationTimer.pause();
-      });
-
-      element.addEventListener('mouseleave', function() {
-        self._notificationTimer.resume();
-      });
     }
 
     this._showNotification();
   },
 
+  _handleMouseEnter: function() {
+    var notification = this.props.notification;
+    if (notification.autoDismiss) {
+      this._notificationTimer.pause();
+    }
+  },
+
+  _handleMouseLeave: function() {
+    var notification = this.props.notification;
+    if (notification.autoDismiss) {
+      this._notificationTimer.resume();
+    }
+  },
+
   componentWillUnmount: function() {
+    var element = ReactDOM.findDOMNode(this);
+    var transitionEvent = whichTransitionEvent();
+    element.removeEventListener(transitionEvent, this._onTransitionEnd);
     this._isMounted = false;
   },
 
@@ -293,7 +303,7 @@ var NotificationItem = React.createClass({
     }
 
     return (
-      <div className={ className } onClick={ this._dismiss } style={ notificationStyle }>
+      <div className={ className } onClick={ this._dismiss } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
         { title }
         { message }
         { dismiss }

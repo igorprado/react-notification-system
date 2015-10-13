@@ -23,7 +23,7 @@ module.exports = function (config) {
   config.set({
     browsers: ['Firefox'],
     browserNoActivityTimeout: 30000,
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai', 'sinon-chai'],
     files: ['tests.webpack.js'],
     preprocessors: {'tests.webpack.js': ['webpack', 'sourcemap']},
     reporters: reporters,
