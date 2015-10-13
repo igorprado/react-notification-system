@@ -48,7 +48,6 @@
     "expect": "^1.12.1",
     "express": "^4.13.3",
     "isparta-loader": "^1.0.0",
-    "jsdom": "^6.5.1",
     "karma": "^0.13.10",
     "karma-chrome-launcher": "^0.2.1",
     "karma-cli": "^0.1.1",

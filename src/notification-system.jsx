@@ -85,72 +85,67 @@ var NotificationSystem = React.createClass({
     style: React.PropTypes.oneOfType([
       React.PropTypes.bool,
       React.PropTypes.object
-    ])
+    ]),
+    noAnimation: React.PropTypes.bool,
+    allowHTML: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
     return {
       style: {},
-      noAnimation: false
+      noAnimation: false,
+      allowHTML: false
     };
   },
 
   addNotification: function(notification) {
     var _notification = merge({}, Constants.notification, notification);
     var notifications = this.state.notifications;
-    var error = false;
     var i;
 
-    try {
-      if (!_notification.level) {
-        throw 'notification level is required.';
-      }
-
-      if (isNaN(_notification.autoDismiss)) {
-        throw '\'autoDismiss\' must be a number.';
-      }
-
-      if (Object.keys(Constants.positions).indexOf(_notification.position) === -1) {
-        throw '\'' + _notification.position + '\' is not a valid position.';
-      }
-
-      if (Object.keys(Constants.levels).indexOf(_notification.level) === -1) {
-        throw '\'' + _notification.level + '\' is not a valid level.';
-      }
-    } catch (err) {
-      error = true;
-      console.error('Error adding notification: ' + err);
+    if (!_notification.level) {
+      throw new Error('notification level is required.');
     }
 
-    if (!error) {
-      // Some preparations
-      _notification.position = _notification.position.toLowerCase();
-      _notification.level = _notification.level.toLowerCase();
-      _notification.autoDismiss = parseInt(_notification.autoDismiss, 10);
-
-      _notification.uid = _notification.uid || this.uid;
-      _notification.ref = 'notification-' + _notification.uid;
-      this.uid += 1;
-
-      // do not add if the notification already exists based on supplied uid
-      for (i = 0; i < notifications.length; i++) {
-        if (notifications[i].uid === _notification.uid) {
-          return false;
-        }
-      }
-
-      notifications.push(_notification);
-
-      if (typeof _notification.onAdd === 'function') {
-        notification.onAdd(_notification);
-      }
-
-      this.setState({
-        notifications: notifications
-      });
-
-      return _notification;
+    if (Object.keys(Constants.levels).indexOf(_notification.level) === -1) {
+      throw new Error('\'' + _notification.level + '\' is not a valid level.');
     }
+
+    if (isNaN(_notification.autoDismiss)) {
+      throw new Error('\'autoDismiss\' must be a number.');
+    }
+
+    if (Object.keys(Constants.positions).indexOf(_notification.position) === -1) {
+      throw new Error('\'' + _notification.position + '\' is not a valid position.');
+    }
+
+    // Some preparations
+    _notification.position = _notification.position.toLowerCase();
+    _notification.level = _notification.level.toLowerCase();
+    _notification.autoDismiss = parseInt(_notification.autoDismiss, 10);
+
+    _notification.uid = _notification.uid || this.uid;
+    _notification.ref = 'notification-' + _notification.uid;
+    this.uid += 1;
+
+    // do not add if the notification already exists based on supplied uid
+    for (i = 0; i < notifications.length; i++) {
+      if (notifications[i].uid === _notification.uid) {
+        return false;
+      }
+    }
+
+    notifications.push(_notification);
+
+    if (typeof _notification.onAdd === 'function') {
+      notification.onAdd(_notification);
+    }
+
+    this.setState({
+      notifications: notifications
+    });
+
+    return _notification;
   },
 
   removeNotification: function(notification) {
