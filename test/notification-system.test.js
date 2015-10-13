@@ -5,6 +5,7 @@ import TestUtils from 'react-addons-test-utils';
 import expect from 'expect';
 import NotificationSystem from 'notification-system';
 import { positions, levels } from 'constants';
+import merge from 'object-assign';
 
 const defaultNotification = {
   title: 'This is a title',
@@ -64,7 +65,7 @@ describe('Notification', () => {
     let count = 0;
     for (let position of Object.keys(positions)) {
       for (let level of Object.keys(levels)) {
-        let notificationObj = Object.assign({}, defaultNotification);
+        let notificationObj = merge({}, defaultNotification);
         notificationObj.position = positions[position];
         notificationObj.level = levels[level];
         component.addNotification(notificationObj);
@@ -214,7 +215,7 @@ describe('Notification', () => {
   });
 
   it('should render containers with a overrided width', done => {
-    let notificationObj = Object.assign({}, defaultNotification);
+    let notificationObj = merge({}, defaultNotification);
     notificationObj.position = 'tc';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-tc');
@@ -224,7 +225,7 @@ describe('Notification', () => {
   });
 
   it('should render a notification with specific style based on position', done => {
-    let notificationObj = Object.assign({}, defaultNotification);
+    let notificationObj = merge({}, defaultNotification);
     notificationObj.position = 'bc';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
@@ -234,7 +235,7 @@ describe('Notification', () => {
   });
 
   it('should render containers with a overrided width for a specific position', done => {
-    let notificationObj = Object.assign({}, defaultNotification);
+    let notificationObj = merge({}, defaultNotification);
     notificationObj.position = 'tl';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-tl');
@@ -244,14 +245,14 @@ describe('Notification', () => {
   });
 
   it('should throw an error if no level is defined', done => {
-    let notificationObj = Object.assign({}, defaultNotification);
+    let notificationObj = merge({}, defaultNotification);
     delete notificationObj.level;
     expect(component.addNotification).withArgs(notificationObj).toThrow(/notification level is required./);
     done();
   });
 
   it('should throw an error if autoDismiss is not a number', done => {
-    let notificationObj = Object.assign({}, defaultNotification);
+    let notificationObj = merge({}, defaultNotification);
     notificationObj.autoDismiss = 'string';
     expect(component.addNotification).withArgs(notificationObj).toThrow(/\'autoDismiss\' must be a number./);
     done();
