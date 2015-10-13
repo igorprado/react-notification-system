@@ -71,6 +71,20 @@ describe('Notification', () => {
         count++;
       }
     }
+
+    let containers = [];
+
+    for (let position of Object.keys(positions)) {
+      containers.push(TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-' + positions[position]));
+    }
+
+    containers.forEach(function(container) {
+      for (let level of Object.keys(levels)) {
+        let notification = container.getElementsByClassName('notification-' + levels[level]);
+        expect(notification).toExist();
+      }
+    });
+
     let notifications = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
     expect(notifications.length).toEqual(count);
     done();
