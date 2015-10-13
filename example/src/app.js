@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var NotificationSystem = require('../../dist/notification-system.js');
+var NotificationSystem = require('../../src/notification-system');
 
 var NotificationSystemExample = React.createClass({
 
@@ -9,21 +9,23 @@ var NotificationSystemExample = React.createClass({
   _lastNotificationAdded: null,
 
   _notify: function(event) {
-    event.preventDefault();
     var notification = this.state.notification;
+    event.preventDefault();
 
     notification.onRemove = this._onRemove;
 
     console.log('Notification object', notification);
 
-    this._lastNotificationAdded = this._notificationSystem.addNotification(notification);
+    this._lastNotificationAdded = this._notificationSystem
+      .addNotification(notification);
     this.setState({});
   },
 
   _removeLastNotification: function(event) {
     event.preventDefault();
     if (this._lastNotificationAdded) {
-      this._notificationSystem.removeNotification(this._lastNotificationAdded);
+      this._notificationSystem
+        .removeNotification(this._lastNotificationAdded);
     }
   },
 
@@ -33,8 +35,11 @@ var NotificationSystemExample = React.createClass({
     var value = event.target.value;
 
     if (prop === 'autoDismiss') {
-      if (value === '') value = 0;
-      value = parseInt(value);
+      if (value === '') {
+        value = 0;
+      }
+
+      value = parseInt(value, 10);
     }
 
     notification[prop] = value;
@@ -54,6 +59,7 @@ var NotificationSystemExample = React.createClass({
 
   _changedDismissible: function(event) {
     var notification = this.state.notification;
+    event.preventDefault();
     notification.dismissible = !notification.dismissible;
 
     this.setState({
@@ -63,6 +69,7 @@ var NotificationSystemExample = React.createClass({
 
   _changedAllowHTML: function(event) {
     var allowHTML = !this.state.allowHTML;
+    event.preventDefault();
     this.setState({
       allowHTML: allowHTML
     });
@@ -74,6 +81,7 @@ var NotificationSystemExample = React.createClass({
 
   _changedAction: function(event) {
     var notification = this.state.notification;
+    event.preventDefault();
     notification.actionState = !notification.actionState;
 
     if (notification.actionState) {
@@ -99,14 +107,12 @@ var NotificationSystemExample = React.createClass({
     this.setState({
       notification: notification
     });
-
-
   },
 
   getInitialState: function() {
     return {
       notification: {
-        title: "Default title",
+        title: 'Default title',
         message: 'Default message',
         level: 'error',
         position: 'tr',
@@ -120,48 +126,43 @@ var NotificationSystemExample = React.createClass({
   },
   componentDidMount: function() {
     this._notificationSystem = this.refs.notificationSystem;
-
   },
+
   render: function() {
     var notification = this.state.notification;
-
-    var action = null;
-
-    if (notification.actionState) {
-      action = (
-        <div className="form-group">
-          <div className="input-group">
-            <div className="input-group-addon">label</div>
-            <input className="form-control" name="label" onChange={this._changedActionLabel} type="text" value={notification.action.label} />
-          </div>
-        </div>
-      );
-    }
-
-    var removeButton = null;
-
-    if (this._lastNotificationAdded) {
-      removeButton = (
-        <div className="form-group">
-          <button className="btn btn-sm btn-block btn-danger" onClick={this._removeLastNotification}>Remove last notification!</button>
-        </div>
-      );
-    }
-
-    var style = false;
-
     var error = {
       position: 'hide',
       dismissible: 'hide',
       level: 'hide',
       action: 'hide'
     };
+    var action = null;
+    var removeButton = null;
 
-    if (notification.position === "in") {
+    if (notification.actionState) {
+      action = (
+        <div className='form-group'>
+          <div className='input-group'>
+            <div className='input-group-addon'>label</div>
+            <input className='form-control' name='label' onChange={ this._changedActionLabel } type='text' value={ notification.action.label }/>
+          </div>
+        </div>
+      );
+    }
+
+    if (this._lastNotificationAdded) {
+      removeButton = (
+        <div className='form-group'>
+          <button className='btn btn-sm btn-block btn-danger' onClick={ this._removeLastNotification }>Remove last notification!</button>
+        </div>
+      );
+    }
+
+    if (notification.position === 'in') {
       error.position = 'text-danger';
     }
 
-    if (notification.level === "in") {
+    if (notification.level === 'in') {
       error.level = 'text-danger';
     }
 
@@ -170,110 +171,108 @@ var NotificationSystemExample = React.createClass({
       error.action = 'text-danger';
     }
 
-    return  <div className="container">
-              <div className="row">
-                <div className="col-xs-12 col-sm-8 col-sm-offset-2">
-                  <div className="page-header">
-                    <h1>React Notification System</h1>
+    return (
+      <div className='container'>
+        <div className='row'>
+          <div className='col-xs-12 col-sm-8 col-sm-offset-2'>
+            <div className='page-header'>
+              <h1>React Notification System</h1>
+            </div>
+            <p>Open your console to see some logs from the component.</p>
+
+            <div className='row'>
+              <div className='col-xs-12'>
+                <form>
+                  <div className='form-group'>
+                    <label>Title:</label>
+                    <input className='form-control' name='title' onChange={ this._changed } type='text' value={ notification.title }/>
+                    <small>Leave empty to hide.</small>
                   </div>
-                  <p>Open your console to see some logs from the component.</p>
-
-                  <div className="row">
-                    <div className="col-xs-12">
-                      <form>
-                        <div className="form-group">
-                          <label>Title:</label>
-                          <input className="form-control" name="title" onChange={this._changed} type="text" value={notification.title} />
-                          <small>Leave empty to hide.</small>
-                        </div>
-                        <div className="form-group">
-                          <label>Message:</label>
-                          <input className="form-control" name="message" onChange={this._changed} type="text" value={notification.message} />
-                        </div>
-                        <div className="form-group">
-                          <div className="checkbox">
-                            <label>
-                              <input type="checkbox" checked={this.state.allowHTML} onChange={this._changedAllowHTML} />
-                              Allow HTML in message?
-                            </label>
-                          </div>
-                        </div>
-                        <div className="form-group">
-                          <label>Position:</label>
-                          <select className="form-control" name="position" onChange={this._changed} value={notification.position}>
-                            <option value="tl">Top left (tl)</option>
-                            <option value="tr">Top right (tr)</option>
-                            <option value="tc">Top center (tc)</option>
-                            <option value="bl">Bottom left (bl)</option>
-                            <option value="br">Bottom right (br)</option>
-                            <option value="bc">Bottom center (bc)</option>
-                            <option value="in">Invalid position</option>
-                          </select>
-                          <small className={error.position}>Open console to see the error after creating a notification.</small>
-                        </div>
-                        <div className="form-group">
-                          <label>Level:</label>
-                          <select className="form-control" name="level" onChange={this._changed} value={notification.level}>
-                            <option value="success">Success</option>
-                            <option value="error">Error</option>
-                            <option value="warning">Warning</option>
-                            <option value="info">Info</option>
-                            <option value="in">Invalid level</option>
-                          </select>
-                          <small className={error.level}>Open console to see the error after creating a notification.</small>
-                        </div>
-
-                        <div className="form-group">
-                          <label>Auto Dismiss delay:</label>
-                          <div className="input-group">
-                            <input className="form-control" name="autoDismiss" onChange={this._changed} type="text" value={notification.autoDismiss} />
-                            <div className="input-group-addon">secs (0 means infinite)</div>
-                          </div>
-                        </div>
-
-                        <div className="form-group">
-                          <div className="checkbox">
-                            <label>
-                              <input type="checkbox" checked={notification.dismissible} onChange={this._changedDismissible} />
-                              Can user dismiss
-                            </label>
-                          </div>
-                        </div>
-
-                        <div className="form-group row">
-                          <div className="col-xs-12 col-sm-5">
-                            <div className="checkbox">
-                              <label>
-                                <input type="checkbox" checked={notification.actionState} onChange={this._changedAction} />
-                                Action
-                              </label>
-                            </div>
-                          </div>
-
-                          <div className="col-xs-12 col-sm-7">
-                            {action}
-                          </div>
-                          <small className={error.dismissible}>This notification will be only dismissible programmatically or after 'autoDismiss' timeout.</small>
-                        </div>
-
-
-                        {removeButton}
-
-                        <div className="form-group">
-                          <button className="btn btn-lg btn-block btn-success" onClick={this._notify}>Notify!</button>
-                        </div>
-
-                      </form>
+                  <div className='form-group'>
+                    <label>Message:</label>
+                    <input className='form-control' name='message' onChange={ this._changed } type='text' value={ notification.message }/>
+                  </div>
+                  <div className='form-group'>
+                    <div className='checkbox'>
+                      <label>
+                        <input checked={ this.state.allowHTML } onChange={ this._changedAllowHTML } type='checkbox'/>
+                        Allow HTML in message?
+                      </label>
                     </div>
                   </div>
-                </div>
+                  <div className='form-group'>
+                    <label>Position:</label>
+                    <select className='form-control' name='position' onChange={ this._changed } value={ notification.position }>
+                      <option value='tl'>Top left (tl)</option>
+                      <option value='tr'>Top right (tr)</option>
+                      <option value='tc'>Top center (tc)</option>
+                      <option value='bl'>Bottom left (bl)</option>
+                      <option value='br'>Bottom right (br)</option>
+                      <option value='bc'>Bottom center (bc)</option>
+                      <option value='in'>Invalid position</option>
+                    </select>
+                    <small className={ error.position }>Open console to see the error after creating a notification.</small>
+                  </div>
+                  <div className='form-group'>
+                    <label>Level:</label>
+                    <select className='form-control' name='level' onChange={ this._changed } value={ notification.level }>
+                      <option value='success'>Success</option>
+                      <option value='error'>Error</option>
+                      <option value='warning'>Warning</option>
+                      <option value='info'>Info</option>
+                      <option value='in'>Invalid level</option>
+                    </select>
+                    <small className={ error.level }>Open console to see the error after creating a notification.</small>
+                  </div>
+
+                  <div className='form-group'>
+                    <label>Auto Dismiss delay:</label>
+                    <div className='input-group'>
+                      <input className='form-control' name='autoDismiss' onChange={ this._changed } type='text' value={ notification.autoDismiss }/>
+                      <div className='input-group-addon'>secs (0 means infinite)</div>
+                    </div>
+                  </div>
+
+                  <div className='form-group'>
+                    <div className='checkbox'>
+                      <label>
+                        <input checked={ notification.dismissible } onChange={ this._changedDismissible } type='checkbox'/>
+                        Can user dismiss
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className='form-group row'>
+                    <div className='col-xs-12 col-sm-5'>
+                      <div className='checkbox'>
+                        <label>
+                          <input checked={ notification.actionState } onChange={ this._changedAction } type='checkbox'/>
+                          Action
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className='col-xs-12 col-sm-7'>
+                      { action }
+                    </div>
+                    <small className={ error.dismissible }>This notification will be only dismissible programmatically or after 'autoDismiss' timeout.</small>
+                  </div>
+
+                  { removeButton }
+
+                  <div className='form-group'>
+                    <button className='btn btn-lg btn-block btn-success' onClick={ this._notify }>Notify!</button>
+                  </div>
+
+                </form>
               </div>
-              <NotificationSystem ref="notificationSystem" allowHTML={this.state.allowHTML} />
-            </div>;
+            </div>
+          </div>
+        </div>
+        <NotificationSystem allowHTML={ this.state.allowHTML } ref='notificationSystem'/>
+      </div>
+    );
   }
 });
 
-ReactDOM.render(
-  React.createElement(NotificationSystemExample),
-  document.getElementById('app')
-);
+ReactDOM.render(React.createElement(NotificationSystemExample), document.getElementById('app'));

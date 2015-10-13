@@ -1,6 +1,6 @@
 # React Notification System
 
-[![npm version](https://badge.fury.io/js/react-notification-system.svg)](http://badge.fury.io/js/react-notification-system) [![npm](https://img.shields.io/npm/dm/react-notification-system.svg)](https://www.npmjs.com/package/react-notification-system) [![Dependency Status](https://david-dm.org/igorprado/react-notification-system.svg)](https://david-dm.org/igorprado/react-notification-system) [![Package Quality](http://npm.packagequality.com/shield/react-notification-system.svg)](http://packagequality.com/#?package=react-notification-system)
+[![npm version](https://badge.fury.io/js/react-notification-system.svg)](http://badge.fury.io/js/react-notification-system) [![npm](https://img.shields.io/npm/dm/react-notification-system.svg)](https://www.npmjs.com/package/react-notification-system) [![Dependency Status](https://david-dm.org/igorprado/react-notification-system.svg)](https://david-dm.org/igorprado/react-notification-system) [![Build Status](https://travis-ci.org/igorprado/react-notification-system.svg)](https://travis-ci.org/igorprado/react-notification-system) [![Coverage Status](https://coveralls.io/repos/igorprado/react-notification-system/badge.svg?branch=develop&service=github)](https://coveralls.io/github/igorprado/react-notification-system?branch=master)
 
 A complete and totally customizable notification system for React applications.
 
@@ -210,16 +210,14 @@ Enter the project folder and install the dependencies:
 npm install
 ```
 
-To build the files, run from `root` folder:
+To start a development server and use the `example` app to load the component, type:
 
 ```
-npm run build
+npm start
 ```
 
-To watch files for change and automatically build:
+Open `http://localhost:8000`.
 
-```
-npm run watch
-```
+After that, just edit the files under `src/` and `example/src/app.js`. It uses React hot reload.
 
 This component is under construction. I will add more guidelines to who wants to contribute.
