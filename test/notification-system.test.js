@@ -38,20 +38,34 @@ describe('Notification', () => {
     done();
   });
 
-  it('should add a single notification', done => {
+  it('should render a single notification', done => {
     component.addNotification(MOCK);
     let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
     expect(notification.length).toEqual(1);
     done();
   });
 
-  it('should add tree notifications', done => {
+  it('should render three (03) notifications', done => {
     component.addNotification(MOCK);
     component.addNotification(MOCK);
     component.addNotification(MOCK);
 
     let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
     expect(notification.length).toEqual(3);
+    done();
+  });
+
+  it('should remove a notification using returned object', done => {
+    let notificationObj = component.addNotification(MOCK);
+    let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(1);
+
+    component.removeNotification(notificationObj);
+    setTimeout(function() {
+      let notificationRemoved = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+      expect(notificationRemoved.length).toEqual(0);
+    }, 200);
+
     done();
   });
 
