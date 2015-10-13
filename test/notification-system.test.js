@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import TestUtils from 'react-addons-test-utils';
 import expect from 'expect';
 import NotificationSystem from 'notification-system';
+import { positions, levels } from 'constants';
 
 const defaultNotification = {
   title: 'This is a title',
@@ -59,6 +60,22 @@ describe('Notification', () => {
     done();
   });
 
+  it('should render notifications in all positions with all levels', done => {
+    let count = 0;
+    for (let position of Object.keys(positions)) {
+      for (let level of Object.keys(levels)) {
+        let notificationObj = Object.assign({}, defaultNotification);
+        notificationObj.position = positions[position];
+        notificationObj.level = levels[level];
+        component.addNotification(notificationObj);
+        count++;
+      }
+    }
+    let notifications = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notifications.length).toEqual(count);
+    done();
+  });
+
   it('should render multiple notifications', done => {
     const randomNumber = Math.floor(Math.random(5, 10));
 
@@ -66,8 +83,8 @@ describe('Notification', () => {
       component.addNotification(defaultNotification);
     }
 
-    let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
-    expect(notification.length).toEqual(randomNumber);
+    let notifications = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notifications.length).toEqual(randomNumber);
     done();
   });
 
