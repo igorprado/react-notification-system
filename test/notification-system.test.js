@@ -69,6 +69,20 @@ describe('Notification', () => {
     done();
   });
 
+  it('should remove a notification using uid', done => {
+    let notificationObj = component.addNotification(MOCK);
+    let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(1);
+
+    component.removeNotification(notificationObj.uid);
+    setTimeout(function() {
+      let notificationRemoved = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+      expect(notificationRemoved.length).toEqual(0);
+    }, 200);
+
+    done();
+  });
+
   it('should render no title if not provided', done => {
     delete MOCK.title;
     component.addNotification(MOCK);
