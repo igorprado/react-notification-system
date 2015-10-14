@@ -30,6 +30,7 @@ describe('Notification Component', function() {
   let instance;
   let component;
   let clock;
+  let notificationObj;
   const ref = 'notificationSystem';
 
   this.timeout(10000);
@@ -44,6 +45,7 @@ describe('Notification Component', function() {
     node = window.document.createElement('div');
     instance = TestUtils.renderIntoDocument(React.createElement(ElementWrapper), node);
     component = instance.refs[ref];
+    notificationObj = merge({}, defaultNotification);
 
     clock = sinon.useFakeTimers();
   });
@@ -83,7 +85,6 @@ describe('Notification Component', function() {
     let count = 0;
     for (let position of Object.keys(positions)) {
       for (let level of Object.keys(levels)) {
-        let notificationObj = merge({}, defaultNotification);
         notificationObj.position = positions[position];
         notificationObj.level = levels[level];
         component.addNotification(notificationObj);
@@ -121,8 +122,16 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should not render notifications with the same uid', done => {
+    notificationObj.uid = 500;
+    component.addNotification(notificationObj);
+    component.addNotification(notificationObj);
+    let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(1);
+    done();
+  });
+
   it('should remove a notification after autoDismiss', function(done) {
-    let notificationObj = merge({}, defaultNotification);
     notificationObj.autoDismiss = 2;
     component.addNotification(notificationObj);
     clock.tick(3000);
@@ -132,11 +141,11 @@ describe('Notification Component', function() {
   });
 
   it('should remove a notification using returned object', done => {
-    let notificationObj = component.addNotification(defaultNotification);
+    let notificationCreated = component.addNotification(defaultNotification);
     let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
     expect(notification.length).toEqual(1);
 
-    component.removeNotification(notificationObj);
+    component.removeNotification(notificationCreated);
     clock.tick(1000);
     let notificationRemoved = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
     expect(notificationRemoved.length).toEqual(0);
@@ -144,11 +153,11 @@ describe('Notification Component', function() {
   });
 
   it('should remove a notification using uid', done => {
-    let notificationObj = component.addNotification(defaultNotification);
+    let notificationCreated = component.addNotification(defaultNotification);
     let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
     expect(notification.length).toEqual(1);
 
-    component.removeNotification(notificationObj.uid);
+    component.removeNotification(notificationCreated.uid);
     clock.tick(200);
     let notificationRemoved = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
     expect(notificationRemoved.length).toEqual(0);
@@ -156,7 +165,6 @@ describe('Notification Component', function() {
   });
 
   it('should dismiss notification on click', done => {
-    let notificationObj = merge({}, defaultNotification);
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
     TestUtils.Simulate.click(notification);
@@ -167,7 +175,6 @@ describe('Notification Component', function() {
   });
 
   it('should not render title if not provided', done => {
-    let notificationObj = merge({}, defaultNotification);
     delete notificationObj.title;
     component.addNotification(notificationObj);
     let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification-title');
@@ -176,7 +183,6 @@ describe('Notification Component', function() {
   });
 
   it('should not render message if not provided', done => {
-    let notificationObj = merge({}, defaultNotification);
     delete notificationObj.message;
     component.addNotification(notificationObj);
     let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification-message');
@@ -185,7 +191,6 @@ describe('Notification Component', function() {
   });
 
   it('should not dismiss the notificaion on click if dismissible is false', done => {
-    let notificationObj = merge({}, defaultNotification);
     notificationObj.dismissible = false;
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
@@ -208,7 +213,6 @@ describe('Notification Component', function() {
   });
 
   it('should execute a callback function when notification button is clicked', done => {
-    let notificationObj = merge({}, defaultNotification);
     let testThis = false;
     notificationObj.action = {
       label: 'Click me',
@@ -224,8 +228,31 @@ describe('Notification Component', function() {
     done();
   });
 
-  it('should pause the timer if a notification has a mouse over', done => {
-    let notificationObj = merge({}, defaultNotification);
+  it('should execute a callback function on add a notification', done => {
+    let testThis = false;
+    notificationObj.onAdd = function() {
+      testThis = true;
+    };
+
+    component.addNotification(notificationObj);
+    expect(testThis).toEqual(true);
+    done();
+  });
+
+  it('should execute a callback function on remove a notification', done => {
+    let testThis = false;
+    notificationObj.onRemove = function() {
+      testThis = true;
+    };
+
+    component.addNotification(notificationObj);
+    let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    TestUtils.Simulate.click(notification);
+    expect(testThis).toEqual(true);
+    done();
+  });
+
+  it('should pause the timer if a notification has a mouse enter', done => {
     notificationObj.autoDismiss = 2;
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
@@ -233,6 +260,19 @@ describe('Notification Component', function() {
     clock.tick(4000);
     let _notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
     expect(_notification).toExist();
+    done();
+  });
+
+  it('should resume the timer if a notification has a mouse leave', done => {
+    notificationObj.autoDismiss = 2;
+    component.addNotification(notificationObj);
+    let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    TestUtils.Simulate.mouseEnter(notification);
+    clock.tick(800);
+    TestUtils.Simulate.mouseLeave(notification);
+    clock.tick(2000);
+    let _notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(_notification.length).toEqual(0);
     done();
   });
 
@@ -246,7 +286,6 @@ describe('Notification Component', function() {
   });
 
   it('should render containers with a overrided width', done => {
-    let notificationObj = merge({}, defaultNotification);
     notificationObj.position = 'tc';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-tc');
@@ -256,7 +295,6 @@ describe('Notification Component', function() {
   });
 
   it('should render a notification with specific style based on position', done => {
-    let notificationObj = merge({}, defaultNotification);
     notificationObj.position = 'bc';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
@@ -266,7 +304,6 @@ describe('Notification Component', function() {
   });
 
   it('should render containers with a overrided width for a specific position', done => {
-    let notificationObj = merge({}, defaultNotification);
     notificationObj.position = 'tl';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-tl');
@@ -276,28 +313,24 @@ describe('Notification Component', function() {
   });
 
   it('should throw an error if no level is defined', done => {
-    let notificationObj = merge({}, defaultNotification);
     delete notificationObj.level;
     expect(component.addNotification).withArgs(notificationObj).toThrow(/notification level is required/);
     done();
   });
 
   it('should throw an error if a invalid level is defined', done => {
-    let notificationObj = merge({}, defaultNotification);
     notificationObj.level = 'invalid';
     expect(component.addNotification).withArgs(notificationObj).toThrow(/is not a valid level/);
     done();
   });
 
   it('should throw an error if a invalid position is defined', done => {
-    let notificationObj = merge({}, defaultNotification);
     notificationObj.position = 'invalid';
     expect(component.addNotification).withArgs(notificationObj).toThrow(/is not a valid position/);
     done();
   });
 
   it('should throw an error if autoDismiss is not a number', done => {
-    let notificationObj = merge({}, defaultNotification);
     notificationObj.autoDismiss = 'string';
     expect(component.addNotification).withArgs(notificationObj).toThrow(/\'autoDismiss\' must be a number./);
     done();
