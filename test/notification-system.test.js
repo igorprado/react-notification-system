@@ -228,6 +228,19 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should accept an action without callback function defined', done => {
+    notificationObj.action = {
+      label: 'Click me'
+    };
+
+    component.addNotification(notificationObj);
+    let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification-action-button');
+    TestUtils.Simulate.click(button);
+    let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(0);
+    done();
+  });
+
   it('should execute a callback function on add a notification', done => {
     let testThis = false;
     notificationObj.onAdd = function() {
