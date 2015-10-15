@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'example/build'),
     filename: 'app.js',
-    publicPath: '/build/'
+    publicPath: 'build/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

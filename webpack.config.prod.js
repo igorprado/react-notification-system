@@ -17,7 +17,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'example/build'),
     filename: 'app.js',
-    publicPath: '/build/'
+    publicPath: '../build/'
   },
   plugins: [
     new ExtractTextPlugin('app.css', { allChunks: true }),
@@ -49,7 +49,7 @@ module.exports = {
         if_return: true,
         join_vars: true,
         cascade: true,
-        drop_console: true
+        drop_console: false
       },
       output: {
         comments: false
