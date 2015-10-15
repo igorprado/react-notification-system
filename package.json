@@ -2,7 +2,7 @@
   "name": "react-notification-system",
   "version": "0.2.4",
   "description": "A React Notification System fully customized",
-  "main": "dist/notification-system.js",
+  "main": "dist/NotificationSystem.js",
   "scripts": {
     "prepublish": "npm run build",
     "test": "karma start --single-run",
@@ -12,7 +12,7 @@
     "build": "jsx -x jsx ./src ./dist & jsx ./src ./dist",
     "lint": "eslint src --ext .jsx,.js",
     "start": "NODE_ENV=development node devServer.js",
-    "build-example": "webpack --stats --config webpack.config.prod.js"
+    "build-example": "rimraf example/build/ && webpack --stats --config webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "expect": "^1.12.1",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
     "install": "^0.1.8",
     "isparta-loader": "^1.0.0",
     "karma": "^0.13.10",
