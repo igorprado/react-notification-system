@@ -1,0 +1,54 @@
+@import "../../bower_components/primer-css/scss/primer.scss"
+
+$blue-green: #0C6D6D
+
+.header
+  background: #00b7ea; /* Old browsers */
+  background: -moz-linear-gradient(-45deg,  #00b7ea 0%, #8ca246 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#00b7ea), color-stop(100%,#8ca246)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(-45deg,  #00b7ea 0%,#8ca246 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(-45deg,  #00b7ea 0%,#8ca246 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(-45deg,  #00b7ea 0%,#8ca246 100%); /* IE10+ */
+  background: linear-gradient(135deg,  #00b7ea 0%,#8ca246 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#8ca246',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  padding: 150px 0 10px
+  text-align: center
+  border-bottom: 4px solid $blue-green
+
+.title
+  color: #FFF
+  font-size: 52px
+  letter-spacing: -1px
+
+.subtitle
+  color: $blue-green
+
+.btn-show-magic
+  margin-top: 50px
+  padding: 12px 24px
+  font-size: 18px
+  line-height: 26px
+  border-color: #FFF
+  background: transparent
+  color: #FFF
+  transition: all 0.3s ease-in-out
+
+  &:hover, &:active, &:focus
+    border-color: $blue-green
+    color: #FFF
+    background-color: $blue-green
+    box-shadow: none
+
+    &:focus
+      border-color: $blue-green
+
+.more-magic
+  display: block
+  color: #FFF
+  margin-top: 5px
+
+.github-buttons
+  margin-top: 70px
+
+  iframe
+    margin: 0 10px

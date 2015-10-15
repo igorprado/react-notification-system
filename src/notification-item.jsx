@@ -125,7 +125,9 @@ var NotificationItem = React.createClass({
 
     event.preventDefault();
     this._hideNotification();
-    notification.action.callback();
+    if (typeof notification.action.callback === 'function') {
+      notification.action.callback();
+    }
   },
 
   _hideNotification: function() {
