@@ -1,4 +1,15 @@
+.DS_Store
 example/
+coverage/
+test/
+dist/.module-cache/
 .gitignore
 .git/
-dist/.module-cache
+webpack.*
+karma.config.js
+devServer.js
+tests.webpack.js
+.travis.yml
+.editorconfig
+.eslintignore
+.eslintrc
