@@ -1,6 +1,6 @@
 var React = require('react');
 var merge = require('object-assign');
-var NotificationContainer = require('./notification-container');
+var NotificationContainer = require('./NotificationContainer');
 var Constants = require('./constants');
 var Styles = require('./styles');
 
@@ -196,7 +196,7 @@ var NotificationSystem = React.createClass({
 
 
     return (
-      <div className='notifications-wrapper' style={ this._getStyles.wrapper() }>
+      <div className="notifications-wrapper" style={ this._getStyles.wrapper() }>
         { containers }
       </div>
 
