@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import TestUtils from 'react-addons-test-utils';
 import expect from 'expect';
-import NotificationSystem from 'notification-system';
+import NotificationSystem from 'NotificationSystem';
 import { positions, levels } from 'constants';
 import merge from 'object-assign';
 

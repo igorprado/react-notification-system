@@ -125,7 +125,9 @@ var NotificationItem = React.createClass({
 
     event.preventDefault();
     this._hideNotification();
-    notification.action.callback();
+    if (typeof notification.action.callback === 'function') {
+      notification.action.callback();
+    }
   },
 
   _hideNotification: function() {
@@ -271,29 +273,29 @@ var NotificationItem = React.createClass({
     }
 
     if (notification.title) {
-      title = <h4 className='notification-title' style={ this._styles.title }>{ notification.title }</h4>;
+      title = <h4 className="notification-title" style={ this._styles.title }>{ notification.title }</h4>;
     }
 
     if (notification.message) {
       if (this.props.allowHTML) {
         message = (
-          <div className='notification-message' style={ this._styles.messageWrapper } dangerouslySetInnerHTML={ this._allowHTML(notification.message) }></div>
+          <div className="notification-message" style={ this._styles.messageWrapper } dangerouslySetInnerHTML={ this._allowHTML(notification.message) }></div>
         );
       } else {
         message = (
-          <div className='notification-message' style={ this._styles.messageWrapper }>{ notification.message }</div>
+          <div className="notification-message" style={ this._styles.messageWrapper }>{ notification.message }</div>
         );
       }
     }
 
     if (notification.dismissible) {
-      dismiss = <span className='notification-dismiss' style={ this._styles.dismiss }>&times;</span>;
+      dismiss = <span className="notification-dismiss" style={ this._styles.dismiss }>&times;</span>;
     }
 
     if (notification.action) {
       actionButton = (
-        <div className='notification-action-wrapper' style={ this._styles.actionWrapper }>
-          <button className='notification-action-button'
+        <div className="notification-action-wrapper" style={ this._styles.actionWrapper }>
+          <button className="notification-action-button"
             onClick={ this._defaultAction }
             style={ this._styles.action }>
               { notification.action.label }

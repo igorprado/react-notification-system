@@ -1,5 +1,5 @@
 var React = require('react');
-var NotificationItem = require('./notification-item');
+var NotificationItem = require('./NotificationItem');
 var Constants = require('./constants');
 
 var NotificationContainer = React.createClass({
