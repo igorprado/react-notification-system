@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var NotificationSystem = require('notification-system');
-// var NotificationGenerator = require('./notificationGenerator');
+var NotificationGenerator = require('./notificationGenerator');
 var NotificationSystemExample;
 
 // Styles
@@ -103,6 +103,7 @@ NotificationSystemExample = React.createClass({
           </div>
         </header>
         <div className='container'>
+          <NotificationGenerator notifications={ this._notificationSystemInstance } />
         </div>
         <NotificationSystem ref='notificationSystem' />
       </div>

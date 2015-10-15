@@ -1,5 +1,20 @@
-@import "../../bower_components/primer-css/scss/primer.scss"
+// Import defaults
+@import "../../bower_components/primer-css/scss/variables"
+@import "../../bower_components/primer-css/scss/mixins"
 
+// My overrides
+$body-font: 'Roboto', sans-serif
+
+// Import base and used components
+@import "../../bower_components/primer-css/scss/normalize"
+@import "../../bower_components/primer-css/scss/base"
+@import "../../bower_components/primer-css/scss/type"
+@import "../../bower_components/primer-css/scss/layout"
+@import "../../bower_components/primer-css/scss/forms"
+@import "../../bower_components/primer-css/scss/utility"
+@import "../../bower_components/primer-css/scss/buttons"
+
+// My variables
 $blue-green: #0C6D6D
 
 .header
@@ -25,9 +40,9 @@ $blue-green: #0C6D6D
 
 .btn-show-magic
   margin-top: 50px
-  padding: 12px 24px
-  font-size: 18px
-  line-height: 26px
+  padding: 18px 30px
+  font-size: 24px
+  line-height: 32px
   border-color: #FFF
   background: transparent
   color: #FFF
