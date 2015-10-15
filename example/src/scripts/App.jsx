@@ -5,7 +5,7 @@ var NotificationGenerator = require('./NotificationGenerator');
 var NotificationSystemExample;
 
 // Styles
-console.log(require('styles/base'));
+require('styles/base');
 
 NotificationSystemExample = React.createClass({
 
@@ -76,7 +76,6 @@ NotificationSystemExample = React.createClass({
 
   _allowHTML: function(allow) {
     this.setState({ allowHTML: allow });
-    console.log(this.state);
   },
 
   _showTheMagic: function() {
@@ -105,17 +104,20 @@ NotificationSystemExample = React.createClass({
     return (
       <div className="app-container">
         <header style={ { minHeight: this.state.viewHeight } } className="header gradient">
-          <h1 className="title">React Notification System</h1>
-          <h2 className="subtitle">A complete and totally customizable notifications component for React</h2>
-          <h3 className="versions">(For React 0.14x and 0.13.x)</h3>
+          <div className="overlay"></div>
+          <div className="content">
+            <h1 className="title">React Notification System</h1>
+            <h2 className="subtitle">A complete and totally customizable notifications component for React</h2>
+            <h3 className="versions">(For React 0.14x and 0.13.x)</h3>
 
-          <div className="btn-show-magic-holder">
-            <button className="btn btn-outline btn-show-magic" onClick={ this._showTheMagic }>Show me what it can do!</button>
-            <small className="more-magic">Click twice for more awesomeness!</small>
-          </div>
-          <div className="github-buttons">
-            <a className="github-button" href="https://github.com/igorprado/react-notification-system" data-style="mega" data-icon="octicon-star" data-count-href="/igorprado/react-notification-system/stargazers" data-count-api="/repos/igorprado/react-notification-system#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star igorprado/react-notification-system on GitHub">Star</a>
-            <a className="github-button" href="https://github.com/igorprado/react-notification-system/fork" data-style="mega" data-icon="octicon-repo-forked" data-count-href="/igorprado/react-notification-system/network" data-count-api="/repos/igorprado/react-notification-system#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork igorprado/react-notification-system on GitHub">Fork</a>
+            <div className="btn-show-magic-holder">
+              <button className="btn btn-outline btn-show-magic" onClick={ this._showTheMagic }>Show me what it can do!</button>
+              <small className="more-magic">Click twice for more awesomeness!</small>
+            </div>
+            <div className="github-buttons">
+              <a className="github-button" href="https://github.com/igorprado/react-notification-system" data-style="mega" data-icon="octicon-star" data-count-href="/igorprado/react-notification-system/stargazers" data-count-api="/repos/igorprado/react-notification-system#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star igorprado/react-notification-system on GitHub">Star</a>
+              <a className="github-button" href="https://github.com/igorprado/react-notification-system/fork" data-style="mega" data-icon="octicon-repo-forked" data-count-href="/igorprado/react-notification-system/network" data-count-api="/repos/igorprado/react-notification-system#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork igorprado/react-notification-system on GitHub">Fork</a>
+            </div>
           </div>
         </header>
         <div className="wrapper">
