@@ -12,7 +12,7 @@ var sassLoaders = [
 
 module.exports = {
   entry: [
-    './example/src/scripts/app'
+    './example/src/scripts/App'
   ],
   output: {
     path: path.join(__dirname, 'example/build'),
@@ -20,7 +20,7 @@ module.exports = {
     publicPath: '/build/'
   },
   plugins: [
-    new ExtractTextPlugin('app.css'),
+    new ExtractTextPlugin('app.css', { allChunks: true }),
     // set env
     new webpack.DefinePlugin({
       'process.env': {
@@ -73,6 +73,11 @@ module.exports = {
       {
         test: /\.sass$/,
         loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg|woff|eot|ttf)$/,
+        loader: 'file-loader',
+        exclude: /node_modules/
       }
     ]
   }

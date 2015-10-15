@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client',
-    './example/src/scripts/app'
+    './example/src/scripts/App'
   ],
   output: {
     path: path.join(__dirname, 'example/build'),
@@ -50,10 +50,15 @@ module.exports = {
         test: /\.sass$/,
         loaders: [
           'style-loader',
-          'css-loader?sourceMap',
+          'css-loader',
           'autoprefixer-loader?browsers=last 2 version',
-          'sass-loader?sourceMap&indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, 'example/src')
+          'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, 'example/src')
         ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg|woff|eot|ttf)$/,
+        loader: 'file-loader',
+        exclude: /node_modules/
       }
     ]
   }
