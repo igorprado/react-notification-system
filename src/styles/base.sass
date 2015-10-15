@@ -2,8 +2,8 @@
 @import "../../bower_components/primer-css/scss/variables"
 @import "../../bower_components/primer-css/scss/mixins"
 
-// My overrides
-$body-font: 'Roboto', sans-serif
+// My overrides & variables
+@import "variables"
 
 // Import base and used components
 @import "../../bower_components/primer-css/scss/normalize"
@@ -14,10 +14,18 @@ $body-font: 'Roboto', sans-serif
 @import "../../bower_components/primer-css/scss/utility"
 @import "../../bower_components/primer-css/scss/buttons"
 
-// My variables
-$blue-green: #0C6D6D
+html, body
+  height: 100%
 
 .header
+  padding: 150px 0 0
+  text-align: center
+  border-bottom: 6px solid $blue-green
+
+.fractal
+  background: url(../images/footer_lodyas.png) top left repeat;
+
+.gradient
   background: #00b7ea; /* Old browsers */
   background: -moz-linear-gradient(-45deg,  #00b7ea 0%, #8ca246 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#00b7ea), color-stop(100%,#8ca246)); /* Chrome,Safari4+ */
@@ -26,19 +34,20 @@ $blue-green: #0C6D6D
   background: -ms-linear-gradient(-45deg,  #00b7ea 0%,#8ca246 100%); /* IE10+ */
   background: linear-gradient(135deg,  #00b7ea 0%,#8ca246 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#8ca246',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-  padding: 150px 0 10px
-  text-align: center
-  border-bottom: 4px solid $blue-green
 
 .title
   color: #FFF
-  font-size: 52px
+  font-size: 64px
   letter-spacing: -1px
 
 .subtitle
   color: $blue-green
+  font-size: 28px
 
-.btn-show-magic
+.versions
+  color: lighten($blue-green, 5%)
+
+.btn-show-magic, .btn-show-magic:active, .btn-show-magic:focus
   margin-top: 50px
   padding: 18px 30px
   font-size: 24px
@@ -48,7 +57,7 @@ $blue-green: #0C6D6D
   color: #FFF
   transition: all 0.3s ease-in-out
 
-  &:hover, &:active, &:focus
+  &:hover
     border-color: $blue-green
     color: #FFF
     background-color: $blue-green
@@ -61,9 +70,29 @@ $blue-green: #0C6D6D
   display: block
   color: #FFF
   margin-top: 5px
+  color: $blue-green
 
 .github-buttons
   margin-top: 70px
+  padding: 20px 0
 
   iframe
     margin: 0 10px
+
+.wrapper
+  max-width: 520px
+  margin: 40px auto 0
+
+h2
+  color: $blue-green
+
+a
+  color: #ffde00
+
+.hide
+  display: none !important
+
+.footer
+  color: #FFF
+  text-align: center
+  padding: 20px 0
