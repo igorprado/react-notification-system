@@ -177,10 +177,10 @@ var NotificationGenerator = React.createClass({
 
     return (
         <div className='container'>
-          <div className='row'>
-            <div className='col-xs-12 col-sm-8 col-sm-offset-2'>
+          <div className='columns'>
+            <div className='four-fifths column centered'>
+              <h2>Notification generator</h2>
               <p>Open your console to see some logs from the component.</p>
-
               <div className='row'>
                 <div className='col-xs-12'>
                   <form>
