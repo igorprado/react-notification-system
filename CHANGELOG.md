@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.2.5 - Oct 15, 2015
+
+**Implemented enhancements:**
+
+* Action property no longer needs a callback, just a label.
+
 ## 0.2.4 - Oct 12, 2015
 
 **Implemented enhancements:**
