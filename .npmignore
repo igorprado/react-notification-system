@@ -11,5 +11,4 @@ devServer.js
 tests.webpack.js
 .travis.yml
 .editorconfig
-.eslintignore
-.eslintrc
+*.log

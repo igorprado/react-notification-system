@@ -102,7 +102,7 @@ The notification object has the following properties:
 | position     | string          | tr        | Position of the notification. Available: **tr (top right)**, **tl (top left)**, **tc (top center)**, **br (bottom right)**, **bl (bottom left)**, **bc (bottom center)**  |
 | autoDismiss  | integer         | 5         | Delay in seconds for the notification go away. Set this to **0** to not auto-dismiss the notification                                                                      |
 | dismissible  | bool            | true      | Set if notification is dismissible by the user. [See more](#dismissible)                                                                                                  |
-| action       | object          | null      | Add a button with label and callback function. [See more](#action)                                                                                                        |
+| action       | object          | null      | Add a button with label and callback function (callback is optional). [See more](#action)                                                                                                        |
 | onAdd | function | null | A callback function that will be called when the notification is successfully added. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was added'); }` |
 | onRemove     | function        | null      | A callback function that will be called when the notification is about to be removed. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was removed'); }` |
 | uid          | integer/string           | null      | Overrides the internal `uid`. Useful if you are managing your notifications id. Notifications with same `uid` won't be displayed. |
@@ -114,7 +114,7 @@ If set to false, the notification will not display the dismiss ('x') button and 
 
 ### Action
 
-Add a button and a callback function to the notification. If this button is clicked, the callback function is called and the notification is dismissed.
+Add a button and a callback function to the notification. If this button is clicked, the callback function is called (if provided) and the notification is dismissed.
 
 ```js
 notification = {
