@@ -1,8 +1,14 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var NotificationSystem = require('NotificationSystem');
+var constants = require('constants');
 var NotificationGenerator = require('./NotificationGenerator');
 var NotificationSystemExample;
+
+var _getRandomPosition = function() {
+  var positions = Object.keys(constants.positions);
+  return positions[Math.floor(Math.random() * ((positions.length - 1) - 0 + 1)) + 0]
+};
 
 // Styles
 require('styles/base');
@@ -12,6 +18,8 @@ NotificationSystemExample = React.createClass({
   displayName: 'App',
 
   _notificationSystem: null,
+
+  _magicCount: 0,
 
   _notificationsShowCase: [
     {
@@ -28,10 +36,9 @@ NotificationSystemExample = React.createClass({
     },
     {
       title: 'I\'ll be here for ever!',
-      message: 'You can\'t dismiss me at all!',
+      message: 'Just kidding you can click me.',
       level: 'success',
       position: 'tr',
-      dismissible: false,
       autoDismiss: 0
     },
     {
@@ -59,14 +66,14 @@ NotificationSystemExample = React.createClass({
       title: 'Success!',
       message: 'I\'m out of ideas',
       level: 'success',
-      position: 'br'
+      position: 'bl'
     },
     {
       title: 'I\'m here forever...',
       message: 'Until you click me.',
       autoDismiss: 0,
       level: 'error',
-      position: 'bl'
+      position: 'br'
     }
   ],
 
@@ -81,8 +88,12 @@ NotificationSystemExample = React.createClass({
   _showTheMagic: function() {
     var self = this;
     this._notificationsShowCase.forEach(function(notification) {
+      if (self._magicCount > 0) {
+        notification.position = _getRandomPosition();
+      }
       self._notificationSystem.addNotification(notification);
     });
+    this._magicCount++;
   },
 
   getInitialState: function() {
@@ -107,7 +118,7 @@ NotificationSystemExample = React.createClass({
           <div className="overlay"></div>
           <div className="content">
             <h1 className="title">React Notification System</h1>
-            <h2 className="subtitle">A complete and totally customizable notifications component for React</h2>
+            <h2 className="subtitle">A complete and totally customizable component for notifications in React.</h2>
             <h3 className="versions">(For React 0.14x and 0.13.x)</h3>
 
             <div className="btn-show-magic-holder">
