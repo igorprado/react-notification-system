@@ -123,9 +123,10 @@ NotificationSystemExample = React.createClass({
         <div className="wrapper">
           <NotificationGenerator notifications={ this._notificationSystemInstance } allowHTML={ this._allowHTML } />
         </div>
-        <footer className="footer fractal">
+        <footer className="footer gradient">
+          <div className="overlay"></div>
           <div className="wrapper">
-            <p>Made in Brasília/Brazil by <a href="http://igorprado.com">Igor Prado</a>. <a href="https://github.com/igorprado/react-notification-system">See at Github</a>.</p>
+            <p>Made in Brasília, Brazil by <a href="http://igorprado.com" target="_blank">Igor Prado</a>.</p>
           </div>
         </footer>
         <NotificationSystem ref="notificationSystem" allowHTML={ this.state.allowHTML } />
