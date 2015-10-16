@@ -7,7 +7,7 @@ var NotificationSystemExample;
 
 var _getRandomPosition = function() {
   var positions = Object.keys(constants.positions);
-  return positions[Math.floor(Math.random() * ((positions.length - 1) - 0 + 1)) + 0]
+  return positions[Math.floor(Math.random() * ((positions.length - 1) - 0 + 1)) + 0];
 };
 
 // Styles
