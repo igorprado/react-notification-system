@@ -93,9 +93,15 @@ html, body
     margin: 0 10px
 
 .wrapper
-  max-width: 520px
-  margin: 40px auto 0
+  width: 90%;
+  margin: 20px auto 0
   position: relative
+
+  @media(min-width: 520px)
+    width: auto
+    max-width: 520px
+    margin: 40px auto 0
+
 
 h2
   color: $blue-green

@@ -227,7 +227,7 @@ module.exports = React.createClass({
           </div>
 
           <div className="form-group">
-            <label>Auto Dismiss delay:</label>
+            <label>Auto Dismiss:</label>
             <input className="form-control" name="autoDismiss" onChange={ this._changed } type="text" value={ notification.autoDismiss }/>
             <small>secs (0 means infinite)</small>
           </div>
