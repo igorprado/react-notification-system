@@ -18,11 +18,14 @@ html, body
   height: 100%
 
 .header
-  padding: 150px 0 0
+  padding: 50px 15px 0
   text-align: center
   border-bottom: 6px solid $blue-green
   position: relative
   height: auto
+
+  @media(min-width: 520px)
+    padding: 150px 0 0
 
 .overlay
   background: url(../images/congruent_pentagon.png) top left repeat
@@ -50,25 +53,37 @@ html, body
 
 .title
   color: #FFF
-  font-size: 64px
+  font-size: 40px
   letter-spacing: -1px
+
+  @media(min-width: 520px)
+    font-size: 64px
 
 .subtitle
   color: $blue-green
-  font-size: 28px
+  font-size: 20px
+
+  @media(min-width: 520px)
+    font-size: 28px
 
 .versions
   color: lighten($blue-green, 5%)
 
 .btn-show-magic, .btn-show-magic:active, .btn-show-magic:focus
-  margin-top: 50px
-  padding: 18px 30px
-  font-size: 24px
-  line-height: 32px
+  margin-top: 30px
+  padding: 18px 20px
+  font-size: 18px
+  line-height: 28px
   border-color: #FFF
   background: transparent
   color: #FFF
   transition: all 0.3s ease-in-out
+
+  @media(min-width: 520px)
+    margin-top: 50px
+    padding: 18px 30px
+    font-size: 24px
+    line-height: 32px
 
   &:hover
     border-color: $blue-green
@@ -79,6 +94,15 @@ html, body
     &:focus
       border-color: $blue-green
 
+.width-warning
+  display: block
+  font-size: 12px
+  margin: 10px 0
+  color: #9e0000
+
+  @media(min-width: 520px)
+    display: none
+
 .more-magic
   display: block
   color: #FFF
@@ -86,8 +110,11 @@ html, body
   color: $blue-green
 
 .github-buttons
-  margin-top: 70px
+  margin-top: 20px
   padding: 20px 0
+
+  @media(min-width: 520px)
+    margin-top: 70px
 
   iframe
     margin: 0 10px
