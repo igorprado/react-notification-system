@@ -19,7 +19,7 @@ var NotificationSystem = React.createClass({
 
     wrapper: function() {
       if (!this.overrideStyle) return {};
-      return merge({}, Styles.Wrapper, this.overrideStyle);
+      return merge({}, Styles.Wrapper, this.overrideStyle.Wrapper);
     },
 
     container: function(position) {
