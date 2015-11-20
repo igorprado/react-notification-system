@@ -1,10 +1,9 @@
 {
   "name": "react-notification-system",
-  "version": "0.2.6",
+  "version": "0.2.5",
   "description": "A React Notification System fully customized",
   "main": "dist/NotificationSystem.js",
   "scripts": {
-    "prepublish": "npm run build",
     "test": "karma start --single-run",
     "test-watch": "karma start",
     "prepare-build": "npm run lint && rimraf dist/",
@@ -47,7 +46,7 @@
     "babel-plugin-react-class-display-name": "^0.1.0",
     "babel-plugin-react-transform": "^1.1.1",
     "css-loader": "^0.19.0",
-    "eslint": "^1.6.0",
+    "eslint": "1.9.0",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.5.1",
     "expect": "^1.12.1",
