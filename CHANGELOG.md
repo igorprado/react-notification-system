@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.2.6 - Nov 20, 2015
+
+**Bugfix from PR:**
+
+* Fix wrapper styles override.
+
+
 ## 0.2.5 - Oct 15, 2015
 
 **Implemented enhancements:**
