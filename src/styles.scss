@@ -83,7 +83,7 @@ $infoColor: #369cc7;
     display: block;
     opacity: 0;
     transition: 0.3s ease-in-out;
-    &.notification-visible {
+    &.notification-hidden {
         opacity: 0;
     }
     &.notification-visible {
