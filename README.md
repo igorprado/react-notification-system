@@ -18,7 +18,7 @@ npm install react-notification-system
 
 ### Important
 
-For **React 0.14.x**, use version 0.2.x:
+For **React ^0.14.x** or **React ^15.x.x**, use version 0.2.x:
 
 ```
 npm install react-notification-system@0.2.x
