@@ -1,6 +1,6 @@
 {
   "name": "react-notification-system",
-  "version": "0.2.5",
+  "version": "0.2.7",
   "description": "A React Notification System fully customized",
   "main": "dist/NotificationSystem.js",
   "scripts": {
@@ -36,8 +36,8 @@
     "object-assign": "^4.0.1"
   },
   "peerDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": "0.14.x || ^15.0.0",
+    "react-dom": "0.14.x || ^15.0.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -69,9 +69,9 @@
     "mocha": "^2.3.3",
     "node-sass": "^3.3.3",
     "npm": "^3.3.6",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^15.0.0",
+    "react-addons-test-utils": "^15.0.0",
+    "react-dom": "^15.0.0",
     "react-tools": "^0.13.2",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",

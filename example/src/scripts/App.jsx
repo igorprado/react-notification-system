@@ -24,7 +24,7 @@ NotificationSystemExample = React.createClass({
   _notificationsShowCase: [
     {
       title: 'Hey, it\'s good to see you!',
-      message: 'Now you can how ease is to use notifications in React!',
+      message: 'Now you can see how easy it is to use notifications in React!',
       level: 'success',
       position: 'tr',
       action: {
@@ -35,15 +35,15 @@ NotificationSystemExample = React.createClass({
       }
     },
     {
-      title: 'I\'ll be here for ever!',
-      message: 'Just kidding you can click me.',
+      title: 'I\'ll be here forever!',
+      message: 'Just kidding, you can click me.',
       level: 'success',
       position: 'tr',
       autoDismiss: 0
     },
     {
-      title: 'Bad things can happer too!',
-      message: 'It\'s four type of levels: `success`, `error`, `warning` and `info`',
+      title: 'Bad things can happen too!',
+      message: 'Four notification types: `success`, `error`, `warning` and `info`',
       level: 'error',
       position: 'tl'
     },
@@ -55,7 +55,7 @@ NotificationSystemExample = React.createClass({
     },
     {
       title: 'Warning!',
-      message: 'It\'s not a good idea show all this notifications at the same time!',
+      message: 'It\'s not a good idea show all these notifications at the same time!',
       level: 'warning',
       position: 'bc',
       action: {
@@ -119,7 +119,7 @@ NotificationSystemExample = React.createClass({
           <div className="content">
             <h1 className="title">React Notification System</h1>
             <h2 className="subtitle">A complete and totally customizable component for notifications in React.</h2>
-            <h3 className="versions">(For React 0.14 and 0.13)</h3>
+            <h3 className="versions">(For React 15, 0.14 and 0.13)</h3>
 
             <div className="btn-show-magic-holder">
               <button className="btn btn-outline btn-show-magic" onClick={ this._showTheMagic }>
