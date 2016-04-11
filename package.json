@@ -1,6 +1,6 @@
 {
   "name": "react-notification-system",
-  "version": "0.2.6",
+  "version": "0.2.5",
   "description": "A React Notification System fully customized",
   "main": "dist/NotificationSystem.js",
   "scripts": {
@@ -36,8 +36,8 @@
     "object-assign": "^4.0.1"
   },
   "peerDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": "0.14.x || ^15.0.0",
+    "react-dom": "0.14.x || ^15.0.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -47,7 +47,7 @@
     "babel-plugin-react-class-display-name": "^0.1.0",
     "babel-plugin-react-transform": "^1.1.1",
     "css-loader": "^0.19.0",
-    "eslint": "^1.6.0",
+    "eslint": "1.9.0",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.5.1",
     "expect": "^1.12.1",
@@ -69,9 +69,9 @@
     "mocha": "^2.3.3",
     "node-sass": "^3.3.3",
     "npm": "^3.3.6",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^15.0.0",
+    "react-addons-test-utils": "^15.0.0",
+    "react-dom": "^15.0.0",
     "react-tools": "^0.13.2",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",

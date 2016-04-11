@@ -18,7 +18,7 @@ npm install react-notification-system
 
 ### Important
 
-For **React 0.14.x**, use version 0.2.x:
+For **React ^0.14.x** or **React ^15.x.x**, use version 0.2.x:
 
 ```
 npm install react-notification-system@0.2.x
@@ -36,7 +36,7 @@ npm install react-notification-system@0.1.x
 
 For optimal appearance, this component **must be rendered on a top level HTML element** in your application to avoid position conflicts.
 
-Here is a basic example. For a more advanced usage, please see the [example code](https://github.com/igorprado/react-notification-system/blob/master/example/src/app.js).
+Here is a basic example. For a more advanced usage, please see the [example code](https://github.com/igorprado/react-notification-system/blob/master/example/src/scripts/App.jsx).
 
 ```js
 var React = require('react');
