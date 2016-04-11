@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.2.7 - Nov 20, 2015
+
+**React 15 support:**
+
+* Version 0.2.x now supports React 15 too.
+
+
 ## 0.2.6 - Nov 20, 2015
 
 **Bugfix from PR:**
