@@ -8,6 +8,8 @@ var NotificationSystem = React.createClass({
 
   uid: 3400,
 
+  _isMounted: false,
+
   _getStyles: {
     overrideStyle: {},
 
@@ -72,7 +74,9 @@ var NotificationSystem = React.createClass({
       notification.onRemove(notification);
     }
 
-    this.setState({ notifications: notifications });
+    if(this._isMounted) {
+      this.setState({ notifications: notifications });
+    }
   },
 
   getInitialState: function() {
@@ -164,6 +168,11 @@ var NotificationSystem = React.createClass({
 
   componentDidMount: function() {
     this._getStyles.setOverrideStyle(this.props.style);
+    this._isMounted = true;
+  },
+
+  componentWillUnmount: function() {
+    this._isMounted = false;
   },
 
   render: function() {
