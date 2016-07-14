@@ -74,7 +74,7 @@ var NotificationSystem = React.createClass({
       notification.onRemove(notification);
     }
 
-    if(this._isMounted) {
+    if (this._isMounted) {
       this.setState({ notifications: notifications });
     }
   },
