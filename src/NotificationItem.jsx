@@ -307,7 +307,7 @@ var NotificationItem = React.createClass({
 
     var content;
     if (getContentComponent) {
-      content = getContentComponent();
+      content = getContentComponent(notification.uid);
     } else {
       content = [
         title,
