@@ -241,6 +241,7 @@ var NotificationItem = React.createClass({
     var actionButton = null;
     var title = null;
     var message = null;
+    var content;
     var getContentComponent = notification.getContentComponent;
 
     if (this.state.visible) {
@@ -305,7 +306,6 @@ var NotificationItem = React.createClass({
       );
     }
 
-    var content;
     if (getContentComponent) {
       content = getContentComponent(notification.uid);
     } else {
@@ -313,8 +313,8 @@ var NotificationItem = React.createClass({
         title,
         message,
         dismiss,
-        actionButton,
-      ]
+        actionButton
+      ];
     }
 
     return (
