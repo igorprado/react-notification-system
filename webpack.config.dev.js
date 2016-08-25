@@ -32,18 +32,19 @@ module.exports = {
         ],
         loader: 'babel',
         query: {
-          stage: 0,
-          plugins: ['react-class-display-name', 'react-transform'],
-          extra: {
-            'react-transform': [{
-              'target': 'react-transform-hmr',
-              'imports': ['react'],
-              'locals': ['module']
-            }, {
-              'target': 'react-transform-catch-errors',
-              'imports': ['react', 'redbox-react']
-            }]
-          }
+          // stage: 0,
+          presets: ['airbnb']
+          // plugins: ['react-class-display-name', 'react-transform'],
+          // extra: {
+          //   'react-transform': [{
+          //     'target': 'react-transform-hmr',
+          //     'imports': ['react'],
+          //     'locals': ['module']
+          //   }, {
+          //     'target': 'react-transform-catch-errors',
+          //     'imports': ['react', 'redbox-react']
+          //   }]
+          // }
         }
       },
       {
