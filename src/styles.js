@@ -97,6 +97,9 @@ var STYLES = {
       boxSizing: 'border-box',
       opacity: 0,
       transition: '0.3s ease-in-out',
+      WebkitTransform: 'translate3d(0, 0, 0)',
+      transform: 'translate3d(0, 0, 0)',
+      willChange: 'transform, opacity',
 
       isHidden: {
         opacity: 0
