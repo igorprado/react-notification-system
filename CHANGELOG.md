@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.2.8 - Aug 25, 2016
+## 0.2.9 - Aug 25, 2016
 
 * Improved CSS styles for better performance
 * Merged pull request to avoid warnings related to component state
