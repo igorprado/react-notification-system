@@ -29,7 +29,11 @@ var NotificationItem = React.createClass({
     getStyles: React.PropTypes.object,
     onRemove: React.PropTypes.func,
     allowHTML: React.PropTypes.bool,
-    noAnimation: React.PropTypes.bool
+    noAnimation: React.PropTypes.bool,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element
+    ])
   },
 
   getDefaultProps: function() {
@@ -302,6 +306,10 @@ var NotificationItem = React.createClass({
           </button>
         </div>
       );
+    }
+
+    if (notification.children) {
+      actionButton = notification.children;
     }
 
     return (
