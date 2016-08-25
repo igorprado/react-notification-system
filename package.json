@@ -1,10 +1,9 @@
 {
   "name": "react-notification-system",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "A React Notification System fully customized",
   "main": "dist/NotificationSystem.js",
   "scripts": {
-    "prepublish": "npm run build",
     "test": "karma start --single-run",
     "test-watch": "karma start",
     "prepare-build": "npm run lint && rimraf dist/",
