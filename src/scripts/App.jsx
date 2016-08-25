@@ -35,6 +35,18 @@ NotificationSystemExample = React.createClass({
       }
     },
     {
+      title: 'Hey, it\'s good to see you!',
+      message: 'I come with custom content!',
+      level: 'success',
+      position: 'tr',
+      children: (
+        <div>
+          <h2>Hello World</h2>
+          <a>Anchor</a>
+        </div>
+      )
+    },
+    {
       title: 'I\'ll be here forever!',
       message: 'Just kidding, you can click me.',
       level: 'success',
