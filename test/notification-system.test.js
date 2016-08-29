@@ -265,6 +265,17 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should render a children if passed', done => {
+    defaultNotification.children = (
+      <div className="custom-container"></div>
+    );
+
+    component.addNotification(defaultNotification);
+    let customContainer = TestUtils.findRenderedDOMComponentWithClass(instance, 'custom-container');
+    expect(customContainer).toExist();
+    done();
+  });
+
   it('should pause the timer if a notification has a mouse enter', done => {
     notificationObj.autoDismiss = 2;
     component.addNotification(notificationObj);
