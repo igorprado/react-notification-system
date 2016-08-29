@@ -338,25 +338,25 @@ describe('Notification Component', function() {
 
   it('should throw an error if no level is defined', done => {
     delete notificationObj.level;
-    expect(component.addNotification).withArgs(notificationObj).toThrow(/notification level is required/);
+    expect(() => component.addNotification(notificationObj)).toThrow(/notification level is required/);
     done();
   });
 
   it('should throw an error if a invalid level is defined', done => {
     notificationObj.level = 'invalid';
-    expect(component.addNotification).withArgs(notificationObj).toThrow(/is not a valid level/);
+    expect(() => component.addNotification(notificationObj)).toThrow(/is not a valid level/);
     done();
   });
 
   it('should throw an error if a invalid position is defined', done => {
     notificationObj.position = 'invalid';
-    expect(component.addNotification).withArgs(notificationObj).toThrow(/is not a valid position/);
+    expect(() => component.addNotification(notificationObj)).toThrow(/is not a valid position/);
     done();
   });
 
   it('should throw an error if autoDismiss is not a number', done => {
     notificationObj.autoDismiss = 'string';
-    expect(component.addNotification).withArgs(notificationObj).toThrow(/\'autoDismiss\' must be a number./);
+    expect(() => component.addNotification(notificationObj)).toThrow(/\'autoDismiss\' must be a number./);
     done();
   });
 });
