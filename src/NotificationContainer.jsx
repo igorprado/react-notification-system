@@ -39,6 +39,7 @@ var NotificationContainer = React.createClass({
           onRemove={ self.props.onRemove }
           noAnimation={ self.props.noAnimation }
           allowHTML={ self.props.allowHTML }
+          children={ self.props.children }
         />
       );
     });

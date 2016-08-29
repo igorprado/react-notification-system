@@ -30,21 +30,7 @@ module.exports = {
           path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'example/src')
         ],
-        loader: 'babel',
-        query: {
-          stage: 0,
-          plugins: ['react-class-display-name', 'react-transform'],
-          extra: {
-            'react-transform': [{
-              'target': 'react-transform-hmr',
-              'imports': ['react'],
-              'locals': ['module']
-            }, {
-              'target': 'react-transform-catch-errors',
-              'imports': ['react', 'redbox-react']
-            }]
-          }
-        }
+        loader: 'babel?presets=airbnb'
       },
       {
         test: /\.sass$/,
