@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.10 - Aug 29, 2016
+
+* Allows children content to override `action`. (thanks to @gor181)
+
 ## 0.2.9 - Aug 25, 2016
 
 * Improved CSS styles for better performance
