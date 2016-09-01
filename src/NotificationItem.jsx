@@ -5,21 +5,33 @@ var Helpers = require('./helpers');
 var merge = require('object-assign');
 
 /* From Modernizr */
-var whichTransitionEvent = function() {
+var whichEvent = function (props) {
   var t;
   var el = document.createElement('fakeelement');
+  
+  for (p in props) {
+    if (el.style[p] !== undefined) {
+      return props[p];
+    }
+  }
+}
+var whichTransitionEvent = function() {
   var transitions = {
     'transition': 'transitionend',
     'OTransition': 'oTransitionEnd',
     'MozTransition': 'transitionend',
     'WebkitTransition': 'webkitTransitionEnd'
   };
+  
+  return whichEvent(transitions)
+};
+var whichAnimationEvent = function() {
+  var animations = {
+    'animation': 'animationend',
+    'webkitAnimation': 'webkitAnimationEnd'
+  };
 
-  for (t in transitions) {
-    if (el.style[t] !== undefined) {
-      return transitions[t];
-    }
-  }
+  return whichEvent(animations)
 };
 
 var NotificationItem = React.createClass({
@@ -185,6 +197,7 @@ var NotificationItem = React.createClass({
   componentDidMount: function() {
     var self = this;
     var transitionEvent = whichTransitionEvent();
+    var animationEvent = whichAnimationEvent();
     var notification = this.props.notification;
     var element = ReactDOM.findDOMNode(this);
 
@@ -195,12 +208,16 @@ var NotificationItem = React.createClass({
     // Watch for transition end
     if (!this._noAnimation) {
       if (transitionEvent) {
-        element.addEventListener(transitionEvent, this._onTransitionEnd);
-      } else {
+        transitionEvent && element.addEventListener(transitionEvent, this._onTransitionEnd);
+      }
+      if (animationEvent) {
+        animationEvent && element.addEventListener(animationEvent, this._onTransitionEnd);
+      }
+        
+      if (!(transitionEvent || animationEvent)) {
         this._noAnimation = true;
       }
     }
-
 
     if (notification.autoDismiss) {
       this._notificationTimer = new Helpers.Timer(function() {
@@ -228,7 +245,15 @@ var NotificationItem = React.createClass({
   componentWillUnmount: function() {
     var element = ReactDOM.findDOMNode(this);
     var transitionEvent = whichTransitionEvent();
-    element.removeEventListener(transitionEvent, this._onTransitionEnd);
+    var animationEvent = whichAnimationEvent();
+    
+    if (transitionEvent) {
+      element.removeEventListener(transitionEvent, this._onTransitionEnd);
+    }
+    if (animationEvent) {
+      element.removeEventListener(animationEvent, this._onTransitionEnd);
+    }
+
     this._isMounted = false;
   },
 
