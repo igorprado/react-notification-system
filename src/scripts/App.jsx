@@ -43,7 +43,6 @@ NotificationSystemExample = React.createClass({
       children: (
         <div>
           <CustomElement name="I'm a prop"/>
-          <button>I'm a custom button</button>
         </div>
       )
     },
