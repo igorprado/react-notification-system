@@ -3,11 +3,12 @@ var ReactDOM = require('react-dom');
 var NotificationSystem = require('NotificationSystem');
 var constants = require('constants');
 var NotificationGenerator = require('./NotificationGenerator');
+var CustomElement = require('./CustomElement');
 var NotificationSystemExample;
 
 var _getRandomPosition = function() {
   var positions = Object.keys(constants.positions);
-  return positions[Math.floor(Math.random() * ((positions.length - 1) - 0 + 1)) + 0];
+  return positions[Math.floor(Math.random() * ((positions.length - 1) + 1)) + 0];
 };
 
 // Styles
@@ -41,8 +42,8 @@ NotificationSystemExample = React.createClass({
       position: 'tr',
       children: (
         <div>
-          <h2>Hello World</h2>
-          <a>Anchor</a>
+          <CustomElement name="I'm a prop"/>
+          <button>I'm a custom button</button>
         </div>
       )
     },
@@ -100,10 +101,11 @@ NotificationSystemExample = React.createClass({
   _showTheMagic: function() {
     var self = this;
     this._notificationsShowCase.forEach(function(notification) {
+      var _notification = notification;
       if (self._magicCount > 0) {
-        notification.position = _getRandomPosition();
+        _notification.position = _getRandomPosition();
       }
-      self._notificationSystem.addNotification(notification);
+      self._notificationSystem.addNotification(_notification);
     });
     this._magicCount++;
   },
@@ -127,7 +129,7 @@ NotificationSystemExample = React.createClass({
     return (
       <div className="app-container">
         <header style={ { minHeight: this.state.viewHeight } } className="header gradient">
-          <div className="overlay"></div>
+          <div className="overlay" />
           <div className="content">
             <h1 className="title">React Notification System</h1>
             <h2 className="subtitle">A complete and totally customizable component for notifications in React.</h2>
@@ -150,7 +152,7 @@ NotificationSystemExample = React.createClass({
           <NotificationGenerator notifications={ this._notificationSystemInstance } allowHTML={ this._allowHTML } />
         </div>
         <footer className="footer gradient">
-          <div className="overlay"></div>
+          <div className="overlay" />
           <div className="wrapper">
             <p>Made in Brasília, Brazil by <a href="http://igorprado.com" target="_blank">Igor Prado</a>.</p>
           </div>
