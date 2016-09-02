@@ -74,7 +74,7 @@ module.exports = React.createClass({
     var allowHTML = !this.state.allowHTML;
 
     if (allowHTML) {
-      state.notification.message = state.notification.message + ' <strong>I\'m bold!</strong>';
+      state.notification.message += ' <strong>I\'m bold!</strong>';
     }
     state.allowHTML = allowHTML;
     this.setState(state);
