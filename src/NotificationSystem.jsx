@@ -186,20 +186,22 @@ var NotificationSystem = React.createClass({
           return position === notification.position;
         });
 
-        if (_notifications.length) {
-          return (
-            <NotificationContainer
-              ref={ 'container-' + position }
-              key={ position }
-              position={ position }
-              notifications={ _notifications }
-              getStyles={ self._getStyles }
-              onRemove={ self._didNotificationRemoved }
-              noAnimation={ self.props.noAnimation }
-              allowHTML={ self.props.allowHTML }
-            />
-          );
+        if (!_notifications.length) {
+          return null;
         }
+
+        return (
+          <NotificationContainer
+            ref={ 'container-' + position }
+            key={ position }
+            position={ position }
+            notifications={ _notifications }
+            getStyles={ self._getStyles }
+            onRemove={ self._didNotificationRemoved }
+            noAnimation={ self.props.noAnimation }
+            allowHTML={ self.props.allowHTML }
+          />
+        );
       });
     }
 

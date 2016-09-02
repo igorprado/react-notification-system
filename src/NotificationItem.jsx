@@ -6,20 +6,22 @@ var merge = require('object-assign');
 
 /* From Modernizr */
 var whichTransitionEvent = function() {
-  var t;
   var el = document.createElement('fakeelement');
+  var transition;
   var transitions = {
-    'transition': 'transitionend',
-    'OTransition': 'oTransitionEnd',
-    'MozTransition': 'transitionend',
-    'WebkitTransition': 'webkitTransitionEnd'
+    transition: 'transitionend',
+    OTransition: 'oTransitionEnd',
+    MozTransition: 'transitionend',
+    WebkitTransition: 'webkitTransitionEnd'
   };
 
-  for (t in transitions) {
-    if (el.style[t] !== undefined) {
-      return transitions[t];
+  Object.keys(transitions).forEach(function(transitionKey) {
+    if (el.style[transitionKey] !== undefined) {
+      transition = transitions[transitionKey];
     }
-  }
+  });
+
+  return transition;
 };
 
 var NotificationItem = React.createClass({
@@ -247,13 +249,13 @@ var NotificationItem = React.createClass({
     var message = null;
 
     if (this.state.visible) {
-      className = className + ' notification-visible';
+      className += ' notification-visible';
     } else {
-      className = className + ' notification-hidden';
+      className += ' notification-hidden';
     }
 
     if (!notification.dismissible) {
-      className = className + ' notification-not-dismissible';
+      className += ' notification-not-dismissible';
     }
 
     if (this.props.getStyles.overrideStyle) {
@@ -283,7 +285,7 @@ var NotificationItem = React.createClass({
     if (notification.message) {
       if (this.props.allowHTML) {
         message = (
-          <div className="notification-message" style={ this._styles.messageWrapper } dangerouslySetInnerHTML={ this._allowHTML(notification.message) }></div>
+          <div className="notification-message" style={ this._styles.messageWrapper } dangerouslySetInnerHTML={ this._allowHTML(notification.message) } />
         );
       } else {
         message = (
