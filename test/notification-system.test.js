@@ -323,7 +323,11 @@ describe('Notification Component', function() {
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
     let bottomPosition = notification.style.bottom;
-    expect(bottomPosition).toEqual('-100px');
+    if(!component.props.noAnimation) {
+      expect(bottomPosition).toEqual('-100px');
+    } else {
+      expect(bottomPosition).toEqual('');
+    }
     done();
   });
 
