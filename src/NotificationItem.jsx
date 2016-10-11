@@ -260,7 +260,7 @@ var NotificationItem = React.createClass({
 
     if (this.props.getStyles.overrideStyle) {
       if (!this.state.visible && !this.state.removed) {
-        notificationStyle[cssByPos.property] = cssByPos.value;
+        if (!this._noAnimation) notificationStyle[cssByPos.property] = cssByPos.value;
       }
 
       if (this.state.visible && !this.state.removed) {
