@@ -164,6 +164,19 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should remove all notifications', done => {
+    component.addNotification(defaultNotification);
+    component.addNotification(defaultNotification);
+    component.addNotification(defaultNotification);
+    let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(3);
+    component.clearNotifications();
+    clock.tick(200);
+    let notificationRemoved = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notificationRemoved.length).toEqual(0);
+    done();
+  });
+
   it('should dismiss notification on click', done => {
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
