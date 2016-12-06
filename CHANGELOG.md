@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.11 - Dec 06, 2016
+
+* Added `clearNotifications()` method (thanks to @saaqibz)
+
 ## 0.2.10 - Aug 29, 2016
 
 * Allows children content to override `action`. (thanks to @gor181)
