@@ -166,6 +166,17 @@ var NotificationSystem = React.createClass({
     });
   },
 
+  clearNotifications: function() {
+    var self = this;
+    Object.keys(this.refs).forEach(function(container) {
+      if (container.indexOf('container') > -1) {
+        Object.keys(self.refs[container].refs).forEach(function(_notification) {
+          self.refs[container].refs[_notification]._hideNotification();
+        });
+      }
+    });
+  },
+
   componentDidMount: function() {
     this._getStyles.setOverrideStyle(this.props.style);
     this._isMounted = true;
