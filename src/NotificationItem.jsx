@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Constants = require('./constants');
 var Helpers = require('./helpers');
 var merge = require('object-assign');
+var classnames = require('classnames');
 
 /* From Modernizr */
 var whichTransitionEvent = function() {
@@ -240,7 +241,6 @@ var NotificationItem = React.createClass({
 
   render: function() {
     var notification = this.props.notification;
-    var className = 'notification notification-' + notification.level;
     var notificationStyle = merge({}, this._styles.notification);
     var cssByPos = this._getCssPropertyByPosition();
     var dismiss = null;
@@ -248,15 +248,15 @@ var NotificationItem = React.createClass({
     var title = null;
     var message = null;
 
-    if (this.state.visible) {
-      className += ' notification-visible';
-    } else {
-      className += ' notification-hidden';
-    }
-
-    if (!notification.dismissible) {
-      className += ' notification-not-dismissible';
-    }
+    var className = classnames(
+      'notification',
+      'notification-' + notification.level,
+      {
+        'notification-visible': this.state.visible,
+        'notification-hidden': !this.state.visible,
+        'notification-not-dismissible': !notification.dismissible
+      }
+    );
 
     if (this.props.getStyles.overrideStyle) {
       if (!this.state.visible && !this.state.removed) {
