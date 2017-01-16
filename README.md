@@ -4,16 +4,28 @@
 
 > A complete and totally customizable component for notifications in React.
 
-_Initially built for [Eterpret](http://dev.eterpret.com) @ [Scalable Path](http://www.scalablepath.com)._
+_Initially built for [Eterpret](http://dev.eterpret.com) @ [Scalable Path](http://www.scalablepath.com).
 
 <a href="https://igorprado.github.io/react-notification-system/"><img width="728" src="example/src/images/screenshot.jpg" alt="Screenshot"></a>
 
 ## Installing
 
-For now this component is only available as CommonJS module. Install via NPM running:
+For now this component is only available as CommonJS module. Install via [npm](https://www.npmjs.com/) by running:
 
 ```
 npm install react-notification-system
+```
+
+Save it to the `dependencies` in your `package.json` via npm by running:
+
+```
+npm install --save react-notification-system
+```
+
+Alternatively, install via [Yarn](https://yarnpkg.com) and automatically save to the `dependencies` in your `package.json` by running:
+
+```
+yarn add react-notification-system
 ```
 
 ### Important
@@ -64,7 +76,7 @@ var MyComponent = React.createClass({
         <button onClick={this._addNotification}>Add notification</button>
         <NotificationSystem ref="notificationSystem" />
       </div>
-      );
+    );
   }
 });
 
