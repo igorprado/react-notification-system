@@ -250,7 +250,7 @@ var NotificationItem = React.createClass({
 
     if (this.state.visible) {
       className += ' notification-visible';
-    } else if (!this.state.visible) {
+    } else if (this.state.visible === false) {
       className += ' notification-hidden';
     }
 
