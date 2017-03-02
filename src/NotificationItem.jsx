@@ -48,7 +48,7 @@ var NotificationItem = React.createClass({
 
   getInitialState: function() {
     return {
-      visible: false,
+      visible: undefined,
       removed: false
     };
   },
@@ -250,7 +250,7 @@ var NotificationItem = React.createClass({
 
     if (this.state.visible) {
       className += ' notification-visible';
-    } else {
+    } else if (this.state.visible === false) {
       className += ' notification-hidden';
     }
 
