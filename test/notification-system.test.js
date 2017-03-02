@@ -72,10 +72,18 @@ describe('Notification Component', function() {
     done();
   });
 
-  it('should set the notification class from hidden to visible after added', done => {
+  it('should not set a notification visibility class when the notification is initially added', done => {
     component.addNotification(defaultNotification);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
-    expect(notification.className).toMatch(/notification-hidden/);
+    expect(notification.className).toNotMatch(/notification-hidden/);
+    expect(notification.className).toNotMatch(/notification-visible/);
+    done();
+  });
+
+  it('should set the notification class to visible after added', done => {
+    component.addNotification(defaultNotification);
+    let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    expect(notification.className).toMatch(/notification/);
     clock.tick(400);
     expect(notification.className).toMatch(/notification-visible/);
     done();

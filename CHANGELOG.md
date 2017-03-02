@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.12 - Mar 01, 2017
+
+* Adds support for enter and exit animations for NotificationItem. (thanks to @OriR)
+
 ## 0.2.11 - Dec 06, 2016
 
 * Added `clearNotifications()` method (thanks to @saaqibz)
