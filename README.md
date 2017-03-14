@@ -1,6 +1,6 @@
 # React Notification System
 
-[![npm version](https://badge.fury.io/js/react-notification-system.svg)](http://badge.fury.io/js/react-notification-system) [![npm](https://img.shields.io/npm/dm/react-notification-system.svg)](https://www.npmjs.com/package/react-notification-system) [![Dependency Status](https://david-dm.org/igorprado/react-notification-system.svg)](https://david-dm.org/igorprado/react-notification-system) [![devDependency Status](https://david-dm.org/igorprado/react-notification-system/dev-status.svg)](https://david-dm.org/igorprado/react-notification-system#info=devDependencies) [![Build Status](https://travis-ci.org/igorprado/react-notification-system.svg)](https://travis-ci.org/igorprado/react-notification-system) [![Coverage Status](https://coveralls.io/repos/igorprado/react-notification-system/badge.svg?branch=master&service=github)](https://coveralls.io/github/igorprado/react-notification-system?branch=master)
+[![npm version](https://badge.fury.io/js/react-notification-system.svg)](http://badge.fury.io/js/react-notification-system) [![npm](https://img.shields.io/npm/dm/react-notification-system.svg)](https://www.npmjs.com/package/react-notification-system) [![Dependency Status](https://david-dm.org/igorprado/react-notification-system.svg)](https://david-dm.org/igorprado/react-notification-system) [![devDependency Status](https://david-dm.org/igorprado/react-notification-system/dev-status.svg)](https://david-dm.org/igorprado/react-notification-system#info=devDependencies) [![Build Status](https://travis-ci.org/igorprado/react-notification-system.svg?branch=master)](https://travis-ci.org/igorprado/react-notification-system) [![Coverage Status](https://coveralls.io/repos/igorprado/react-notification-system/badge.svg?branch=master&service=github)](https://coveralls.io/github/igorprado/react-notification-system?branch=master)
 
 > A complete and totally customizable component for notifications in React.
 
@@ -204,11 +204,14 @@ Here is the notification HTML:
 
 #### Important
 
-Using this method you have to take care of **every style**, since containers positions and the animations. To control animations, use the classes `notification-visible` and `notification-hidden`. If your CSS styles will not handle any animation (transition), you need to set the prop `noAnimation` to `true` when adding the Notification System component:
+Using this method you have to take care of **every style**, from containers positions to animations. To control animations, use the classes `notification-visible` and `notification-hidden`. If your CSS styles will not handle any animation (transition), you need to set the prop `noAnimation` to `true` when adding the Notification System component:
 
 ```js
 <NotificationSystem ref="notificationSystem" noAnimation={true} />
 ```
+
+See [#74](https://github.com/igorprado/react-notification-system/issues/74) for more details.
+
 ## Roadmap
 
 * Improve tests and coverage
