@@ -8,7 +8,7 @@
     "test-watch": "karma start",
     "prepare-build": "npm run lint && rimraf dist/",
     "prebuild": "npm run prepare-build",
-    "build": "jsx -x jsx ./src ./dist & jsx ./src ./dist",
+    "build": "jsx -x jsx ./src ./dist & jsx ./src ./dist && webpack --stats --config webpack.config.umd.prod.js && webpack --stats --config webpack.config.umd.dev.js",
     "lint": "eslint src --ext .jsx,.js",
     "start": "NODE_ENV=development node devServer.js",
     "build:example": "rimraf example/build/ && webpack --stats --config webpack.config.prod.js"
