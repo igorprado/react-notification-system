@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.13 - Mar 14, 2017
+
+* UMD support. (thanks to @jochenberger)
+
 ## 0.2.12 - Mar 01, 2017
 
 * Adds support for enter and exit animations for NotificationItem. (thanks to @OriR)
