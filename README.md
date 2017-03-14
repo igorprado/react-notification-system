@@ -204,11 +204,14 @@ Here is the notification HTML:
 
 #### Important
 
-Using this method you have to take care of **every style**, since containers positions and the animations. To control animations, use the classes `notification-visible` and `notification-hidden`. If your CSS styles will not handle any animation (transition), you need to set the prop `noAnimation` to `true` when adding the Notification System component:
+Using this method you have to take care of **every style**, from containers positions to animations. To control animations, use the classes `notification-visible` and `notification-hidden`. If your CSS styles will not handle any animation (transition), you need to set the prop `noAnimation` to `true` when adding the Notification System component:
 
 ```js
 <NotificationSystem ref="notificationSystem" noAnimation={true} />
 ```
+
+See [#74](https://github.com/igorprado/react-notification-system/issues/74) for more details.
+
 ## Roadmap
 
 * Improve tests and coverage
