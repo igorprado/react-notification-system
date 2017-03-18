@@ -152,18 +152,30 @@ var NotificationSystem = React.createClass({
     return _notification;
   },
 
-  removeNotification: function(notification) {
+  getNotification: function(notification) {
     var self = this;
+    var foundNotification = null;
+
     Object.keys(this.refs).forEach(function(container) {
       if (container.indexOf('container') > -1) {
         Object.keys(self.refs[container].refs).forEach(function(_notification) {
           var uid = notification.uid ? notification.uid : notification;
           if (_notification === 'notification-' + uid) {
-            self.refs[container].refs[_notification]._hideNotification();
+            // NOTE: Stop iterating further and return the found notification.
+            // Since UIDs are uniques and there won't be another notification found.
+            foundNotification = self.refs[container].refs[_notification];
+            return
           }
         });
       }
     });
+
+    return foundNotification;
+  },
+
+  removeNotification: function(notification) {
+    var foundNotification = this.getNotification(notification);
+    foundNotification && foundNotification._hideNotification();
   },
 
   clearNotifications: function() {
@@ -221,7 +233,6 @@ var NotificationSystem = React.createClass({
       <div className="notifications-wrapper" style={ this._getStyles.wrapper() }>
         { containers }
       </div>
-
     );
   }
 });
