@@ -152,7 +152,7 @@ var NotificationSystem = React.createClass({
     return _notification;
   },
 
-  getNotification: function(notification) {
+  getNotificationRef: function(notification) {
     var self = this;
     var foundNotification = null;
 
@@ -164,7 +164,7 @@ var NotificationSystem = React.createClass({
             // NOTE: Stop iterating further and return the found notification.
             // Since UIDs are uniques and there won't be another notification found.
             foundNotification = self.refs[container].refs[_notification];
-            return
+            return;
           }
         });
       }
@@ -174,8 +174,41 @@ var NotificationSystem = React.createClass({
   },
 
   removeNotification: function(notification) {
-    var foundNotification = this.getNotification(notification);
-    foundNotification && foundNotification._hideNotification();
+    var foundNotification = this.getNotificationRef(notification);
+    return foundNotification && foundNotification._hideNotification();
+  },
+
+  editNotification: function(notification, newNotification) {
+    var foundNotification = null;
+    // NOTE: Find state notification to update by using
+    // `setState` and forcing React to re-render the component.
+    var uid = notification.uid ? notification.uid : notification;
+
+    var newNotifications = this.state.notifications.filter(function(stateNotification) {
+      if (uid === stateNotification.uid) {
+        foundNotification = stateNotification;
+        return false;
+      }
+
+      return true;
+    });
+
+
+    if (!foundNotification) {
+      return;
+    }
+
+    newNotifications.push(
+      merge(
+        {},
+        foundNotification,
+        newNotification
+      )
+    );
+
+    this.setState({
+      notifications: newNotifications
+    });
   },
 
   clearNotifications: function() {
