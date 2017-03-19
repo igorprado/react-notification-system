@@ -66,8 +66,9 @@ var NotificationSystem = React.createClass({
     var notifications = this.state.notifications.filter(function(toCheck) {
       if (toCheck.uid === uid) {
         notification = toCheck;
+        return false;
       }
-      return toCheck.uid !== uid;
+      return true;
     });
 
     if (notification && notification.onRemove) {
