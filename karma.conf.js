@@ -47,7 +47,8 @@ module.exports = function (config) {
       'karma-mocha',
       'karma-sourcemap-loader',
       'karma-chrome-launcher',
-      'karma-chai-plugins'
+      'karma-chai-plugins',
+      'karma-coveralls'
     ],
     webpack: {
       devtool: 'inline-source-map',
