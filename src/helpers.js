@@ -1,21 +1,21 @@
 var Helpers = {
-  Timer: function(callback, delay) {
+  Timer: function Timer(callback, delay) {
     var timerId;
     var start;
     var remaining = delay;
 
-    this.pause = function() {
+    this.pause = function pause() {
       clearTimeout(timerId);
       remaining -= new Date() - start;
     };
 
-    this.resume = function() {
+    this.resume = function resume() {
       start = new Date();
       clearTimeout(timerId);
       timerId = setTimeout(callback, remaining);
     };
 
-    this.clear = function() {
+    this.clear = function clear() {
       clearTimeout(timerId);
     };
 

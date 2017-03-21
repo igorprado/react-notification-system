@@ -10,21 +10,21 @@ var NotificationSystem = React.createClass({
 
   _isMounted: false,
 
-  _getStyles: {
+  getStyles: {
     overrideStyle: {},
 
     overrideWidth: null,
 
-    setOverrideStyle: function(style) {
+    setOverrideStyle: function setOverrideStyle(style) {
       this.overrideStyle = style;
     },
 
-    wrapper: function() {
+    wrapper: function wrapper() {
       if (!this.overrideStyle) return {};
       return merge({}, Styles.Wrapper, this.overrideStyle.Wrapper);
     },
 
-    container: function(position) {
+    container: function container(position) {
       var override = this.overrideStyle.Containers || {};
       if (!this.overrideStyle) return {};
 
@@ -50,20 +50,20 @@ var NotificationSystem = React.createClass({
       actionWrapper: 'ActionWrapper'
     },
 
-    byElement: function(element) {
+    byElement: function byElement(element) {
       var self = this;
-      return function(level) {
-        var _element = self.elements[element];
-        var override = self.overrideStyle[_element] || {};
+      return function byElementReturn(level) {
+        var elementFromMap = self.elements[element];
+        var override = self.overrideStyle[elementFromMap] || {};
         if (!self.overrideStyle) return {};
-        return merge({}, Styles[_element].DefaultStyle, Styles[_element][level], override.DefaultStyle, override[level]);
+        return merge({}, Styles[elementFromMap].DefaultStyle, Styles[elementFromMap][level], override.DefaultStyle, override[level]);
       };
     }
   },
 
-  _didNotificationRemoved: function(uid) {
+  didNotificationRemoved: function didNotificationRemoved(uid) {
     var notification;
-    var notifications = this.state.notifications.filter(function(toCheck) {
+    var notifications = this.state.notifications.filter(function filterCallback(toCheck) {
       if (toCheck.uid === uid) {
         notification = toCheck;
       }
@@ -79,7 +79,7 @@ var NotificationSystem = React.createClass({
     }
   },
 
-  getInitialState: function() {
+  getInitialState: function getInitialState() {
     return {
       notifications: []
     };
@@ -94,7 +94,7 @@ var NotificationSystem = React.createClass({
     allowHTML: React.PropTypes.bool
   },
 
-  getDefaultProps: function() {
+  getDefaultProps: function getDefaultProps() {
     return {
       style: {},
       noAnimation: false,
@@ -102,102 +102,102 @@ var NotificationSystem = React.createClass({
     };
   },
 
-  addNotification: function(notification) {
-    var _notification = merge({}, Constants.notification, notification);
+  addNotification: function addNotification(notification) {
+    var notificationToBeAdded = merge({}, Constants.notification, notification);
     var notifications = this.state.notifications;
     var i;
 
-    if (!_notification.level) {
+    if (!notificationToBeAdded.level) {
       throw new Error('notification level is required.');
     }
 
-    if (Object.keys(Constants.levels).indexOf(_notification.level) === -1) {
-      throw new Error('\'' + _notification.level + '\' is not a valid level.');
+    if (Object.keys(Constants.levels).indexOf(notificationToBeAdded.level) === -1) {
+      throw new Error('\'' + notificationToBeAdded.level + '\' is not a valid level.');
     }
 
-    if (isNaN(_notification.autoDismiss)) {
+    if (isNaN(notificationToBeAdded.autoDismiss)) {
       throw new Error('\'autoDismiss\' must be a number.');
     }
 
-    if (Object.keys(Constants.positions).indexOf(_notification.position) === -1) {
-      throw new Error('\'' + _notification.position + '\' is not a valid position.');
+    if (Object.keys(Constants.positions).indexOf(notificationToBeAdded.position) === -1) {
+      throw new Error('\'' + notificationToBeAdded.position + '\' is not a valid position.');
     }
 
     // Some preparations
-    _notification.position = _notification.position.toLowerCase();
-    _notification.level = _notification.level.toLowerCase();
-    _notification.autoDismiss = parseInt(_notification.autoDismiss, 10);
+    notificationToBeAdded.position = notificationToBeAdded.position.toLowerCase();
+    notificationToBeAdded.level = notificationToBeAdded.level.toLowerCase();
+    notificationToBeAdded.autoDismiss = parseInt(notificationToBeAdded.autoDismiss, 10);
 
-    _notification.uid = _notification.uid || this.uid;
-    _notification.ref = 'notification-' + _notification.uid;
+    notificationToBeAdded.uid = notificationToBeAdded.uid || this.uid;
+    notificationToBeAdded.ref = 'notification-' + notificationToBeAdded.uid;
     this.uid += 1;
 
     // do not add if the notification already exists based on supplied uid
-    for (i = 0; i < notifications.length; i++) {
-      if (notifications[i].uid === _notification.uid) {
+    for (i = 0; i < notifications.length; i += 1) {
+      if (notifications[i].uid === notificationToBeAdded.uid) {
         return false;
       }
     }
 
-    notifications.push(_notification);
+    notifications.push(notificationToBeAdded);
 
-    if (typeof _notification.onAdd === 'function') {
-      notification.onAdd(_notification);
+    if (typeof notificationToBeAdded.onAdd === 'function') {
+      notification.onAdd(notificationToBeAdded);
     }
 
     this.setState({
       notifications: notifications
     });
 
-    return _notification;
+    return notificationToBeAdded;
   },
 
-  removeNotification: function(notification) {
+  removeNotification: function removeNotification(notificationToBeRemoved) {
     var self = this;
-    Object.keys(this.refs).forEach(function(container) {
+    Object.keys(this.refs).forEach(function forEachCallback(container) {
       if (container.indexOf('container') > -1) {
-        Object.keys(self.refs[container].refs).forEach(function(_notification) {
-          var uid = notification.uid ? notification.uid : notification;
-          if (_notification === 'notification-' + uid) {
-            self.refs[container].refs[_notification]._hideNotification();
+        Object.keys(self.refs[container].refs).forEach(function forEachCallback2(notification) {
+          var uid = notificationToBeRemoved.uid ? notificationToBeRemoved.uid : notificationToBeRemoved;
+          if (notification === 'notification-' + uid) {
+            self.refs[container].refs[notification].hideNotification();
           }
         });
       }
     });
   },
 
-  clearNotifications: function() {
+  clearNotifications: function clearNotifications() {
     var self = this;
-    Object.keys(this.refs).forEach(function(container) {
+    Object.keys(this.refs).forEach(function forEachCallback(container) {
       if (container.indexOf('container') > -1) {
-        Object.keys(self.refs[container].refs).forEach(function(_notification) {
-          self.refs[container].refs[_notification]._hideNotification();
+        Object.keys(self.refs[container].refs).forEach(function forEachCallback2(notification) {
+          self.refs[container].refs[notification].hideNotification();
         });
       }
     });
   },
 
-  componentDidMount: function() {
-    this._getStyles.setOverrideStyle(this.props.style);
+  componentDidMount: function componentDidMount() {
+    this.getStyles.setOverrideStyle(this.props.style);
     this._isMounted = true;
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount: function componentWillUnmount() {
     this._isMounted = false;
   },
 
-  render: function() {
+  render: function render() {
     var self = this;
     var containers = null;
     var notifications = this.state.notifications;
 
     if (notifications.length) {
-      containers = Object.keys(Constants.positions).map(function(position) {
-        var _notifications = notifications.filter(function(notification) {
+      containers = Object.keys(Constants.positions).map(function mapCallback(position) {
+        var notificationsFiltered = notifications.filter(function filterCallback(notification) {
           return position === notification.position;
         });
 
-        if (!_notifications.length) {
+        if (!notificationsFiltered.length) {
           return null;
         }
 
@@ -206,9 +206,9 @@ var NotificationSystem = React.createClass({
             ref={ 'container-' + position }
             key={ position }
             position={ position }
-            notifications={ _notifications }
-            getStyles={ self._getStyles }
-            onRemove={ self._didNotificationRemoved }
+            notifications={ notificationsFiltered }
+            getStyles={ self.getStyles }
+            onRemove={ self.didNotificationRemoved }
             noAnimation={ self.props.noAnimation }
             allowHTML={ self.props.allowHTML }
           />
@@ -218,7 +218,7 @@ var NotificationSystem = React.createClass({
 
 
     return (
-      <div className="notifications-wrapper" style={ this._getStyles.wrapper() }>
+      <div className="notifications-wrapper" style={ this.getStyles.wrapper() }>
         { containers }
       </div>
 

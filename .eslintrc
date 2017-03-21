@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb/legacy",
+  "extends": "airbnb-base/legacy",
   "env": {
     "browser": true,
     "node": true,
@@ -17,37 +17,8 @@
     }
   },
   "rules": {
-    "react/display-name": 2,
-    "react/jsx-curly-spacing": [2, "always"],
-    "react/jsx-no-duplicate-props": 2,
-    "react/jsx-no-undef": 2,
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/no-did-mount-set-state": 2,
-    "react/no-did-update-set-state": 2,
-    "react/no-multi-comp": 2,
-    "react/no-unknown-property": 2,
-    "react/prop-types": 2,
-    "react/react-in-jsx-scope": 2,
-    "react/self-closing-comp": 2,
-    "react/jsx-wrap-multilines": 2,
-    "react/sort-comp": 0,
-
-    "import/extensions": 2,
-
-    "space-before-function-paren": 0,
-    "quotes": [2, "single", "avoid-escape"],
-    "jsx-quotes": [2, "prefer-double"],
-    "comma-dangle": [2, "never"],
-    "indent": [2, 2],
-    "object-curly-spacing": [2, "always"],
-    "no-undef": 2,
-    "no-underscore-dangle": 0,
-    "func-names": 0,
-    "no-else-return": 0,
-    "no-console": 0,
-    "no-throw-literal": 0,
-    "id-length": 0,
-    "max-len": 0
+    "no-underscore-dangle": ["error", { "allow": ["_isMounted"] }],
+    "react/jsx-uses-vars": "error",
+    "max-len": ["error", 150]
   }
 }
