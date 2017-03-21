@@ -66,8 +66,9 @@ var NotificationSystem = React.createClass({
     var notifications = this.state.notifications.filter(function filterCallback(toCheck) {
       if (toCheck.uid === uid) {
         notification = toCheck;
+        return false;
       }
-      return toCheck.uid !== uid;
+      return true;
     });
 
     if (notification && notification.onRemove) {
@@ -152,25 +153,67 @@ var NotificationSystem = React.createClass({
     return notificationToBeAdded;
   },
 
-  removeNotification: function removeNotification(notificationToBeRemoved) {
+  getNotificationRef: function getNotificationRef(notification) {
     var self = this;
-    Object.keys(this.refs).forEach(function forEachCallback(container) {
+    var foundNotification = null;
+
+    Object.keys(this.refs).forEach(function refsForEach(container) {
       if (container.indexOf('container') > -1) {
-        Object.keys(self.refs[container].refs).forEach(function forEachCallback2(notification) {
-          var uid = notificationToBeRemoved.uid ? notificationToBeRemoved.uid : notificationToBeRemoved;
-          if (notification === 'notification-' + uid) {
-            self.refs[container].refs[notification].hideNotification();
+        Object.keys(self.refs[container].refs).forEach(function containerRefsForEach(notificationToCompare) {
+          var uid = notification.uid ? notification.uid : notification;
+          if (notificationToCompare === 'notification-' + uid) {
+            foundNotification = self.refs[container].refs[notificationToCompare];
           }
         });
       }
+    });
+
+    return foundNotification;
+  },
+
+  removeNotification: function removeNotification(notification) {
+    var foundNotification = this.getNotificationRef(notification);
+    return foundNotification && foundNotification.hideNotification();
+  },
+
+  editNotification: function editNotification(notification, newNotification) {
+    var foundNotification = null;
+    // NOTE: Find state notification to update by using
+    // `setState` and forcing React to re-render the component.
+    var uid = notification.uid ? notification.uid : notification;
+
+    var newNotifications = this.state.notifications.filter(function filter(stateNotification) {
+      if (uid === stateNotification.uid) {
+        foundNotification = stateNotification;
+        return false;
+      }
+
+      return true;
+    });
+
+
+    if (!foundNotification) {
+      return;
+    }
+
+    newNotifications.push(
+      merge(
+        {},
+        foundNotification,
+        newNotification
+      )
+    );
+
+    this.setState({
+      notifications: newNotifications
     });
   },
 
   clearNotifications: function clearNotifications() {
     var self = this;
-    Object.keys(this.refs).forEach(function forEachCallback(container) {
+    Object.keys(this.refs).forEach(function refsForEach(container) {
       if (container.indexOf('container') > -1) {
-        Object.keys(self.refs[container].refs).forEach(function forEachCallback2(notification) {
+        Object.keys(self.refs[container].refs).forEach(function containerRefsForEach(notification) {
           self.refs[container].refs[notification].hideNotification();
         });
       }
@@ -221,7 +264,6 @@ var NotificationSystem = React.createClass({
       <div className="notifications-wrapper" style={ this.getStyles.wrapper() }>
         { containers }
       </div>
-
     );
   }
 });

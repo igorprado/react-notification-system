@@ -172,6 +172,38 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should edit an existing notification using returned object', (done) => {
+    const notificationCreated = component.addNotification(defaultNotification);
+    const notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(1);
+
+    const newTitle = 'foo';
+    const newContent = 'foobar';
+
+    component.editNotification(notificationCreated, { title: newTitle, message: newContent });
+    clock.tick(1000);
+    const notificationEdited = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    expect(notificationEdited.getElementsByClassName('notification-title')[0].textContent).toEqual(newTitle);
+    expect(notificationEdited.getElementsByClassName('notification-message')[0].textContent).toEqual(newContent);
+    done();
+  });
+
+  it('should edit an existing notification using uid', (done) => {
+    const notificationCreated = component.addNotification(defaultNotification);
+    const notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(1);
+
+    const newTitle = 'foo';
+    const newContent = 'foobar';
+
+    component.editNotification(notificationCreated.uid, { title: newTitle, message: newContent });
+    clock.tick(1000);
+    const notificationEdited = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    expect(notificationEdited.getElementsByClassName('notification-title')[0].textContent).toEqual(newTitle);
+    expect(notificationEdited.getElementsByClassName('notification-message')[0].textContent).toEqual(newContent);
+    done();
+  });
+
   it('should remove all notifications', done => {
     component.addNotification(defaultNotification);
     component.addNotification(defaultNotification);
