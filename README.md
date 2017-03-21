@@ -10,11 +10,7 @@ _Initially built for [Eterpret](http://dev.eterpret.com) @ [Scalable Path](http:
 
 ## Installing
 
-<<<<<<< HEAD
-This component is available as CommonJS and UMD module. Install via NPM running:
-=======
-For now this component is only available as CommonJS module. Install via [npm](https://www.npmjs.com/) by running:
->>>>>>> bf46f1aae075391b14ecca5935a5768ab88772d2
+This component is available as CommonJS and UMD module. Install via [npm](https://www.npmjs.com/) by running:
 
 ```
 npm install react-notification-system
