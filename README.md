@@ -10,10 +10,26 @@ _Initially built for [Eterpret](http://dev.eterpret.com) @ [Scalable Path](http:
 
 ## Installing
 
+<<<<<<< HEAD
 This component is available as CommonJS and UMD module. Install via NPM running:
+=======
+For now this component is only available as CommonJS module. Install via [npm](https://www.npmjs.com/) by running:
+>>>>>>> bf46f1aae075391b14ecca5935a5768ab88772d2
 
 ```
 npm install react-notification-system
+```
+
+Save it to the `dependencies` in your `package.json` via npm by running:
+
+```
+npm install --save react-notification-system
+```
+
+Alternatively, install via [Yarn](https://yarnpkg.com) and automatically save to the `dependencies` in your `package.json` by running:
+
+```
+yarn add react-notification-system
 ```
 
 ### Important
@@ -64,7 +80,7 @@ var MyComponent = React.createClass({
         <button onClick={this._addNotification}>Add notification</button>
         <NotificationSystem ref="notificationSystem" />
       </div>
-      );
+    );
   }
 });
 
