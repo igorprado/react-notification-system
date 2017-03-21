@@ -8,10 +8,15 @@
     "test-watch": "karma start",
     "prepare-build": "npm run lint && rimraf dist/",
     "prebuild": "npm run prepare-build",
-    "build": "jsx -x jsx ./src ./dist & jsx ./src ./dist && webpack --stats --config webpack.config.umd.prod.js && webpack --stats --config webpack.config.umd.dev.js",
+    "build": "jsx -x jsx ./src ./dist & jsx ./src ./dist && webpack --stats --config webpack/webpack.config.umd.prod.js && webpack --stats --config webpack/webpack.config.umd.dev.js",
     "lint": "eslint src --ext .jsx,.js",
     "start": "NODE_ENV=development node devServer.js",
-    "build:example": "rimraf example/build/ && webpack --stats --config webpack.config.prod.js"
+    "build:example": "rimraf example/build/ && webpack --stats --config webpack/webpack.config.prod.js",
+    "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json"
+  },
+  "devEngines": {
+    "node": "4.x || 5.x || 6.x || 7.x",
+    "npm": "2.x || 3.x || 4.x"
   },
   "repository": {
     "type": "git",
@@ -55,6 +60,7 @@
     "expect": "^1.12.1",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.8.2",
+    "fbjs-scripts": "^0.7.1",
     "file-loader": "^0.8.4",
     "install": "^0.1.8",
     "isparta-loader": "^1.0.0",

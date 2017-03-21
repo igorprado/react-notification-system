@@ -4,12 +4,14 @@ var webpack = require('webpack');
 
 var coverage;
 var reporters;
+var browsers;
 if (process.env.CONTINUOUS_INTEGRATION) {
   coverage = {
     type: 'lcov',
     dir: 'coverage/'
   };
   reporters = ['coverage', 'coveralls'];
+  browsers = ['Chrome_travis_ci'];
 }
 else {
   coverage = {
@@ -17,15 +19,22 @@ else {
     dir: 'coverage/'
   };
   reporters = ['progress', 'coverage'];
+  browsers = ['Chrome'];
 }
 
 module.exports = function (config) {
   config.set({
-    browsers: ['Firefox'],
+    browsers: browsers,
+    customLaunchers: {
+        Chrome_travis_ci: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+        }
+    },
     browserNoActivityTimeout: 30000,
     frameworks: ['mocha', 'chai', 'sinon-chai'],
-    files: ['tests.webpack.js'],
-    preprocessors: {'tests.webpack.js': ['webpack', 'sourcemap']},
+    files: ['webpack/webpack.tests.js'],
+    preprocessors: {'webpack/webpack.tests.js': ['webpack', 'sourcemap']},
     reporters: reporters,
     coverageReporter: coverage,
     webpack: {
