@@ -37,7 +37,7 @@ module.exports = {
         loaders: [
           'style-loader',
           'css-loader',
-          'autoprefixer-loader?browsers=last 2 version',
+          'postcss-loader',
           'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, '../example/src')
         ]
       },

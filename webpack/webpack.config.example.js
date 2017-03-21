@@ -5,8 +5,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var JS_REGEX = /\.js$|\.jsx$|\.es6$|\.babel$/;
 
 var sassLoaders = [
+  'style-loader',
   'css-loader',
-  'autoprefixer-loader?browsers=last 2 version',
+  'postcss-loader',
   'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, '../example/src')
 ];
 
