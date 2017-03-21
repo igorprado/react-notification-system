@@ -8,10 +8,10 @@
     "test-watch": "karma start",
     "prepare-build": "npm run lint && rimraf dist/",
     "prebuild": "npm run prepare-build",
-    "build": "jsx -x jsx ./src ./dist & jsx ./src ./dist && webpack --stats --config webpack/webpack.config.umd.prod.js && webpack --stats --config webpack/webpack.config.umd.dev.js",
+    "build": "webpack --stats --config webpack/webpack.config.build.js && webpack --stats --config webpack/webpack.config.umd.prod.js && webpack --stats --config webpack/webpack.config.umd.dev.js",
     "lint": "eslint src --ext .jsx,.js",
     "start": "NODE_ENV=development node devServer.js",
-    "build:example": "rimraf example/build/ && webpack --stats --config webpack/webpack.config.prod.js",
+    "build:example": "rimraf example/build/ && webpack --stats --config webpack/webpack.config.example.js",
     "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json"
   },
   "devEngines": {
@@ -52,6 +52,7 @@
     "babel-plugin-react-transform": "^2.0.2",
     "babel-preset-airbnb": "^2.0.0",
     "css-loader": "^0.27.3",
+    "deep-assign": "^2.0.0",
     "eslint": "^3.18.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
