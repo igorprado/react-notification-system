@@ -1,4 +1,5 @@
-// Browser ES6 Polyfill
-// require('babel/polyfill');
-const context = require.context('../test', true, /\.test\.jsx$|\.test\.js$/);
-context.keys().forEach(context);
+const testsContext = require.context('../test', true, /\.test\.js$/);
+testsContext.keys().forEach(testsContext);
+
+const componentsContext = require.context('../src', true, /.jsx?$/);
+componentsContext.keys().forEach(componentsContext);

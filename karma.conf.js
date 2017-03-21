@@ -1,6 +1,6 @@
 /* eslint-disable */
-
 var webpack = require('webpack');
+var path = require('path');
 
 var coverage;
 var reporters;
@@ -10,7 +10,7 @@ if (process.env.CONTINUOUS_INTEGRATION) {
     type: 'lcov',
     dir: 'coverage/'
   };
-  reporters = ['coverage', 'coveralls'];
+  reporters = ['coverage-istanbul', 'coveralls'];
   browsers = ['Chrome_travis_ci'];
 }
 else {
@@ -18,7 +18,7 @@ else {
     type: 'html',
     dir: 'coverage/'
   };
-  reporters = ['progress', 'coverage'];
+  reporters = ['progress', 'coverage-istanbul'];
   browsers = ['Chrome'];
 }
 
@@ -36,22 +36,32 @@ module.exports = function (config) {
     files: ['webpack/webpack.tests.js'],
     preprocessors: {'webpack/webpack.tests.js': ['webpack', 'sourcemap']},
     reporters: reporters,
-    coverageReporter: coverage,
+    coverageIstanbulReporter: {
+      reports: [ 'text-summary' ],
+      fixWebpackSourcePaths: true
+    },
+    plugins: [
+      'karma-webpack',
+      'karma-coverage',
+      'karma-coverage-istanbul-reporter',
+      'karma-mocha',
+      'karma-sourcemap-loader',
+      'karma-chrome-launcher',
+      'karma-chai-plugins'
+    ],
     webpack: {
       devtool: 'inline-source-map',
       module: {
         loaders: [
-          // TODO: fix sourcemaps
-          // see: https://github.com/deepsweet/isparta-loader/issues/1
           {
             test: /\.js$|.jsx$/,
-            loader: 'babel?presets=airbnb',
+            loader: 'babel-loader?presets=airbnb',
             exclude: /node_modules/
           },
           {
             test: /\.js$|.jsx$/,
-            loader: 'isparta?{babel: {stage: 0}}',
-            exclude: /node_modules|test|utils/
+            include: path.resolve(__dirname, '../src/'),
+            loader: 'istanbul-instrumenter-loader'
           }
         ]
       },
