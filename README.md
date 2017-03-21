@@ -12,33 +12,27 @@ _Initially built for [Eterpret](http://dev.eterpret.com) @ [Scalable Path](http:
 
 This component is available as CommonJS and UMD module. Install via [npm](https://www.npmjs.com/) by running:
 
-```
+```sh
 npm install react-notification-system
 ```
 
 Save it to the `dependencies` in your `package.json` via npm by running:
 
-```
+```sh
 npm install --save react-notification-system
 ```
 
 Alternatively, install via [Yarn](https://yarnpkg.com) and automatically save to the `dependencies` in your `package.json` by running:
 
-```
+```sh
 yarn add react-notification-system
 ```
 
 ### Important
 
-For **React ^0.14.x** or **React ^15.x.x**, use version >= 1.0.0:
-
-```
-npm install react-notification-system@0.2.x
-```
-
 For **React 0.13.x**, use version 0.1.x:
 
-```
+```sh
 npm install react-notification-system@0.1.x
 ```
 
