@@ -8,7 +8,7 @@ module.exports = {
     './src/NotificationSystem.jsx'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: 'react-notification-system.min.js',
     libraryTarget: 'umd'
   },
@@ -76,8 +76,8 @@ module.exports = {
       {
         test: JS_REGEX,
         include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'example/src')
+          path.resolve(__dirname, '../src'),
+          path.resolve(__dirname, '../example/src')
         ],
         loader: 'babel?presets=airbnb'
       }

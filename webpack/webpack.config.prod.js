@@ -7,7 +7,7 @@ var JS_REGEX = /\.js$|\.jsx$|\.es6$|\.babel$/;
 var sassLoaders = [
   'css-loader',
   'autoprefixer-loader?browsers=last 2 version',
-  'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, './example/src')
+  'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, '../example/src')
 ];
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     './example/src/scripts/App'
   ],
   output: {
-    path: path.join(__dirname, 'example/build'),
+    path: path.resolve(__dirname, '../example/build'),
     filename: 'app.js',
     publicPath: '../build/'
   },
@@ -65,8 +65,8 @@ module.exports = {
       {
         test: JS_REGEX,
         include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'example/src')
+          path.resolve(__dirname, '../src'),
+          path.resolve(__dirname, '../example/src')
         ],
         loader: 'babel?presets=airbnb'
       },
