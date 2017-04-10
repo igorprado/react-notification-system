@@ -1,10 +1,12 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
+var PropTypes = require('prop-types');
 var merge = require('object-assign');
 var NotificationContainer = require('./NotificationContainer');
 var Constants = require('./constants');
 var Styles = require('./styles');
 
-var NotificationSystem = React.createClass({
+var NotificationSystem = createReactClass({
 
   uid: 3400,
 
@@ -86,12 +88,12 @@ var NotificationSystem = React.createClass({
   },
 
   propTypes: {
-    style: React.PropTypes.oneOfType([
-      React.PropTypes.bool,
-      React.PropTypes.object
+    style: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.object
     ]),
-    noAnimation: React.PropTypes.bool,
-    allowHTML: React.PropTypes.bool
+    noAnimation: PropTypes.bool,
+    allowHTML: PropTypes.bool
   },
 
   getDefaultProps: function() {

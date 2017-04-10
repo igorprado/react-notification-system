@@ -1,4 +1,6 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
+var PropTypes = require('prop-types');
 var ReactDOM = require('react-dom');
 var Constants = require('./constants');
 var Helpers = require('./helpers');
@@ -24,17 +26,17 @@ var whichTransitionEvent = function() {
   return transition;
 };
 
-var NotificationItem = React.createClass({
+var NotificationItem = createReactClass({
 
   propTypes: {
-    notification: React.PropTypes.object,
-    getStyles: React.PropTypes.object,
-    onRemove: React.PropTypes.func,
-    allowHTML: React.PropTypes.bool,
-    noAnimation: React.PropTypes.bool,
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.element
+    notification: PropTypes.object,
+    getStyles: PropTypes.object,
+    onRemove: PropTypes.func,
+    allowHTML: PropTypes.bool,
+    noAnimation: PropTypes.bool,
+    children: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element
     ])
   },
 
