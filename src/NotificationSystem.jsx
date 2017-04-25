@@ -141,14 +141,13 @@ var NotificationSystem = React.createClass({
 
     notifications.push(_notification);
 
-    if (typeof _notification.onAdd === 'function') {
-      notification.onAdd(_notification);
-    }
-
     this.setState({
       notifications: notifications
+    },()=>{
+      if (typeof _notification.onAdd === 'function') {
+      notification.onAdd(_notification);
     });
-
+      
     return _notification;
   },
 
