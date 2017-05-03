@@ -1,9 +1,11 @@
 var React = require('react');
+var createReactClass = require('create-react-class');
+var PropTypes = require('prop-types');
 
 // Styles
 require('styles/generator');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   displayName: 'NotificationGenerator',
 
@@ -134,8 +136,8 @@ module.exports = React.createClass({
   },
 
   propTypes: {
-    notifications: React.PropTypes.func.isRequired,
-    allowHTML: React.PropTypes.func
+    notifications: PropTypes.func.isRequired,
+    allowHTML: PropTypes.func
   },
 
   render: function() {
