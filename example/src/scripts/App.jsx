@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var createReactClass = require('create-react-class');
 var NotificationSystem = require('NotificationSystem');
 var constants = require('constants');
 var NotificationGenerator = require('./NotificationGenerator');
@@ -14,7 +15,7 @@ var _getRandomPosition = function() {
 // Styles
 require('styles/base');
 
-NotificationSystemExample = React.createClass({
+NotificationSystemExample = createReactClass({
 
   displayName: 'App',
 
