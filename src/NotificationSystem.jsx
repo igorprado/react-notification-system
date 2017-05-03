@@ -73,12 +73,12 @@ var NotificationSystem = createReactClass({
       return true;
     });
 
-    if (notification && notification.onRemove) {
-      notification.onRemove(notification);
-    }
-
     if (this._isMounted) {
       this.setState({ notifications: notifications });
+    }
+
+    if (notification && notification.onRemove) {
+      notification.onRemove(notification);
     }
   },
 
