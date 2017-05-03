@@ -68,8 +68,9 @@ var NotificationSystem = createReactClass({
     var notifications = this.state.notifications.filter(function(toCheck) {
       if (toCheck.uid === uid) {
         notification = toCheck;
+        return false;
       }
-      return toCheck.uid !== uid;
+      return true;
     });
 
     if (notification && notification.onRemove) {
@@ -154,17 +155,62 @@ var NotificationSystem = createReactClass({
     return _notification;
   },
 
-  removeNotification: function(notification) {
+  getNotificationRef: function(notification) {
     var self = this;
+    var foundNotification = null;
+
     Object.keys(this.refs).forEach(function(container) {
       if (container.indexOf('container') > -1) {
         Object.keys(self.refs[container].refs).forEach(function(_notification) {
           var uid = notification.uid ? notification.uid : notification;
           if (_notification === 'notification-' + uid) {
-            self.refs[container].refs[_notification]._hideNotification();
+            // NOTE: Stop iterating further and return the found notification.
+            // Since UIDs are uniques and there won't be another notification found.
+            foundNotification = self.refs[container].refs[_notification];
+            return;
           }
         });
       }
+    });
+
+    return foundNotification;
+  },
+
+  removeNotification: function(notification) {
+    var foundNotification = this.getNotificationRef(notification);
+    return foundNotification && foundNotification._hideNotification();
+  },
+
+  editNotification: function(notification, newNotification) {
+    var foundNotification = null;
+    // NOTE: Find state notification to update by using
+    // `setState` and forcing React to re-render the component.
+    var uid = notification.uid ? notification.uid : notification;
+
+    var newNotifications = this.state.notifications.filter(function(stateNotification) {
+      if (uid === stateNotification.uid) {
+        foundNotification = stateNotification;
+        return false;
+      }
+
+      return true;
+    });
+
+
+    if (!foundNotification) {
+      return;
+    }
+
+    newNotifications.push(
+      merge(
+        {},
+        foundNotification,
+        newNotification
+      )
+    );
+
+    this.setState({
+      notifications: newNotifications
     });
   },
 
@@ -223,7 +269,6 @@ var NotificationSystem = createReactClass({
       <div className="notifications-wrapper" style={ this._getStyles.wrapper() }>
         { containers }
       </div>
-
     );
   }
 });
