@@ -2,8 +2,9 @@
 
 ## 0.2.14 - May 3, 2017
 
-* Ability to [edit notifications](https://github.com/igorprado/react-notification-system#removenotificationnotification) (thanks to @syndbg)
+* Ability to [edit notifications](https://github.com/igorprado/react-notification-system#removenotificationnotification). (thanks to @syndbg)
 * Removed deprecation warning. Now using `prop-types` and `create-react-class`packages. (thanks to @andrewBalekha)
+* Fix calling `onRemove` before updating the notifications state. (thanks to @szdc)
 
 ## 0.2.13 - Mar 14, 2017
 
