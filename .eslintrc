@@ -17,7 +17,7 @@
     }
   },
   "rules": {
-    "react/display-name": 2,
+    "react/display-name": 0,
     "react/jsx-curly-spacing": [2, "always"],
     "react/jsx-no-duplicate-props": 2,
     "react/jsx-no-undef": 2,
