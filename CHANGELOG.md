@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.2.14 - May 3, 2017
+
+* Ability to [edit notifications](https://github.com/igorprado/react-notification-system#removenotificationnotification) (thanks to @syndbg)
+* Removed deprecation warning. Now using `prop-types` and `create-react-class`packages. (thanks to @andrewBalekha)
+
 ## 0.2.13 - Mar 14, 2017
 
 * UMD support. (thanks to @jochenberger)
