@@ -280,37 +280,36 @@ var NotificationSystem = createReactClass({
     );
   },
 
-  //These just proxy the current actively mounted instance.
+  // These just proxy the current actively mounted instance.
   statics: {
     addNotification: function(notification) {
       if (NotificationSystem.instance) {
         return NotificationSystem.instance.addNotification(notification);
-      } else {
-        console.warn('NotificationSystem', 'No instance to add notification.', notification);
-        //return notification to prevent null pointer errors.
-        return notification;
       }
+      console.warn('NotificationSystem', 'No instance to add notification.', notification);
+      // return notification to prevent null pointer errors.
+      return notification;
     },
     removeNotification: function(notification) {
       if (NotificationSystem.instance) {
         return NotificationSystem.instance.remoteNotification(notification);
-      } else {
-        console.warn('NotificationSystem', 'No instance to remote notification.', notification);
       }
+      console.warn('NotificationSystem', 'No instance to remote notification.', notification);
+      return notification;
     },
     editNotification: function(notification) {
       if (NotificationSystem.instance) {
         return NotificationSystem.instance.editNotification(notification);
-      } else {
-        console.warn('NotificationSystem', 'No instance to edit notification.', notification);
       }
+      console.warn('NotificationSystem', 'No instance to edit notification.', notification);
+      return notification;
     },
     clearNotifications: function() {
       if (NotificationSystem.instance) {
         return NotificationSystem.instance.clearNotifications();
-      } else {
-        console.warn('NotificationSystem', 'No instance to clear notifications.');
       }
+      console.warn('NotificationSystem', 'No instance to clear notifications.');
+      return null;
     }
   }
 });
