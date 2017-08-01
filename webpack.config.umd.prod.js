@@ -10,7 +10,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'react-notification-system.min.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    library: "ReactNotificationSystem"
   },
   devtool: 'source-map',
   externals: [
