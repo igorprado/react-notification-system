@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.15 - Aug 1, 2017
+
+* UMD build now specifies the library name (thanks to @franckamayou)
+
 ## 0.2.14 - May 3, 2017
 
 * Ability to [edit notifications](https://github.com/igorprado/react-notification-system#removenotificationnotification). (thanks to @syndbg)
