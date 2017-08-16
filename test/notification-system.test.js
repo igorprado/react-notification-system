@@ -253,6 +253,16 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should not dismiss the notificaion on click if dismissible is false', done => {
+    notificationObj.dismissible = false;
+    component.addNotification(notificationObj);
+    let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    TestUtils.Simulate.click(notification);
+    let notificationAfterClicked = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    expect(notificationAfterClicked).toExist();
+    done();
+  });
+
   it('should not dismiss the notification on click if dismissible is none', done => {
     notificationObj.dismissible = 'none';
     component.addNotification(notificationObj);
