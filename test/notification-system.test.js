@@ -1,7 +1,7 @@
 /* global sinon */
 
 import React, { Component } from 'react';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import expect from 'expect';
 import NotificationSystem from 'NotificationSystem';
 import { positions, levels } from 'constants';
