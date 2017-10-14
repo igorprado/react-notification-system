@@ -1,7 +1,7 @@
 /* global sinon */
 
 import React, { Component } from 'react';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import expect from 'expect';
 import NotificationSystem from 'NotificationSystem';
 import { positions, levels } from 'constants';
@@ -56,12 +56,12 @@ describe('Notification Component', function() {
 
   it('should be rendered', done => {
     component = TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-wrapper');
-    expect(component).toExist();
+    expect(component).not.toBeNull();
     done();
   });
 
   it('should hold the component ref', done => {
-    expect(component).toExist();
+    expect(component).not.toBeNull();
     done();
   });
 
@@ -75,8 +75,8 @@ describe('Notification Component', function() {
   it('should not set a notification visibility class when the notification is initially added', done => {
     component.addNotification(defaultNotification);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
-    expect(notification.className).toNotMatch(/notification-hidden/);
-    expect(notification.className).toNotMatch(/notification-visible/);
+    expect(notification.className).not.toMatch(/notification-hidden/);
+    expect(notification.className).not.toMatch(/notification-visible/);
     done();
   });
 
@@ -109,7 +109,7 @@ describe('Notification Component', function() {
     containers.forEach(function(container) {
       for (let level of Object.keys(levels)) {
         let notification = container.getElementsByClassName('notification-' + levels[level]);
-        expect(notification).toExist();
+        expect(notification).not.toBeNull();
       }
     });
 
@@ -249,7 +249,7 @@ describe('Notification Component', function() {
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
     TestUtils.Simulate.click(notification);
     let notificationAfterClicked = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
-    expect(notificationAfterClicked).toExist();
+    expect(notificationAfterClicked).not.toBeNull();
     done();
   });
 
@@ -261,7 +261,7 @@ describe('Notification Component', function() {
 
     component.addNotification(defaultNotification);
     let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification-action-button');
-    expect(button).toExist();
+    expect(button).not.toBeNull();
     done();
   });
 
@@ -325,7 +325,7 @@ describe('Notification Component', function() {
 
     component.addNotification(defaultNotification);
     let customContainer = TestUtils.findRenderedDOMComponentWithClass(instance, 'custom-container');
-    expect(customContainer).toExist();
+    expect(customContainer).not.toBeNull();
     done();
   });
 
@@ -336,7 +336,7 @@ describe('Notification Component', function() {
     TestUtils.Simulate.mouseEnter(notification);
     clock.tick(4000);
     let _notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
-    expect(_notification).toExist();
+    expect(_notification).not.toBeNull();
     done();
   });
 
