@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.16 - Oct 19, 2017
+
+* Support for React 16 (thanks to @marudor)
+
 ## 0.2.15 - Aug 1, 2017
 
 * UMD build now specifies the library name (thanks to @franckamayou)

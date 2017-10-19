@@ -118,6 +118,7 @@ var NotificationSystem = createReactClass({
       throw new Error('\'' + _notification.level + '\' is not a valid level.');
     }
 
+    // eslint-disable-next-line
     if (isNaN(_notification.autoDismiss)) {
       throw new Error('\'autoDismiss\' must be a number.');
     }
@@ -136,7 +137,7 @@ var NotificationSystem = createReactClass({
     this.uid += 1;
 
     // do not add if the notification already exists based on supplied uid
-    for (i = 0; i < notifications.length; i++) {
+    for (i = 0; i < notifications.length; i += 1) {
       if (notifications[i].uid === _notification.uid) {
         return false;
       }
@@ -167,7 +168,6 @@ var NotificationSystem = createReactClass({
             // NOTE: Stop iterating further and return the found notification.
             // Since UIDs are uniques and there won't be another notification found.
             foundNotification = self.refs[container].refs[_notification];
-            return;
           }
         });
       }
@@ -201,13 +201,11 @@ var NotificationSystem = createReactClass({
       return;
     }
 
-    newNotifications.push(
-      merge(
-        {},
-        foundNotification,
-        newNotification
-      )
-    );
+    newNotifications.push(merge(
+      {},
+      foundNotification,
+      newNotification
+    ));
 
     this.setState({
       notifications: newNotifications

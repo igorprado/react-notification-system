@@ -181,7 +181,7 @@ var NotificationItem = createReactClass({
   _onTransitionEnd: function() {
     if (this._removeCount > 0) return;
     if (this.state.removed) {
-      this._removeCount++;
+      this._removeCount += 1;
       this._removeNotification();
     }
   },
@@ -306,7 +306,7 @@ var NotificationItem = createReactClass({
           <button className="notification-action-button"
             onClick={ this._defaultAction }
             style={ this._styles.action }>
-              { notification.action.label }
+            { notification.action.label }
           </button>
         </div>
       );
