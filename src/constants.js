@@ -26,7 +26,8 @@ var CONSTANTS = {
     position: 'tr',
     autoDismiss: 5,
     dismissible: true,
-    action: null
+    action: null,
+    getContentComponent: null
   }
 };
 

@@ -1,4 +1,6 @@
 .DS_Store
+.idea/
+.yarnrc
 coverage/
 node_modules/
 dist/

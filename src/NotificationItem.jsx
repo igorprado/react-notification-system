@@ -5,6 +5,7 @@ var ReactDOM = require('react-dom');
 var Constants = require('./constants');
 var Helpers = require('./helpers');
 var merge = require('object-assign');
+var classnames = require('classnames');
 
 /* From Modernizr */
 var whichTransitionEvent = function() {
@@ -242,23 +243,20 @@ var NotificationItem = createReactClass({
 
   render: function() {
     var notification = this.props.notification;
-    var className = 'notification notification-' + notification.level;
     var notificationStyle = merge({}, this._styles.notification);
     var cssByPos = this._getCssPropertyByPosition();
     var dismiss = null;
     var actionButton = null;
     var title = null;
     var message = null;
+    var content = null;
+    var getContentComponent = notification.getContentComponent;
 
-    if (this.state.visible) {
-      className += ' notification-visible';
-    } else if (this.state.visible === false) {
-      className += ' notification-hidden';
-    }
-
-    if (!notification.dismissible) {
-      className += ' notification-not-dismissible';
-    }
+    var className = classnames('notification', 'notification-' + notification.level, {
+      'notification-visible': this.state.visible,
+      'notification-hidden': !this.state.visible,
+      'notification-not-dismissible': !notification.dismissible
+    });
 
     if (this.props.getStyles.overrideStyle) {
       if (!this.state.visible && !this.state.removed) {
@@ -316,12 +314,26 @@ var NotificationItem = createReactClass({
       actionButton = notification.children;
     }
 
+    if (getContentComponent) {
+      content = getContentComponent();
+    } else {
+      content = [
+        title,
+        message,
+        dismiss,
+        actionButton
+      ];
+    }
+
     return (
-      <div className={ className } onClick={ this._dismiss } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
-        { title }
-        { message }
-        { dismiss }
-        { actionButton }
+      <div
+        className={ className }
+        onClick={ this._dismiss }
+        onMouseEnter={ this._handleMouseEnter }
+        onMouseLeave={ this._handleMouseLeave }
+        style={ notificationStyle }
+      >
+        {content}
       </div>
     );
   }

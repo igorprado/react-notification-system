@@ -5,6 +5,7 @@ var merge = require('object-assign');
 var NotificationContainer = require('./NotificationContainer');
 var Constants = require('./constants');
 var Styles = require('./styles');
+var classnames = require('classnames');
 
 var NotificationSystem = createReactClass({
 
@@ -236,6 +237,13 @@ var NotificationSystem = createReactClass({
     var self = this;
     var containers = null;
     var notifications = this.state.notifications;
+    var className = this.props.className;
+
+    var classNameSelector = classnames(
+      'notifications-wrapper', {
+        [className]: !!className
+      }
+    );
 
     if (notifications.length) {
       containers = Object.keys(Constants.positions).map(function(position) {
@@ -264,7 +272,7 @@ var NotificationSystem = createReactClass({
 
 
     return (
-      <div className="notifications-wrapper" style={ this._getStyles.wrapper() }>
+      <div className={ classNameSelector } style={ this._getStyles.wrapper() }>
         { containers }
       </div>
     );
