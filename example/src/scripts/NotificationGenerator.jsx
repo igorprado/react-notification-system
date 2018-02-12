@@ -168,11 +168,11 @@ module.exports = createReactClass({
       );
     }
 
-    if (notification.position === 'in') {
+    if (notification.position === 'invalid') {
       error.position = 'text-danger';
     }
 
-    if (notification.level === 'in') {
+    if (notification.level === 'invalid') {
       error.level = 'text-danger';
     }
 
@@ -205,13 +205,14 @@ module.exports = createReactClass({
           <div className="form-group">
             <label>Position:</label>
             <select className="form-control" name="position" onChange={ this._changed } value={ notification.position }>
+              <option value="in">Inline (in)</option>
               <option value="tl">Top left (tl)</option>
               <option value="tr">Top right (tr)</option>
               <option value="tc">Top center (tc)</option>
               <option value="bl">Bottom left (bl)</option>
               <option value="br">Bottom right (br)</option>
               <option value="bc">Bottom center (bc)</option>
-              <option value="in">Invalid position</option>
+              <option value="invalid">Invalid position</option>
             </select>
             <small className={ error.position }>Open console to see the error after creating a notification.</small>
           </div>
@@ -223,7 +224,7 @@ module.exports = createReactClass({
               <option value="error">Error (error)</option>
               <option value="warning">Warning (warning)</option>
               <option value="info">Info (info)</option>
-              <option value="in">Invalid level</option>
+              <option value="invalid">Invalid level</option>
             </select>
             <small className={ error.level }>Open console to see the error after creating a notification.</small>
           </div>

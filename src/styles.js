@@ -36,6 +36,11 @@ var STYLES = {
       height: 'auto'
     },
 
+    in: {
+      position: 'relative',
+      width: '100%'
+    },
+
     tl: {
       top: '0px',
       bottom: 'auto',

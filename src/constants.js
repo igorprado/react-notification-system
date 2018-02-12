@@ -2,6 +2,7 @@ var CONSTANTS = {
 
   // Positions
   positions: {
+    in: 'in',
     tl: 'tl',
     tr: 'tr',
     tc: 'tc',
