@@ -246,6 +246,7 @@ var NotificationItem = createReactClass({
     var notificationStyle = merge({}, this._styles.notification);
     var cssByPos = this._getCssPropertyByPosition();
     var dismiss = null;
+    var children = null;
     var actionButton = null;
     var title = null;
     var message = null;
@@ -313,11 +314,12 @@ var NotificationItem = createReactClass({
     }
 
     if (notification.children) {
-      actionButton = notification.children;
+      children = notification.children;
     }
 
     return (
       <div className={ className } onClick={ this._dismiss } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
+        { children }
         { title }
         { message }
         { dismiss }
