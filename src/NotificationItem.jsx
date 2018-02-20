@@ -319,11 +319,11 @@ var NotificationItem = createReactClass({
 
     return (
       <div className={ className } onClick={ this._dismiss } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
-        { children }
         { title }
         { message }
         { dismiss }
         { actionButton }
+        { children }
       </div>
     );
   }
