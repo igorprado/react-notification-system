@@ -62,15 +62,6 @@ module.exports = createReactClass({
     console.log('%cNotification ' + notification.uid + ' was removed.', 'font-weight: bold; color: #eb4d00');
   },
 
-  _changedDismissible: function() {
-    var notification = this.state.notification;
-    notification.dismissible = !notification.dismissible;
-
-    this.setState({
-      notification: notification
-    });
-  },
-
   _changedAllowHTML: function() {
     var state = this.state;
     var allowHTML = !this.state.allowHTML;
@@ -124,7 +115,7 @@ module.exports = createReactClass({
         level: 'error',
         position: 'tr',
         autoDismiss: 5,
-        dismissible: true,
+        dismissible: 'both',
         action: null,
         actionState: false
       },
@@ -229,17 +220,19 @@ module.exports = createReactClass({
           </div>
 
           <div className="form-group">
+          <label>Dismissible:</label>
+          <select className="form-control" name="dismissible" onChange={ this._changed } value={ notification.dismissible }>
+            <option value="both">Both (both)</option>
+            <option value="click">Click (no dismiss button) (click)</option>
+            <option value="button">Dismiss button only (button)</option>
+            <option value="none">None (none)</option>
+          </select>
+        </div>
+
+          <div className="form-group">
             <label>Auto Dismiss:</label>
             <input className="form-control" name="autoDismiss" onChange={ this._changed } type="text" value={ notification.autoDismiss }/>
             <small>secs (0 means infinite)</small>
-          </div>
-
-          <div className="form-group">
-            <div className="checkbox">
-              <label>
-                <input checked={ notification.dismissible } onChange={ this._changedDismissible } type="checkbox"/> Can user dismiss?
-              </label>
-            </div>
           </div>
 
           <div className="form-group">

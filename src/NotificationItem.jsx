@@ -27,7 +27,6 @@ var whichTransitionEvent = function() {
 };
 
 var NotificationItem = createReactClass({
-
   propTypes: {
     notification: PropTypes.object,
     getStyles: PropTypes.object,
@@ -58,6 +57,7 @@ var NotificationItem = createReactClass({
   componentWillMount: function() {
     var getStyles = this.props.getStyles;
     var level = this.props.notification.level;
+    var dismissible = this.props.notification.dismissible;
 
     this._noAnimation = this.props.noAnimation;
 
@@ -70,7 +70,7 @@ var NotificationItem = createReactClass({
       action: getStyles.byElement('action')(level)
     };
 
-    if (!this.props.notification.dismissible) {
+    if (!dismissible || dismissible === 'none' || dismissible === 'button') {
       this._styles.notification.cursor = 'default';
     }
   },
@@ -229,6 +229,14 @@ var NotificationItem = createReactClass({
     }
   },
 
+  _handleNotificationClick: function() {
+    var dismissible = this.props.notification.dismissible;
+    if (dismissible === 'both' || dismissible === 'click' || dismissible === true) {
+      this._dismiss();
+    }
+    return;
+  },
+
   componentWillUnmount: function() {
     var element = ReactDOM.findDOMNode(this);
     var transitionEvent = whichTransitionEvent();
@@ -256,7 +264,7 @@ var NotificationItem = createReactClass({
       className += ' notification-hidden';
     }
 
-    if (!notification.dismissible) {
+    if (notification.dismissible === 'none') {
       className += ' notification-not-dismissible';
     }
 
@@ -295,9 +303,8 @@ var NotificationItem = createReactClass({
         );
       }
     }
-
-    if (notification.dismissible) {
-      dismiss = <span className="notification-dismiss" style={ this._styles.dismiss }>&times;</span>;
+    if (notification.dismissible === 'both' || notification.dismissible === 'button' || notification.dismissible === true) {
+      dismiss = <span className="notification-dismiss" onClick={ this._dismiss } style={ this._styles.dismiss }>&times;</span>;
     }
 
     if (notification.action) {
@@ -317,7 +324,7 @@ var NotificationItem = createReactClass({
     }
 
     return (
-      <div className={ className } onClick={ this._dismiss } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
+      <div className={ className } onClick={ this._handleNotificationClick } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
         { title }
         { message }
         { dismiss }

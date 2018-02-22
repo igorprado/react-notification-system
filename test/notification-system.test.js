@@ -227,6 +227,16 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should dismiss notification on click of dismiss button', done => {
+    component.addNotification(notificationObj);
+    let dismissButton = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification-dismiss');
+    TestUtils.Simulate.click(dismissButton);
+    clock.tick(1000);
+    let notificationRemoved = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notificationRemoved.length).toEqual(0);
+    done();
+  });
+
   it('should not render title if not provided', done => {
     delete notificationObj.title;
     component.addNotification(notificationObj);
@@ -250,6 +260,26 @@ describe('Notification Component', function() {
     TestUtils.Simulate.click(notification);
     let notificationAfterClicked = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
     expect(notificationAfterClicked).not.toBeNull();
+    done();
+  });
+
+  it('should not dismiss the notification on click if dismissible is none', done => {
+    notificationObj.dismissible = 'none';
+    component.addNotification(notificationObj);
+    let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    TestUtils.Simulate.click(notification);
+    let notificationAfterClicked = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    expect(notificationAfterClicked).toExist();
+    done();
+  });
+
+  it('should not dismiss the notification on click if dismissible is button', done => {
+    notificationObj.dismissible = 'button';
+    component.addNotification(notificationObj);
+    let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    TestUtils.Simulate.click(notification);
+    let notificationAfterClicked = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    expect(notificationAfterClicked).toExist();
     done();
   });
 
