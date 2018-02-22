@@ -182,6 +182,7 @@ var STYLES = {
 
   Dismiss: {
     DefaultStyle: {
+      cursor: 'pointer',
       fontFamily: 'Arial',
       fontSize: '17px',
       position: 'absolute',

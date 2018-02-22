@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.17 - Feb 21, 2018
+
+* Dismissible enhancements (thanks to @marudor)
+
 ## 0.2.16 - Oct 19, 2017
 
 * Support for React 16 (thanks to @marudor)

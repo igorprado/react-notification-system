@@ -25,7 +25,7 @@ var CONSTANTS = {
     level: null,
     position: 'tr',
     autoDismiss: 5,
-    dismissible: true,
+    dismissible: 'both',
     action: null
   }
 };
