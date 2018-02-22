@@ -159,8 +159,8 @@ NotificationSystemExample = createReactClass({
               <small className="more-magic">Click twice for more awesomeness!</small>
             </div>
             <div className="github-buttons">
-              <a className="github-button" href="https://github.com/igorprado/react-notification-system" data-style="mega" data-icon="octicon-star" data-count-href="/igorprado/react-notification-system/stargazers" data-count-api="/repos/igorprado/react-notification-system#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star igorprado/react-notification-system on GitHub">Star</a>
-              <a className="github-button" href="https://github.com/igorprado/react-notification-system/fork" data-style="mega" data-icon="octicon-repo-forked" data-count-href="/igorprado/react-notification-system/network" data-count-api="/repos/igorprado/react-notification-system#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork igorprado/react-notification-system on GitHub">Fork</a>
+              <a className="github-button" href="https://github.com/igorprado/react-notification-system" data-size="large" data-icon="octicon-star" data-count-href="/igorprado/react-notification-system/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star igorprado/react-notification-system on GitHub">Star</a>
+              <a className="github-button" href="https://github.com/igorprado/react-notification-system/fork" data-size="large" data-icon="octicon-repo-forked" data-count-href="/igorprado/react-notification-system/network" data-show-count="true" data-count-aria-label="# forks on GitHub" aria-label="Fork igorprado/react-notification-system on GitHub">Fork</a>
             </div>
           </div>
         </header>
