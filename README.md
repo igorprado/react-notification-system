@@ -107,7 +107,7 @@ The notification object has the following properties:
 | level        | string          | null      | Level of the notification. Available: **success**, **error**, **warning** and **info**                                                                                    |
 | position     | string          | tr        | Position of the notification. Available: **tr (top right)**, **tl (top left)**, **tc (top center)**, **br (bottom right)**, **bl (bottom left)**, **bc (bottom center)**  |
 | autoDismiss  | integer         | 5         | Delay in seconds for the notification go away. Set this to **0** to not auto-dismiss the notification                                                                      |
-| dismissible  | bool            | true      | Set if notification is dismissible by the user. [See more](#dismissible)                                                                                                  |
+| dismissible  | string          | both      | Settings controlling how the user can dismiss the notification and whether the dismiss button is visible. Available: **both (The disable button is visible and the user can click anywhere on the notification to dismiss)**, **click (The disable button is NOT visible and the user can click anywhere on the notification to dismiss)**, **button (The user can click on the disable button to dismiss the notifiction)**, **none (None [See more](#dismissible))**                                                                                                  |
 | action       | object          | null      | Add a button with label and callback function (callback is optional). [See more](#action)                                                                                                        |
 | children       | element,string          | null      | Adds custom content, and overrides `action` (if defined) [See more](#children)                                                                                                        |
 | onAdd | function | null | A callback function that will be called when the notification is successfully added. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was added'); }` |
@@ -117,7 +117,7 @@ The notification object has the following properties:
 
 ### Dismissible
 
-If set to false, the notification will not display the dismiss ('x') button and will only be dismissible programmatically or after autoDismiss timeout. [See more](#removenotificationnotification)
+If set to 'none', the button will only be dismissible programmatically or after autoDismiss timeout. [See more](#removenotificationnotification)
 
 ### Action
 

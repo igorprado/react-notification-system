@@ -55,6 +55,14 @@ NotificationSystemExample = createReactClass({
       autoDismiss: 0
     },
     {
+      title: 'I don\'t have a dismiss button...',
+      message: 'But you can still click to get rid of me.',
+      autoDismiss: 0,
+      level: 'success',
+      position: 'tr',
+      dismissible: 'click'
+    },
+    {
       title: 'Bad things can happen too!',
       message: 'Four notification types: `success`, `error`, `warning` and `info`',
       level: 'error',
@@ -87,6 +95,14 @@ NotificationSystemExample = createReactClass({
       autoDismiss: 0,
       level: 'error',
       position: 'br'
+    },
+    {
+      title: 'I\'m here forever...',
+      message: 'Until you click the dismiss button.',
+      autoDismiss: 0,
+      level: 'error',
+      position: 'br',
+      dismissible: 'button'
     }
   ],
 
