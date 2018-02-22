@@ -234,7 +234,6 @@ var NotificationItem = createReactClass({
     if (dismissible === 'both' || dismissible === 'click' || dismissible === true) {
       this._dismiss();
     }
-    return;
   },
 
   componentWillUnmount: function() {
