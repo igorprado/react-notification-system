@@ -2,7 +2,7 @@
 
 ## 0.2.17 - Feb 21, 2018
 
-* Dismissible enhancements (thanks to @marudor)
+* Dismissible enhancements (thanks to @thepeted)
 
 ## 0.2.16 - Oct 19, 2017
 
