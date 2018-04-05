@@ -94,14 +94,26 @@ var NotificationSystem = createReactClass({
       PropTypes.object
     ]),
     noAnimation: PropTypes.bool,
-    allowHTML: PropTypes.bool
+    allowHTML: PropTypes.bool,
+
+    renderSystem: PropTypes.func,
+    renderContainer: PropTypes.func,
+    renderItem: PropTypes.func,
+
+    className: PropTypes.string,
+    containerClassName: PropTypes.string,
+    itemClassName: PropTypes.string
   },
 
   getDefaultProps: function() {
     return {
       style: {},
       noAnimation: false,
-      allowHTML: false
+      allowHTML: false,
+
+      className: '',
+      containerClassName: '',
+      itemClassName: ''
     };
   },
 
@@ -232,6 +244,14 @@ var NotificationSystem = createReactClass({
     this._isMounted = false;
   },
 
+  _renderDefault: function(containers) {
+    return (
+      <div className={'notifications-wrapper ' + this.props.className} style={ this._getStyles.wrapper() }>
+        { containers }
+      </div>
+    );
+  },
+
   render: function() {
     var self = this;
     var containers = null;
@@ -257,17 +277,16 @@ var NotificationSystem = createReactClass({
             onRemove={ self._didNotificationRemoved }
             noAnimation={ self.props.noAnimation }
             allowHTML={ self.props.allowHTML }
+            renderContainer={ self.props.renderContainer }
+            renderItem={ self.props.renderItem }
+            className={ self.props.containerClassName }
+            itemClassName={ self.props.itemClassName }
           />
         );
       });
     }
 
-
-    return (
-      <div className="notifications-wrapper" style={ this._getStyles.wrapper() }>
-        { containers }
-      </div>
-    );
+    return (this.props.renderSystem || this._renderDefault)(containers);
   }
 });
 
