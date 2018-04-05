@@ -94,14 +94,16 @@ var NotificationSystem = createReactClass({
       PropTypes.object
     ]),
     noAnimation: PropTypes.bool,
-    allowHTML: PropTypes.bool
+    allowHTML: PropTypes.bool,
+    newOnTop: PropTypes.bool
   },
 
   getDefaultProps: function() {
     return {
       style: {},
       noAnimation: false,
-      allowHTML: false
+      allowHTML: false,
+      newOnTop: false
     };
   },
 
@@ -143,7 +145,12 @@ var NotificationSystem = createReactClass({
       }
     }
 
-    notifications.push(_notification);
+    if (this.props.newOnTop) {
+      notifications.unshift(_notification);
+    } else {
+      notifications.push(_notification);
+    }
+    
 
     if (typeof _notification.onAdd === 'function') {
       notification.onAdd(_notification);
