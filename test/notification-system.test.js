@@ -442,4 +442,55 @@ describe('Notification Component', function() {
     expect(() => component.addNotification(notificationObj)).to.throw(/\'autoDismiss\' must be a number./);
     done();
   });
+
+  it('should render 2nd notification below 1st one', done => {
+    component.addNotification(merge({}, defaultNotification, {title: '1st'}));
+    component.addNotification(merge({}, defaultNotification, {title: '2nd'}));
+    
+    const notifications = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notifications[0].getElementsByClassName('notification-title')[0].textContent).to.equal('1st');
+    expect(notifications[1].getElementsByClassName('notification-title')[0].textContent).to.equal('2nd');
+    done();
+  });
+});
+
+
+describe('Notification Component with newOnTop=true', function() {
+  let node;
+  let instance;
+  let component;
+  let clock;
+  let notificationObj;
+  const ref = 'notificationSystem';
+
+  this.timeout(10000);
+
+  beforeEach(() => {
+    // We need to create this wrapper so we can use refs
+    class ElementWrapper extends Component {
+      render() {
+        return <NotificationSystem ref={ ref } style={ style } allowHTML={ true } noAnimation={ true } newOnTop={ true } />;
+      }
+    }
+    node = window.document.createElement("div");
+    instance = TestUtils.renderIntoDocument(React.createElement(ElementWrapper), node);
+    component = instance.refs[ref];
+    notificationObj = merge({}, defaultNotification);
+
+    clock = sinon.useFakeTimers();
+  });
+
+  afterEach(() => {
+    clock.restore();
+  });
+
+  it('should render 2nd notification above 1st one', done => {
+    component.addNotification(merge({}, defaultNotification, {title: '1st'}));
+    component.addNotification(merge({}, defaultNotification, {title: '2nd'}));
+
+    const notifications = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notifications[0].getElementsByClassName('notification-title')[0].textContent).to.equal('2nd');
+    expect(notifications[1].getElementsByClassName('notification-title')[0].textContent).to.equal('1st');
+    done();
+  });
 });
