@@ -113,7 +113,12 @@ The notification object has the following properties:
 | onAdd | function | null | A callback function that will be called when the notification is successfully added. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was added'); }` |
 | onRemove     | function        | null      | A callback function that will be called when the notification is about to be removed. The first argument is the original notification e.g. `function (notification) { console.log(notification.title + 'was removed'); }` |
 | uid          | integer/string           | null      | Overrides the internal `uid`. Useful if you are managing your notifications id. Notifications with same `uid` won't be displayed. |
-
+| systemClassName | string | "" | Additional CSS class(es) to add to `<NotificationSystem />` (see HTML template below) |
+| containerClassName | string | "" | Additional CSS class(es) to add to `<NotificationContainer />` (see HTML template below) |
+| itemClassName | string | "" | Additional CSS class(es) to add to `<NotificationItem />` (see HTML template below) |
+| renderSystem | function | *built-in render function* | Custom render function for notification system, receives `<NotificationContainer />`s as param (this allows to use other component rather than `div.notifications-wrapper`). Overrides `systemClassName` |
+| renderContainer | function | *built-in render function* | Custom render function for notification container, receives `<NotificationItem />`s as param (this allows to use other component rather than `div.notifications-{position}`). Overrides `containerClassName` |
+| renderItem | function | *built-in render function* | Custom render function for notification, receives notification object as param (this allows to use other component rather than `div.notification` with it's children). Overrides `itemClassName` |
 
 ### Dismissible
 
@@ -190,12 +195,12 @@ To disable all inline styles, just pass `false` to the prop `style`.
 <NotificationSystem ref="notificationSystem" style={false} />
 ```
 
-Here is the notification HTML:
+Here is the notification HTML (if not using custom render functions):
 
 ```html
-<div class="notifications-wrapper">
-  <div class="notifications-{position}"> <!-- '{position}' can be one of the positions available: ex: notifications-tr -->
-    <div class="notification notification-{level} notification-{state} {notification-not-dismissible}"> <!-- '{level}' can be: success | error | warning | info. '{state}' can be: visible | hidden. {notification-not-dismissible} is present if notification is not dismissible by user -->
+<div class="notifications-wrapper {props.systemClassName}">
+  <div class="notifications-{position} {props.containerClassName}"> <!-- '{position}' can be one of the positions available: ex: notifications-tr -->
+    <div class="notification notification-{level} notification-{state} {notification-not-dismissible} {props.itemClassName}"> <!-- '{level}' can be: success | error | warning | info. '{state}' can be: visible | hidden. {notification-not-dismissible} is present if notification is not dismissible by user -->
       <h4 class="notification-title">Default title</h4>
       <div class="notification-message">Default message</div>
       <span class="notification-dismiss">×</span>
