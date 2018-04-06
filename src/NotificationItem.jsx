@@ -336,7 +336,7 @@ var NotificationItem = createReactClass({
   },
 
   render: function() {
-    return (this.props.renderItem || this._renderDefault)(this.props.notification);
+    return (this.props.renderItem || this._renderDefault)(this.props.notification, this._dismiss);
   }
 
 });

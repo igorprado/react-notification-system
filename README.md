@@ -118,7 +118,7 @@ The notification object has the following properties:
 | itemClassName | string | "" | Additional CSS class(es) to add to `<NotificationItem />` (see HTML template below) |
 | renderSystem | function | *built-in render function* | Custom render function for notification system, receives `<NotificationContainer />`s as param (this allows to use other component rather than `div.notifications-wrapper`). Overrides `systemClassName` |
 | renderContainer | function | *built-in render function* | Custom render function for notification container, receives `<NotificationItem />`s as param (this allows to use other component rather than `div.notifications-{position}`). Overrides `containerClassName` |
-| renderItem | function | *built-in render function* | Custom render function for notification, receives notification object as param (this allows to use other component rather than `div.notification` with it's children). Overrides `itemClassName` |
+| renderItem | function | *built-in render function* | Custom render function for notification, receives notification object and dismiss callback as params (this allows to use other component rather than `div.notification` with it's children). Overrides `itemClassName` |
 
 ### Dismissible
 
