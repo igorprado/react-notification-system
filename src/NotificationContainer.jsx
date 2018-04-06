@@ -14,7 +14,7 @@ var NotificationContainer = createReactClass({
     renderContainer: PropTypes.func,
     renderItem: PropTypes.func,
 
-    className: PropTypes.string,
+    containerClassName: PropTypes.string,
     itemClassName: PropTypes.string
   },
 
@@ -31,7 +31,7 @@ var NotificationContainer = createReactClass({
 
   _renderDefault: function(notifications) {
     return (
-      <div className={ 'notifications-' + this.props.position + ' ' + this.props.className } style={ this._style }>
+      <div className={ 'notifications-' + this.props.position + ' ' + this.props.containerClassName } style={ this._style }>
         { notifications }
       </div>
     )
@@ -57,7 +57,7 @@ var NotificationContainer = createReactClass({
           allowHTML={ self.props.allowHTML }
           children={ self.props.children }
           renderItem={ self.props.renderItem }
-          className={ self.props.itemClassName }
+          itemClassName={ self.props.itemClassName }
         />
       );
     });

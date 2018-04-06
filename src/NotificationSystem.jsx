@@ -100,7 +100,7 @@ var NotificationSystem = createReactClass({
     renderContainer: PropTypes.func,
     renderItem: PropTypes.func,
 
-    className: PropTypes.string,
+    systemClassName: PropTypes.string,
     containerClassName: PropTypes.string,
     itemClassName: PropTypes.string
   },
@@ -111,7 +111,7 @@ var NotificationSystem = createReactClass({
       noAnimation: false,
       allowHTML: false,
 
-      className: '',
+      systemClassName: '',
       containerClassName: '',
       itemClassName: ''
     };
@@ -246,7 +246,7 @@ var NotificationSystem = createReactClass({
 
   _renderDefault: function(containers) {
     return (
-      <div className={'notifications-wrapper ' + this.props.className} style={ this._getStyles.wrapper() }>
+      <div className={'notifications-wrapper ' + this.props.systemClassName} style={ this._getStyles.wrapper() }>
         { containers }
       </div>
     );
@@ -279,7 +279,7 @@ var NotificationSystem = createReactClass({
             allowHTML={ self.props.allowHTML }
             renderContainer={ self.props.renderContainer }
             renderItem={ self.props.renderItem }
-            className={ self.props.containerClassName }
+            containerClassName={ self.props.containerClassName }
             itemClassName={ self.props.itemClassName }
           />
         );

@@ -39,7 +39,7 @@ var NotificationItem = createReactClass({
     ]),
 
     renderItem: PropTypes.func,
-    className: PropTypes.string,
+    itemClassName: PropTypes.string,
   },
 
   getDefaultProps: function() {
@@ -326,7 +326,7 @@ var NotificationItem = createReactClass({
     }
 
     return (
-      <div className={ className + ' ' + this.props.className } onClick={ this._handleNotificationClick } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
+      <div className={ className + ' ' + this.props.itemClassName } onClick={ this._handleNotificationClick } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
         { title }
         { message }
         { dismiss }
