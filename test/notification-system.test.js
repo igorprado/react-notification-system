@@ -392,7 +392,7 @@ describe('Notification Component', function() {
     done();
   });
 
-  it('should render containers with a overrided width', done => {
+  it('should render containers with a overridden width', done => {
     notificationObj.position = 'tc';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-tc');
@@ -440,6 +440,118 @@ describe('Notification Component', function() {
   it('should throw an error if autoDismiss is not a number', done => {
     notificationObj.autoDismiss = 'string';
     expect(() => component.addNotification(notificationObj)).to.throw(/\'autoDismiss\' must be a number./);
+    done();
+  });
+});
+
+describe('Notification Component with custom render functions', function() {
+  let node;
+  let instance;
+  let component;
+  let clock;
+  let notificationObj;
+  const ref = 'notificationSystem';
+  let customComponents;
+
+  this.timeout(10000);
+
+  function renderSystem(children) {
+    return <label className="custom-system">{children}</label>;
+  }
+  function renderContainer(children) {
+    return <label className="custom-container">{children}</label>;
+  }
+  function renderItem(_params) {
+    return <label className="custom-item">item</label>;
+  }
+
+  beforeEach(() => {
+    // We need to create this wrapper so we can use refs
+    class ElementWrapper extends Component {
+      render() {
+        return <NotificationSystem ref={ ref } style={ style } allowHTML={ true } noAnimation={ true } renderSystem={ renderSystem } renderContainer={ renderContainer } renderItem={ renderItem } />;
+      }
+    }
+    node = window.document.createElement('div');
+    instance = TestUtils.renderIntoDocument(React.createElement(ElementWrapper), node);
+    component = instance.refs[ref];
+    notificationObj = merge({}, defaultNotification);
+
+    clock = sinon.useFakeTimers();
+
+    component.addNotification(defaultNotification);
+  });
+
+  afterEach(() => {
+    clock.restore();
+  });
+
+  it('should have custom wrapper rendered', done => {
+    customComponents = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'custom-system');
+    expect(customComponents.length).to.equal(1);
+    done();
+  });
+
+  it('should have custom container rendered', done => {
+    customComponents = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'custom-container');
+    expect(customComponents.length).to.equal(1);
+    done();
+  });
+
+  it('should have custom items rendered', done => {
+    customComponents = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'custom-item');
+    expect(customComponents.length).to.equal(1);
+    done();
+  });
+});
+
+describe('Notification Component with custom classNames', function() {
+  let node;
+  let instance;
+  let component;
+  let clock;
+  let notificationObj;
+  const ref = 'notificationSystem';
+  let customComponent;
+
+  this.timeout(10000);
+
+  beforeEach(() => {
+    // We need to create this wrapper so we can use refs
+    class ElementWrapper extends Component {
+      render() {
+        return <NotificationSystem ref={ ref } style={ style } allowHTML={ true } noAnimation={ true } systemClassName="customsystem" containerClassName="customcontainer" itemClassName="customitem" />;
+      }
+    }
+    node = window.document.createElement('div');
+    instance = TestUtils.renderIntoDocument(React.createElement(ElementWrapper), node);
+    component = instance.refs[ref];
+    notificationObj = merge({}, defaultNotification);
+
+    clock = sinon.useFakeTimers();
+
+    component.addNotification(defaultNotification);
+  });
+
+  afterEach(() => {
+    clock.restore();
+  });
+
+  it('should have custom wrapper rendered', done => {
+    customComponent = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'customsystem');
+    expect(customComponent.length).to.equal(1);
+    done();
+  });
+
+  it('should have custom container rendered', done => {
+    customComponent = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'customcontainer');
+    expect(customComponent.length).to.equal(1);
+    done();
+  });
+
+  it('should have custom items rendered', done => {
+    customComponent = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'customitem');
+    expect(customComponent.length).to.equal(1);
     done();
   });
 });
