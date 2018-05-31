@@ -87,9 +87,9 @@ Returns the notification object to be used to programmatically dismiss a notific
 Remove a notification programmatically. You can pass an object returned by `addNotification()` or by `onAdd()` callback. If passing an object, you need to make sure it must contain the `uid` property. You can pass only the `uid` too: `removeNotification(uid)`.
 
 
-### `editNotification(notification)`
+### `editNotification(notification, newProperties)`
 
-Edit a notification programmatically. You can pass an object previously returned by `addNotification()` or by `onAdd()` callback. If passing an object, you need to make sure it must contain the `uid` property. You can pass only the `uid` too: `editNotification(uid)`.
+Edit a notification programmatically. You can pass an object previously returned by `addNotification()` or by `onAdd()` callback as `notification`. If passing an object as `notification`, you need to make sure it must contain the `uid` property. You can pass only the `uid` too: `editNotification(uid, newProperties)`.
 
 
 ### `clearNotifications()`
