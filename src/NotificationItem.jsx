@@ -257,6 +257,10 @@ var NotificationItem = createReactClass({
     var title = null;
     var message = null;
 
+    if (this.props.notification.className) {
+      className += ' ' + this.props.notification.className;
+    }
+
     if (this.state.visible) {
       className += ' notification-visible';
     } else if (this.state.visible === false) {
