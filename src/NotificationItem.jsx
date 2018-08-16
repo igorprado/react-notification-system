@@ -303,7 +303,7 @@ var NotificationItem = createReactClass({
       }
     }
     if (notification.dismissible === 'both' || notification.dismissible === 'button' || notification.dismissible === true) {
-      dismiss = <span className="notification-dismiss" onClick={ this._dismiss } style={ this._styles.dismiss }>&times;</span>;
+      dismiss = <span className="notification-dismiss" onClick={ this._dismiss } style={ this._styles.dismiss } aria-hidden={ true }>&times;</span>;
     }
 
     if (notification.action) {
@@ -323,7 +323,7 @@ var NotificationItem = createReactClass({
     }
 
     return (
-      <div className={ className } onClick={ this._handleNotificationClick } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle }>
+      <div className={ className } onClick={ this._handleNotificationClick } onMouseEnter={ this._handleMouseEnter } onMouseLeave={ this._handleMouseLeave } style={ notificationStyle } role="alert">
         { title }
         { message }
         { dismiss }
