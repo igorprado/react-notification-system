@@ -60,6 +60,18 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should pass renderprops', done => {
+    node = window.document.createElement('div');
+    instance = TestUtils.renderIntoDocument(React.createElement(
+      NotificationSystem, null, ({addNotification, editNotification, removeNotification, clearNotifications}) => {
+          expect(addNotification).to.not.be.null;
+          expect(editNotification).to.not.be.null;
+          expect(removeNotification).to.not.be.null;
+          expect(clearNotifications).to.not.be.null;
+        }), node);
+    done();
+  });
+
   it('should hold the component ref', done => {
     expect(component).to.not.be.null;
     done();

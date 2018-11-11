@@ -94,7 +94,8 @@ var NotificationSystem = createReactClass({
       PropTypes.object
     ]),
     noAnimation: PropTypes.bool,
-    allowHTML: PropTypes.bool
+    allowHTML: PropTypes.bool,
+    children: PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -262,11 +263,18 @@ var NotificationSystem = createReactClass({
       });
     }
 
-
     return (
-      <div className="notifications-wrapper" style={ this._getStyles.wrapper() }>
-        { containers }
-      </div>
+      <React.Fragment>
+        <div className="notifications-wrapper" style={ this._getStyles.wrapper() }>
+          { containers }
+        </div>
+        {this.props.children && this.props.children({
+          addNotification: this.addNotification,
+          editNotification: this.editNotification,
+          removeNotification: this.removeNotification,
+          clearNotifications: this.clearNotifications
+        })}
+      </React.Fragment>
     );
   }
 });
