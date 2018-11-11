@@ -38,6 +38,8 @@ For optimal appearance, this component **must be rendered on a top level HTML el
 
 Here is a basic example. For a more advanced usage, please see the [example code](https://github.com/igorprado/react-notification-system/blob/master/example/src/scripts/App.jsx).
 
+
+Class-based components can also be used as follows
 ```js
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -67,6 +69,39 @@ var MyComponent = React.createClass({
       );
   }
 });
+
+ReactDOM.render(
+  React.createElement(MyComponent),
+  document.getElementById('app')
+);
+```
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import NotificationSystem from 'react-notification-system';
+
+export default class MyComponent extends React.Component {
+  notificationSystem: React.createRef();
+
+  addNotification = event => {
+    event.preventDefault();
+    const notification = this.notificationSystem.current;
+    notification.addNotification({
+      message: 'Notification message',
+      level: 'success'
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.addNotification}>Add notification</button>
+        <NotificationSystem ref={this.notificationSystem} />
+      </div>
+    );
+  }
+}
 
 ReactDOM.render(
   React.createElement(MyComponent),
