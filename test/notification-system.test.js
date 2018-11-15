@@ -253,7 +253,7 @@ describe('Notification Component', function() {
     done();
   });
 
-  it('should not dismiss the notificaion on click if dismissible is false', done => {
+  it('should not dismiss the notification on click if dismissible is false', done => {
     notificationObj.dismissible = false;
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
@@ -283,6 +283,20 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should not dismiss the notification on click if preventDismiss is true', done => {
+    notificationObj.action = {
+      label: 'Click me',
+      preventDismiss: true,
+      callback: function() {}
+    };
+    component.addNotification(notificationObj);
+    let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification-action-button');
+    TestUtils.Simulate.click(button);
+    let notificationAfterClicked = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification-action-button');
+    expect(notificationAfterClicked).toExist();
+    done();
+  });
+
   it('should render a button if action property is passed', done => {
     defaultNotification.action = {
       label: 'Click me',
@@ -308,6 +322,29 @@ describe('Notification Component', function() {
     let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification-action-button');
     TestUtils.Simulate.click(button);
     expect(testThis).to.equal(true);
+    done();
+  });
+
+  it('should execute a callback function with proper arguments when notification button is clicked', done => {
+    let thisNotification = undefined,
+      event = undefined,
+      callArg = undefined;
+    notificationObj.action = {
+      label: 'Click me',
+      callback: function(e, param) {
+        thisNotification = this;
+        callArg = param.value;
+        event = e;
+      },
+      callbackArgument: {value: 'foo'}
+    };
+
+    component.addNotification(notificationObj);
+    let button = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification-action-button');
+    TestUtils.Simulate.click(button);
+    expect('Click me').toEqual(thisNotification.action.label);
+    expect(callArg).toEqual('foo');
+    expect(event).toBeAn('object');
     done();
   });
 

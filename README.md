@@ -156,16 +156,26 @@ If set to 'none', the button will only be dismissible programmatically or after 
 
 ### Action
 
-Add a button and a callback function to the notification. If this button is clicked, the callback function is called (if provided) and the notification is dismissed.
+Add a button and a callback function to the notification. If this button is clicked, the callback function is called (if provided) and the notification is dismissed (unless `preventDismiss` is true). 
+Action object has the following properties:
+
+| Name              | Type            | Default   | Description                                                                                                                         |
+|----------------   |---------------  |---------  |-----------------------------------------------------------------------------------------------------------------------------------  |
+| label             | string          | null      | Title of the action button   |
+| preventDismiss    | bool            | false     | If set to true, clicking on the button will not cause a notification to be dismissed, just before the callback is invoked.  |
+| callback          | function        | null      | Function to be invoked when the button is clicked. A callback function takes two arguments: first is the React's `SyntheticMouseEvent` instance and the second is the `callbackArgument` object. Please note that `this` in a callback function is assigned to the `notification` itself, so you can reference it later in the callback. However, this is valid only in case a callback function is defined like in the example below. Otherwise `this` could have a different value.  |
+| callbackArgument  | object          | null      | A custom object which will be passed into the callback as the second argument. Passing the callback argument is especially useful when your callback function is not defined inline, but in other place then your notification object.  |    
 
 ```js
 notification = {
   [...],
   action: {
     label: 'Button name',
-    callback: function() {
-      console.log('Notification button clicked!');
+    preventDismiss: true,
+    callback: function(event, param) {
+      console.log('Callback invoked by the event', event, "with param", param.name);
     }
+    callbackArgument: {name: 'foo'}
   }
 }
 

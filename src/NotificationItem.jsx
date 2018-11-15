@@ -132,9 +132,14 @@ var NotificationItem = createReactClass({
     var notification = this.props.notification;
 
     event.preventDefault();
-    this._hideNotification();
+    if (notification.action.preventDismiss) {
+      event.stopPropagation(); // do not let _dismiss method (fired on parent onClick event) to be invoked
+    } else {
+      this._hideNotification();
+    }
+
     if (typeof notification.action.callback === 'function') {
-      notification.action.callback();
+      notification.action.callback.call(notification, event, notification.action.callbackArgument);
     }
   },
 

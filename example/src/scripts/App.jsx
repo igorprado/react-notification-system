@@ -69,6 +69,21 @@ NotificationSystemExample = createReactClass({
       position: 'tl'
     },
     {
+      title: 'Ups!',
+      message: 'Something bad happened :(',
+      level: 'error',
+      position: 'tl',
+      action: {
+        label: 'Details',
+        preventDismiss: true,
+        callback: function (event, param) {
+          console.log('Details clicked', event, 'in notification', this);
+          alert(param.code + ': ' + param.message);
+        },
+        callbackArgument: {code: 500, message: 'Internal server error'}
+      }
+    },
+    {
       title: 'Advise!',
       message: 'Showing all possible notifications works better on a larger screen',
       level: 'info',
