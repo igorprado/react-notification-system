@@ -217,6 +217,30 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should delete a notification using returned object', done => {
+    let notificationCreated = component.addNotification(defaultNotification);
+    let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(1);
+
+    component.deleteNotification(notificationCreated);
+    //clock.tick(1000);
+    let notificationDeleted = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notificationDeleted.length).toEqual(0);
+    done();
+  });
+
+  it('should delete a notification using uid', done => {
+    let notificationCreated = component.addNotification(defaultNotification);
+    let notification = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notification.length).toEqual(1);
+
+    component.deleteNotification(notificationCreated.uid);
+    //clock.tick(200);
+    let notificationDeleted = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'notification');
+    expect(notificationDeleted.length).toEqual(0);
+    done();
+  });
+
   it('should dismiss notification on click', done => {
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');

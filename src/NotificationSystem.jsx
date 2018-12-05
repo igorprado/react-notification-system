@@ -223,6 +223,26 @@ var NotificationSystem = createReactClass({
     });
   },
 
+  deleteNotification: function(notification) {
+    var self = this;
+    var uid = notification.uid ? notification.uid : notification;
+    Object.keys(this.refs).forEach(function(container) {
+      if (container.indexOf('container') > -1) {
+        Object.keys(self.refs[container].refs).forEach(function(_notification) {
+          if (_notification === 'notification-' + uid) {
+            console.log('remove ', _notification);
+            self.refs[container].refs[_notification]._removeNotification();
+          }
+        });
+      }
+    });
+    this.state.notifications.forEach(function(item, index) {
+      if (item.uid === uid) {
+        self.state.notifications.splice(index, 1);
+      }
+    });
+  },
+
   componentDidMount: function() {
     this._getStyles.setOverrideStyle(this.props.style);
     this._isMounted = true;
