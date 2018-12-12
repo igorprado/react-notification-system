@@ -56,6 +56,27 @@ class NotificationItem extends React.Component {
     this._handleNotificationClick = this._handleNotificationClick.bind(this);
   }
 
+  componentWillMount() {
+    var getStyles = this.props.getStyles;
+    var level = this.props.notification.level;
+    var dismissible = this.props.notification.dismissible;
+
+    this._noAnimation = this.props.noAnimation;
+
+    this._styles = {
+      notification: getStyles.byElement('notification')(level),
+      title: getStyles.byElement('title')(level),
+      dismiss: getStyles.byElement('dismiss')(level),
+      messageWrapper: getStyles.byElement('messageWrapper')(level),
+      actionWrapper: getStyles.byElement('actionWrapper')(level),
+      action: getStyles.byElement('action')(level)
+    };
+
+    if (!dismissible || dismissible === 'none' || dismissible === 'button') {
+      this._styles.notification.cursor = 'default';
+    }
+  }
+
   _getCssPropertyByPosition() {
     var position = this.props.notification.position;
     var css = {};
@@ -335,27 +356,6 @@ class NotificationItem extends React.Component {
         {actionButton}
       </div>
     );
-  }
-
-  componentWillMount() {
-    var getStyles = this.props.getStyles;
-    var level = this.props.notification.level;
-    var dismissible = this.props.notification.dismissible;
-
-    this._noAnimation = this.props.noAnimation;
-
-    this._styles = {
-      notification: getStyles.byElement('notification')(level),
-      title: getStyles.byElement('title')(level),
-      dismiss: getStyles.byElement('dismiss')(level),
-      messageWrapper: getStyles.byElement('messageWrapper')(level),
-      actionWrapper: getStyles.byElement('actionWrapper')(level),
-      action: getStyles.byElement('action')(level)
-    };
-
-    if (!dismissible || dismissible === 'none' || dismissible === 'button') {
-      this._styles.notification.cursor = 'default';
-    }
   }
 }
 
