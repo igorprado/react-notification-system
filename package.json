@@ -32,7 +32,6 @@
   },
   "homepage": "https://github.com/igorprado/react-notification-system",
   "dependencies": {
-    "create-react-class": "^15.5.1",
     "object-assign": "^4.0.1",
     "prop-types": "^15.5.6"
   },
