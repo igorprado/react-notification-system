@@ -223,13 +223,21 @@ var NotificationSystem = createReactClass({
     });
   },
 
+
   componentDidMount: function() {
     this._getStyles.setOverrideStyle(this.props.style);
     this._isMounted = true;
+    if (NotificationSystem.instance) {
+      console.warn('NotificationSystem', 'Attempting to mount a second system into the DOM.');
+    }
+    NotificationSystem.instance = this;
   },
 
   componentWillUnmount: function() {
     this._isMounted = false;
+    if (NotificationSystem.instance === this) {
+      NotificationSystem.instance = null;
+    }
   },
 
   render: function() {
@@ -268,6 +276,39 @@ var NotificationSystem = createReactClass({
         { containers }
       </div>
     );
+  },
+
+  // These just proxy the current actively mounted instance.
+  statics: {
+    addNotification: function(notification) {
+      if (NotificationSystem.instance) {
+        return NotificationSystem.instance.addNotification(notification);
+      }
+      console.warn('NotificationSystem', 'No instance to add notification.', notification);
+      // return notification to prevent null pointer errors.
+      return notification;
+    },
+    removeNotification: function(notification) {
+      if (NotificationSystem.instance) {
+        return NotificationSystem.instance.remoteNotification(notification);
+      }
+      console.warn('NotificationSystem', 'No instance to remote notification.', notification);
+      return notification;
+    },
+    editNotification: function(notification) {
+      if (NotificationSystem.instance) {
+        return NotificationSystem.instance.editNotification(notification);
+      }
+      console.warn('NotificationSystem', 'No instance to edit notification.', notification);
+      return notification;
+    },
+    clearNotifications: function() {
+      if (NotificationSystem.instance) {
+        return NotificationSystem.instance.clearNotifications();
+      }
+      console.warn('NotificationSystem', 'No instance to clear notifications.');
+      return null;
+    }
   }
 });
 
