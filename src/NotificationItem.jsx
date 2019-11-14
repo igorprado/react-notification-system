@@ -30,8 +30,8 @@ function _allowHTML(string) {
 }
 
 class NotificationItem extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this._styles = {};
     this._notificationTimer = null;
     this._height = 0;
@@ -44,24 +44,11 @@ class NotificationItem extends React.Component {
       removed: false
     };
 
-    this._getCssPropertyByPosition = this._getCssPropertyByPosition.bind(this);
-    this._defaultAction = this._defaultAction.bind(this);
-    this._hideNotification = this._hideNotification.bind(this);
-    this._removeNotification = this._removeNotification.bind(this);
-    this._dismiss = this._dismiss.bind(this);
-    this._showNotification = this._showNotification.bind(this);
-    this._onTransitionEnd = this._onTransitionEnd.bind(this);
-    this._handleMouseEnter = this._handleMouseEnter.bind(this);
-    this._handleMouseLeave = this._handleMouseLeave.bind(this);
-    this._handleNotificationClick = this._handleNotificationClick.bind(this);
-  }
+    const getStyles = props.getStyles;
+    const level = props.notification.level;
+    const dismissible = props.notification.dismissible;
 
-  componentWillMount() {
-    var getStyles = this.props.getStyles;
-    var level = this.props.notification.level;
-    var dismissible = this.props.notification.dismissible;
-
-    this._noAnimation = this.props.noAnimation;
+    this._noAnimation = props.noAnimation;
 
     this._styles = {
       notification: getStyles.byElement('notification')(level),
@@ -75,6 +62,17 @@ class NotificationItem extends React.Component {
     if (!dismissible || dismissible === 'none' || dismissible === 'button') {
       this._styles.notification.cursor = 'default';
     }
+
+    this._getCssPropertyByPosition = this._getCssPropertyByPosition.bind(this);
+    this._defaultAction = this._defaultAction.bind(this);
+    this._hideNotification = this._hideNotification.bind(this);
+    this._removeNotification = this._removeNotification.bind(this);
+    this._dismiss = this._dismiss.bind(this);
+    this._showNotification = this._showNotification.bind(this);
+    this._onTransitionEnd = this._onTransitionEnd.bind(this);
+    this._handleMouseEnter = this._handleMouseEnter.bind(this);
+    this._handleMouseLeave = this._handleMouseLeave.bind(this);
+    this._handleNotificationClick = this._handleNotificationClick.bind(this);
   }
 
   _getCssPropertyByPosition() {

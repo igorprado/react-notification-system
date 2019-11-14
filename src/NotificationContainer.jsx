@@ -4,21 +4,17 @@ var NotificationItem = require('./NotificationItem');
 var Constants = require('./constants');
 
 class NotificationContainer extends React.Component {
-  constructor() {
-    super();
-    this._style = {};
-  }
-
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     // Fix position if width is overrided
-    this._style = this.props.getStyles.container(this.props.position);
+    this._style = props.getStyles.container(props.position);
 
     if (
-      this.props.getStyles.overrideWidth &&
-      (this.props.position === Constants.positions.tc ||
-        this.props.position === Constants.positions.bc)
+      props.getStyles.overrideWidth &&
+      (props.position === Constants.positions.tc ||
+        props.position === Constants.positions.bc)
     ) {
-      this._style.marginLeft = -(this.props.getStyles.overrideWidth / 2);
+      this._style.marginLeft = -(props.getStyles.overrideWidth / 2);
     }
   }
 
