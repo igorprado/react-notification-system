@@ -5,3 +5,4 @@ dist/
 example/node_modules/
 example/build/.module-cache/
 *.log*
+.idea
