@@ -1,6 +1,6 @@
 {
   "name": "react-notification-system",
-  "version": "0.2.17",
+  "version": "0.3.0",
   "description": "A React Notification System fully customized",
   "main": "dist/NotificationSystem.js",
   "scripts": {
