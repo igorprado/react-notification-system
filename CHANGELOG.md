@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.0 - Nov 14, 2019
+
+* Updated to class components and removed future deprecated lifecycle methods (thanks to @oskarer)
+
 ## 0.2.17 - Feb 21, 2018
 
 * Dismissible enhancements (thanks to @thepeted)
