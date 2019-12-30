@@ -46,7 +46,7 @@ import ReactDOM from 'react-dom';
 import NotificationSystem from 'react-notification-system';
 
 export default class MyComponent extends React.Component {
-  notificationSystem: React.createRef();
+  notificationSystem = React.createRef();
 
   addNotification = event => {
     event.preventDefault();
