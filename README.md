@@ -217,6 +217,16 @@ Using this method you have to take care of **every style**, from containers posi
 
 See [#74](https://github.com/igorprado/react-notification-system/issues/74) for more details.
 
+### Appending/Prepending notifications
+
+You can control where should new notification appear (on the top or bottom of current notifications, defaults to bottom) by setting `newOnTop` boolean prop on `<NotificationSystem />` component:
+
+```js
+<NotificationSystem ref="notificationSystem" newOnTop={true} />
+```
+
+This will render new notifications on top of current ones
+
 ## Roadmap
 
 * Improve tests and coverage
