@@ -163,14 +163,14 @@ class NotificationSystem extends React.Component {
       }
     }
 
-    notifications.push(_notification);
-
-    if (typeof _notification.onAdd === 'function') {
-      notification.onAdd(_notification);
-    }
+     notifications.push(_notification);
 
     this.setState({
       notifications: notifications
+    }, function(){
+        if (typeof notification.onAdd === 'function') {
+            notification.onAdd(_notification);
+        }
     });
 
     return _notification;

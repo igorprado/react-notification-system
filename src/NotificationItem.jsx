@@ -263,7 +263,7 @@ class NotificationItem extends React.Component {
       }
 
       if (this.state.visible && !this.state.removed) {
-        notificationStyle.height = this._height;
+        //notificationStyle.height = this._height; // this prevents having an automated height when placing high children in notification
         notificationStyle[cssByPos.property] = 0;
       }
 
