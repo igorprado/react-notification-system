@@ -32,7 +32,6 @@ function _allowHTML(string) {
 class NotificationItem extends React.Component {
   constructor(props) {
     super(props);
-    this._styles = {};
     this._notificationTimer = null;
     this._height = 0;
     this._noAnimation = null;
@@ -274,9 +273,12 @@ class NotificationItem extends React.Component {
         notificationStyle.paddingTop = 0;
         notificationStyle.paddingBottom = 0;
       }
-      notificationStyle.opacity = this.state.visible
-        ? this._styles.notification.isVisible.opacity
-        : this._styles.notification.isHidden.opacity;
+
+      if (this._styles.notification.isVisible && this._styles.notification.isHidden) {
+        notificationStyle.opacity = this.state.visible
+          ? this._styles.notification.isVisible.opacity
+          : this._styles.notification.isHidden.opacity;
+      }
     }
 
     if (notification.title) {
