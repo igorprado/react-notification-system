@@ -21,6 +21,7 @@ class NotificationSystemExample extends React.Component {
 
     this.state = {
       allowHTML: false,
+      newOnTop: false,
       viewHeight: null
     };
   }
@@ -31,6 +32,10 @@ class NotificationSystemExample extends React.Component {
 
   _allowHTML(allow) {
     this.setState({ allowHTML: allow });
+  }
+
+  _newOnTop(newOnTop) {
+    this.setState({ newOnTop });
   }
 
   _showTheMagic() {
@@ -73,7 +78,7 @@ class NotificationSystemExample extends React.Component {
           </div>
         </header>
         <div className="wrapper">
-          <NotificationGenerator notifications={ () => this._notificationSystemInstance() } allowHTML={ this._allowHTML.bind(this) } />
+          <NotificationGenerator notifications={ () => this._notificationSystemInstance() } allowHTML={ this._allowHTML.bind(this) } newOnTop={ this._newOnTop.bind(this) } />
         </div>
         <footer className="footer gradient">
           <div className="overlay" />
@@ -81,7 +86,7 @@ class NotificationSystemExample extends React.Component {
             <p>Made in Brasília, Brazil by <a href="http://igorprado.com" target="_blank">Igor Prado</a>.</p>
           </div>
         </footer>
-        <NotificationSystem ref={ this._notificationSystem } allowHTML={ this.state.allowHTML } />
+        <NotificationSystem ref={ this._notificationSystem } allowHTML={ this.state.allowHTML } newOnTop={ this.state.newOnTop } />
       </div>
     );
   }

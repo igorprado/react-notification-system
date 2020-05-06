@@ -21,7 +21,8 @@ class NotificationGenerator extends React.Component {
         action: null,
         actionState: false
       },
-      allowHTML: false
+      allowHTML: false,
+      newOnTop: false
     };
 
     this._changed = this._changed.bind(this);
@@ -86,6 +87,13 @@ class NotificationGenerator extends React.Component {
     state.allowHTML = allowHTML;
     this.setState(state);
     this.props.allowHTML(allowHTML);
+  }
+
+  _changeNewOnTop() {
+    this.setState({
+      newOnTop: !this.state.newOnTop
+    });
+    this.props.newOnTop(!this.state.newOnTop);
   }
 
   static _callbackForAction() {
@@ -237,6 +245,13 @@ class NotificationGenerator extends React.Component {
           </div>
           { action }
         </div>
+        <div className="form-group">
+          <div className="checkbox">
+            <label>
+              <input checked={ this.state.newOnTop } onChange={ this._changeNewOnTop.bind(this) } type="checkbox"/> New notifications on top?
+            </label>
+          </div>
+        </div>
         <small style={ { marginLeft: 0 } } className={ error.dismissible }>This notification will be only dismissible programmatically or after "autoDismiss" timeout (if set).</small>
 
         { removeButton }
@@ -252,7 +267,8 @@ class NotificationGenerator extends React.Component {
 
 NotificationGenerator.propTypes = {
   notifications: PropTypes.func.isRequired,
-  allowHTML: PropTypes.func
+  allowHTML: PropTypes.func,
+  newOnTop: PropTypes.func
 };
 
 module.exports = NotificationGenerator;
