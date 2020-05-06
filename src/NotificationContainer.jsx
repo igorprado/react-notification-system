@@ -1,58 +1,70 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
 var PropTypes = require('prop-types');
 var NotificationItem = require('./NotificationItem');
 var Constants = require('./constants');
 
-var NotificationContainer = createReactClass({
-
-  propTypes: {
-    position: PropTypes.string.isRequired,
-    notifications: PropTypes.array.isRequired,
-    getStyles: PropTypes.object
-  },
-
-  _style: {},
-
-  componentWillMount: function() {
+class NotificationContainer extends React.Component {
+  constructor(props) {
+    super(props);
     // Fix position if width is overrided
-    this._style = this.props.getStyles.container(this.props.position);
+    this._style = props.getStyles.container(props.position);
 
-    if (this.props.getStyles.overrideWidth && (this.props.position === Constants.positions.tc || this.props.position === Constants.positions.bc)) {
-      this._style.marginLeft = -(this.props.getStyles.overrideWidth / 2);
+    if (
+      props.getStyles.overrideWidth &&
+      (props.position === Constants.positions.tc ||
+        props.position === Constants.positions.bc)
+    ) {
+      this._style.marginLeft = -(props.getStyles.overrideWidth / 2);
     }
-  },
+  }
 
-  render: function() {
-    var self = this;
+  render() {
     var notifications;
 
-    if ([Constants.positions.bl, Constants.positions.br, Constants.positions.bc].indexOf(this.props.position) > -1) {
+    if (
+      [
+        Constants.positions.bl,
+        Constants.positions.br,
+        Constants.positions.bc
+      ].indexOf(this.props.position) > -1
+    ) {
       this.props.notifications.reverse();
     }
 
-    notifications = this.props.notifications.map(function(notification) {
+    notifications = this.props.notifications.map((notification) => {
       return (
         <NotificationItem
           ref={ 'notification-' + notification.uid }
           key={ notification.uid }
           notification={ notification }
-          getStyles={ self.props.getStyles }
-          onRemove={ self.props.onRemove }
-          noAnimation={ self.props.noAnimation }
-          allowHTML={ self.props.allowHTML }
-          children={ self.props.children }
+          getStyles={ this.props.getStyles }
+          onRemove={ this.props.onRemove }
+          noAnimation={ this.props.noAnimation }
+          allowHTML={ this.props.allowHTML }
+          children={ this.props.children }
         />
       );
     });
 
     return (
-      <div className={ 'notifications-' + this.props.position } style={ this._style }>
-        { notifications }
+      <div
+        className={ 'notifications-' + this.props.position }
+        style={ this._style }
+      >
+        {notifications}
       </div>
     );
   }
-});
+}
 
+NotificationContainer.propTypes = {
+  position: PropTypes.string.isRequired,
+  notifications: PropTypes.array.isRequired,
+  getStyles: PropTypes.object,
+  onRemove: PropTypes.func,
+  noAnimation: PropTypes.bool,
+  allowHTML: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+};
 
 module.exports = NotificationContainer;
