@@ -243,6 +243,10 @@ class NotificationItem extends React.Component {
     var title = null;
     var message = null;
 
+    if (this.props.notification.className) {
+      className += ' ' + this.props.notification.className;
+    }
+
     if (this.state.visible) {
       className += ' notification-visible';
     } else if (this.state.visible === false) {
@@ -303,6 +307,7 @@ class NotificationItem extends React.Component {
         );
       }
     }
+
     if (
       notification.dismissible === 'both' ||
       notification.dismissible === 'button' ||
@@ -313,6 +318,7 @@ class NotificationItem extends React.Component {
           className="notification-dismiss"
           onClick={ this._dismiss }
           style={ this._styles.dismiss }
+          aria-hidden={ true }
         >
           &times;
         </span>
@@ -347,6 +353,7 @@ class NotificationItem extends React.Component {
         onMouseEnter={ this._handleMouseEnter }
         onMouseLeave={ this._handleMouseLeave }
         style={ notificationStyle }
+        role="alert"
       >
         {title}
         {message}

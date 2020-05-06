@@ -89,6 +89,13 @@ describe('Notification Component', function() {
     done();
   });
 
+  it('should add additional classes to the notification if specified', done => {
+    component.addNotification(Object.assign({},defaultNotification, {className: 'FOO'}));
+    let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notification');
+    expect(notification.className).to.contain(' FOO');
+    done();
+  });
+
   it('should render notifications in all positions with all levels', done => {
     let count = 0;
     for (let position of Object.keys(positions)) {
@@ -392,7 +399,7 @@ describe('Notification Component', function() {
     done();
   });
 
-  it('should render containers with a overrided width', done => {
+  it('should render containers with a overriden width', done => {
     notificationObj.position = 'tc';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-tc');
@@ -410,7 +417,7 @@ describe('Notification Component', function() {
     done();
   });
 
-  it('should render containers with a overrided width for a specific position', done => {
+  it('should render containers with a overriden width for a specific position', done => {
     notificationObj.position = 'tl';
     component.addNotification(notificationObj);
     let notification = TestUtils.findRenderedDOMComponentWithClass(instance, 'notifications-tl');
