@@ -12,3 +12,4 @@ tests.webpack.js
 .travis.yml
 .editorconfig
 *.log
+.idea/
