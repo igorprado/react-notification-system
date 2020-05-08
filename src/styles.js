@@ -195,7 +195,8 @@ var STYLES = {
       width: '14px',
       height: '14px',
       fontWeight: 'bold',
-      textAlign: 'center'
+      textAlign: 'center',
+      lineHeight: '14px',
     },
 
     success: {
