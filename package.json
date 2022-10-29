@@ -75,6 +75,7 @@
     "react-tools": "^0.13.2",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
+    "create-react-class":"^15.7.0",
     "redbox-react": "^1.1.1",
     "rimraf": "^2.4.3",
     "sass-loader": "^3.0.0",
