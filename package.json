@@ -36,8 +36,8 @@
     "prop-types": "^15.5.6"
   },
   "peerDependencies": {
-    "react": "0.14.x || ^15.0.0 || ^16.0.0",
-    "react-dom": "0.14.x || ^15.0.0 || ^16.0.0"
+    "react":">=16.0.0",
+    "react-dom":">=16.0.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -70,8 +70,8 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^4.0.1",
     "node-sass": "^4.13.0",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
+    "react": ">=16.11.0",
+    "react-dom": ">=16.11.0",
     "react-tools": "^0.13.2",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
